@@ -107,7 +107,7 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/quality-report/index'),
         name: 'QualityReport',
-        meta: { title: 'quality-report', icon: 'icon', noCache: true }
+        meta: { title: 'qualityReport', icon: 'icon', noCache: true }
       }
     ]
   },
