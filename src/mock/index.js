@@ -28,6 +28,6 @@ Mock.mock(/\/search\/user/, 'get', remoteSearchAPI.searchUser)
 Mock.mock(/\/transaction\/list/, 'get', transactionAPI.getList)
 
 // 质检报告
-Mock.mock(/\/qualityReport\/list/, 'get', qualityReportAPI.getAllQualityReport)
+// Mock.mock(/\/qualityReport\/list/, 'get', qualityReportAPI.getAllQualityReport)
 
 export default Mock

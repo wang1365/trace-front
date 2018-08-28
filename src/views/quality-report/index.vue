@@ -7,6 +7,11 @@
     <el-table-column prop="createTime" label="创建日期"/>
     <el-table-column prop="reportDate" label="报告日期"/>
     <el-table-column prop="reportDate" label="查看报告"/>
+    <el-table-column label="图片">
+      <template slot-scope="scope">
+        <img :src="scope.row.url" >
+      </template>
+    </el-table-column>
     <el-table-column label="操作">
       <template slot-scope="scope">
         <el-button

@@ -14,7 +14,6 @@ function resolve(dir) {
 }
 
 const HOST = process.env.HOST
-const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
 const devWebpackConfig = merge(baseWebpackConfig, {
@@ -58,7 +57,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true,
       favicon: resolve('favicon.ico'),
-      title: 'vue-element-admin',
+      title: '溯源平台管理系统',
       path: config.dev.assetsPublicPath + config.dev.assetsSubDirectory
     })
   ]

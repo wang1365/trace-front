@@ -9,7 +9,13 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/qualityReport/**': {
+        target: 'http://localhost:8080',
+        secure: false,
+        changeOrigin: true
+      }
+    },
 
     // Various Dev Server settings
 
