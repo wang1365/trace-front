@@ -1,10 +1,12 @@
 <template>
   <div class="main">
-    <el-row/>
     <el-row>
-      <ReportForm/>
+      <ReportDialog ref="formDialog" />
     </el-row>
-    <el-row class="table">
+    <el-row :gutter="20">
+      <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">添加报告</el-button>
+    </el-row>
+    <el-row :gutter="20" class="table">
       <el-table
         :data="items"
         border
@@ -33,16 +35,17 @@
 
 <script>
 import { getAllQualityReport } from '@/api/qualityReport'
-import ReportForm from './ReportForm'
+import ReportDialog from './ReportDialog'
 
 export default {
   name: 'QualityReport',
   components: {
-    ReportForm
+    ReportDialog
   },
   data() {
     return {
-      items: []
+      items: [],
+      dialogVisible: false
     }
   },
   created() {
@@ -55,6 +58,9 @@ export default {
   methods: {
     handleView(index, row) {
       console.log(index, row)
+    },
+    showModal() {
+      this.$refs['formDialog'].show()
     }
   }
 }
