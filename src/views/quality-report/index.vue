@@ -1,36 +1,23 @@
 <template>
   <div class="main">
+    <ReportDialog ref="formDialog" @upload-success="updateReportList" />
     <el-row>
-      <ReportDialog ref="formDialog" @upload-success="updateReportList" />
-    </el-row>
-    <el-row :gutter="20">
       <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">添加报告</el-button>
     </el-row>
-    <el-row :gutter="20" class="table">
-      <el-table
-        :data="items"
-        border
-        stripe>
+    <el-row class="table">
+      <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" width="100"/>
         <el-table-column prop="createTime" label="创建日期"/>
         <el-table-column prop="reportDate" label="报告日期"/>
-        <el-table-column prop="reportDate" label="查看报告"/>
         <el-table-column label="图片">
           <template slot-scope="scope">
             <img :src="scope.row.path" width="300" height="150" @click="onImageClick(scope.row.path)">
           </template>
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column width="150" label="操作">
           <template slot-scope="scope">
-            <el-button
-              size="mini"
-              @click="onImageClick(scope.row.path)">查看
-            </el-button>
-            <el-button
-              size="mini"
-              type="warning"
-              @click="onDeleteBtnClick(scope.row.id)">删除
-            </el-button>
+            <el-button size="mini" @click="onImageClick(scope.row.path)">查看</el-button>
+            <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -105,5 +92,14 @@ export default {
 <style scoped>
   .main {
     padding: 20px
+  }
+  .el-row {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .el-col {
+    border-radius: 4px;
   }
 </style>
