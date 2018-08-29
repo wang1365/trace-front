@@ -10,12 +10,13 @@
           ref="upload"
           :on-success="onSuccess"
           :on-error="onError"
-          :before-upload="beforeUpload"
+          :on-preview="onPreview"
           :auto-upload="false"
           :limit="1"
           :file-list="fileList"
           :data="form"
           name="file"
+          list-type="picture"
           class="upload-demo"
           action="/qualityReport/add">
           <el-button slot="trigger" size="small" icon="el-icon-plus" type="primary">选择报告</el-button>
@@ -73,6 +74,9 @@ export default {
       this.flag = false
       this.$refs['upload'].clearFiles()
     },
+    onPreview(file) {
+      console.log(file)
+    },
     onSubmit(fileList) {
       this.$refs.upload.submit()
     },
@@ -82,6 +86,7 @@ export default {
         type: 'success'
       })
       this.hide()
+      this.$emit('upload-success')
     },
     onError(err, file, fileList) {
       this.$error(`文件${file.name}上传失败：${err}`)

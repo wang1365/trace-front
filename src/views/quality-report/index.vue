@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <el-row>
-      <ReportDialog ref="formDialog" />
+      <ReportDialog ref="formDialog" @upload-success="onUploadSuccess"/>
     </el-row>
     <el-row :gutter="20">
       <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">添加报告</el-button>
@@ -17,19 +17,22 @@
         <el-table-column prop="reportDate" label="查看报告"/>
         <el-table-column label="图片">
           <template slot-scope="scope">
-            <img :src="scope.row.url">
+            <img :src="scope.row.path" width="300" height="150" @click="onImageClick(scope.row.path)">
           </template>
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button
               size="mini"
-              @click="handleView(scope, $index, scope.row)">查看
+              @click="onImageClick(scope.row.path)">查看
             </el-button>
           </template>
         </el-table-column>
       </el-table>
     </el-row>
+    <el-dialog :visible.sync="imageDialogVisible" center="true">
+      <img :src="selectedImage" width="100%" height="100%">
+    </el-dialog>
   </div>
 </template>
 
@@ -45,15 +48,13 @@ export default {
   data() {
     return {
       items: [],
-      dialogVisible: false
+      dialogVisible: false,
+      imageDialogVisible: false,
+      selectedImage: null
     }
   },
   created() {
-    console.log('quality report created')
-    getAllQualityReport().then(response => {
-      this.items = response.data.items
-    })
-    console.log(this.items)
+    this.updateReportList()
   },
   methods: {
     handleView(index, row) {
@@ -61,6 +62,21 @@ export default {
     },
     showModal() {
       this.$refs['formDialog'].show()
+    },
+    onUploadSuccess() {
+      this.updateReportList()
+    },
+    updateReportList() {
+      getAllQualityReport().then(response => {
+        console.log('########## updateReportList')
+        console.log(response)
+        this.items = response.data.data
+      })
+    },
+    onImageClick(path) {
+      this.$message({ type: 'success', message: path })
+      this.selectedImage = path
+      this.imageDialogVisible = true
     }
   }
 }
