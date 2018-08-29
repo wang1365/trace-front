@@ -2,7 +2,7 @@
   <el-dialog :visible.sync="flag" title="添加质量检测报告">
     <el-form ref="form" :model="form" :inline="true">
       <el-form-item label="报告日期">
-        <el-date-picker v-model="form.reportDate" type="date" placeholder="选择日期"/>
+        <el-date-picker v-model="form.reportDate" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
       </el-form-item>
 
       <el-form-item>
@@ -44,7 +44,7 @@ export default {
       flag: this.dialogVisible,
       form: {
         createTime: null,
-        reportDate: '2018-08-03'
+        reportDate: null
         // file: null
       },
       fileList: []

@@ -7,3 +7,11 @@ export function getAllQualityReport(query) {
     params: query
   })
 }
+
+export function deleteQualityReport(query) {
+  return request({
+    url: '/qualityReport/delete',
+    method: 'post',
+    params: query
+  })
+}

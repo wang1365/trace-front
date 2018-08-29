@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <el-row>
-      <ReportDialog ref="formDialog" @upload-success="onUploadSuccess"/>
+      <ReportDialog ref="formDialog" @upload-success="updateReportList" />
     </el-row>
     <el-row :gutter="20">
       <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">添加报告</el-button>
@@ -26,18 +26,23 @@
               size="mini"
               @click="onImageClick(scope.row.path)">查看
             </el-button>
+            <el-button
+              size="mini"
+              type="warning"
+              @click="onDeleteBtnClick(scope.row.id)">删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
     </el-row>
-    <el-dialog :visible.sync="imageDialogVisible" center="true">
+    <el-dialog :visible.sync="imageDialogVisible" center>
       <img :src="selectedImage" width="100%" height="100%">
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { getAllQualityReport } from '@/api/qualityReport'
+import { getAllQualityReport, deleteQualityReport } from '@/api/qualityReport'
 import ReportDialog from './ReportDialog'
 
 export default {
@@ -63,9 +68,6 @@ export default {
     showModal() {
       this.$refs['formDialog'].show()
     },
-    onUploadSuccess() {
-      this.updateReportList()
-    },
     updateReportList() {
       getAllQualityReport().then(response => {
         console.log('########## updateReportList')
@@ -74,9 +76,27 @@ export default {
       })
     },
     onImageClick(path) {
-      this.$message({ type: 'success', message: path })
       this.selectedImage = path
       this.imageDialogVisible = true
+    },
+    onDeleteBtnClick(id) {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteQualityReport({ id: id })
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+        this.updateReportList()
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     }
   }
 }
