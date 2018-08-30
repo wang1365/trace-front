@@ -10,7 +10,7 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/qualityReport/**': {
+      '/web/**': {
         target: 'http://localhost:8080',
         secure: false,
         changeOrigin: true
