@@ -18,7 +18,7 @@
           name="file"
           list-type="picture"
           class="upload-demo"
-          action="/qualityReport/add">
+          action="/web/qualityReport/add">
           <el-button slot="trigger" size="small" icon="el-icon-plus" type="primary">选择报告</el-button>
           <div slot="trigger" class="el-upload__tip">只能上传jpg/png文件，且不超过20mb</div>
         </el-upload>
@@ -61,10 +61,8 @@ export default {
       reportDate: '2018-08-03'
       // file: null
     }
-    console.log('############ created')
   },
   mounted() {
-    console.log('############ mounted')
   },
   methods: {
     show() {
