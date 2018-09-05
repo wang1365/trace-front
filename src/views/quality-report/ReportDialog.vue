@@ -1,10 +1,14 @@
 <template>
-  <el-dialog :visible.sync="flag" title="添加质量检测报告">
-    <el-form ref="form" :model="form" :inline="true">
+  <el-dialog :visible.sync="flag" title="添加质量检测报告" center>
+    <el-form ref="form" :model="form">
       <el-form-item label="报告日期">
         <el-date-picker v-model="form.reportDate" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
       </el-form-item>
-
+      <el-form-item label="检测商品">
+        <el-select v-model="form.goodsId" placeholder="请选择">
+          <el-option v-for="item in goodsList" :key="item.id" :label="item.name" :value="item.name"/>
+        </el-select>
+      </el-form-item>
       <el-form-item>
         <el-upload
           ref="upload"
@@ -23,14 +27,16 @@
           <div slot="trigger" class="el-upload__tip">只能上传jpg/png文件，且不超过20mb</div>
         </el-upload>
       </el-form-item>
-      <el-form-item>
-        <el-button type="success" size="small" @click="onSubmit(fileList)">上传报告</el-button>
-      </el-form-item>
     </el-form>
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="flag = false">取 消</el-button>
+      <el-button slot="footer" class="dialog-footer" type="success" size="small" @click="onSubmit(fileList)">上传报告</el-button>
+    </div>
   </el-dialog>
 </template>
 
 <script>
+import { getAllGoods } from '@/api/goods'
 export default {
   name: 'ReportForm',
   props: {
@@ -44,9 +50,11 @@ export default {
       flag: this.dialogVisible,
       form: {
         createTime: null,
-        reportDate: null
+        reportDate: null,
+        goodsId: null
         // file: null
       },
+      goodsList: [],
       fileList: []
     }
   },
@@ -63,6 +71,9 @@ export default {
     }
   },
   mounted() {
+    getAllGoods()
+      .then(response => { this.goodsList = response.data })
+      .catch(err => console.error(err))
   },
   methods: {
     show() {

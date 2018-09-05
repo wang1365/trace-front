@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <GoodsDialog ref="formDialog" @upload-success="updateReportList" />
+    <GoodsDialog ref="formDialog" @upload-success="updateGoodsList" />
     <el-row>
       <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">添加商品</el-button>
     </el-row>
@@ -45,7 +45,7 @@ export default {
     }
   },
   created() {
-    this.updateReportList()
+    this.updateGoodsList()
   },
   methods: {
     handleView(index, row) {
@@ -54,7 +54,7 @@ export default {
     showModal() {
       this.$refs['formDialog'].show()
     },
-    updateReportList() {
+    updateGoodsList() {
       getAllGoods().then(response => {
         this.items = response.data
       })
@@ -69,17 +69,16 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteGoods({ id: id })
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-        this.updateReportList()
+        deleteGoods(id)
+          .then(response => {
+            this.$message({ type: 'success', message: '删除成功!' })
+            this.updateGoodsList()
+          })
+          .catch(err => {
+            this.$message({ type: 'error', message: '删除失败：' + err })
+          })
       }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
+        this.$message({ type: 'info', message: '已取消删除' })
       })
     }
   }

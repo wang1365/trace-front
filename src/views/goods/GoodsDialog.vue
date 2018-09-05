@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import { addGoods } from '@/api/goods'
+import { addGoods } from '@/api/goods'
 export default {
   name: 'ReportForm',
   props: {
@@ -66,8 +66,8 @@ export default {
           message: `添加上传成功`,
           type: 'success'
         })
-        this.hide()
         this.$emit('upload-success')
+        this.hide()
       }).catch(err => {
         this.$error(`添加失败：${err}`)
       })
