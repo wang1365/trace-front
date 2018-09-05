@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="flag" title="添加商品">
+  <el-dialog :visible.sync="flag" title="添加商品" center>
     <el-form ref="form" :model="form" label-position="left">
       <el-form-item label="商品名称">
         <el-input v-model="form.name" placeholder="填写商品名称"/>
@@ -7,11 +7,11 @@
       <el-form-item label="商品图片链接">
         <el-input v-model="form.imageUrl" placeholder="填写商品图片链接"/>
       </el-form-item>
-      <el-form-item>
-        <el-button type="success" size="small" @click="onSubmit()">添加</el-button>
-        <el-button size="small" @click="onSubmit()">取消</el-button>
-      </el-form-item>
     </el-form>
+    <div slot="footer" class="dialog-footer">
+      <el-button type="success" size="small" @click="onSubmit()">添加</el-button>
+      <el-button size="small" @click="flag = false">取消</el-button>
+    </div>
   </el-dialog>
 </template>
 
