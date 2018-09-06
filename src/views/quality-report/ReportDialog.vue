@@ -52,7 +52,6 @@ export default {
         createTime: null,
         reportDate: null,
         goodsId: null
-        // file: null
       },
       goodsList: [],
       fileList: []
