@@ -7,6 +7,7 @@
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" width="100" />
+        <el-table-column :formatter="getGoodsName" prop="goodsId" label="商品名称" width="100" />
         <el-table-column prop="createTime" label="创建日期" />
         <el-table-column prop="reportDate" label="报告日期" />
         <el-table-column label="图片">
@@ -30,6 +31,7 @@
 
 <script>
 import { getAllQualityReport, deleteQualityReport } from '@/api/qualityReport'
+import { getAllGoods } from '@/api/goods'
 import ReportDialog from './ReportDialog'
 
 export default {
@@ -42,11 +44,14 @@ export default {
       items: [],
       dialogVisible: false,
       imageDialogVisible: false,
-      selectedImage: null
+      selectedImage: null,
+
+      goodsList: []
     }
   },
   created() {
     this.updateReportList()
+    getAllGoods().then(response => { this.goodsList = response.data })
   },
   methods: {
     handleView(index, row) {
@@ -82,6 +87,18 @@ export default {
           message: '已取消删除'
         })
       })
+    },
+    getGoodsName(row, column) {
+      let goodsName = ''
+      const goodsId = row[column.property]
+      console.log('getGoodsName')
+      console.log(goodsId)
+      console.log(this.goodsList)
+      const goods = this.goodsList.find((value, index, arr) => { return goodsId === value.id })
+      if (goods) {
+        goodsName = goods.name
+      }
+      return goodsName
     }
   }
 }
