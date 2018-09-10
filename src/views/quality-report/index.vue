@@ -8,6 +8,7 @@
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" width="100" />
         <el-table-column prop="goods.name" label="商品名称" width="100" />
+        <el-table-column prop="origin" label="商品产地" width="150" />
         <el-table-column prop="createTime" label="创建日期" />
         <el-table-column prop="reportDate" label="报告日期" />
         <el-table-column label="图片">

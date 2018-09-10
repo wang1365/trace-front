@@ -8,11 +8,11 @@ export function addGoods(name, imageUrl) {
   })
 }
 
-export function getAllGoods(query) {
+export function getAllGoods(params) {
   return request({
     url: '/web/goods/list',
     method: 'get',
-    params: query
+    params: params
   })
 }
 

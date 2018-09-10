@@ -9,6 +9,9 @@
           <el-option v-for="item in goodsList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
       </el-form-item>
+      <el-form-item label="产地">
+        <el-input v-model="form.origin" placeholder="请输入产地" />
+      </el-form-item>
       <el-form-item>
         <el-upload
           ref="upload"
@@ -51,7 +54,8 @@ export default {
       form: {
         createTime: null,
         reportDate: null,
-        goodsId: null
+        goodsId: null,
+        origin: null
       },
       goodsList: [],
       fileList: []
@@ -65,8 +69,9 @@ export default {
   created() {
     this.form = {
       createTime: null,
-      reportDate: '2018-08-03'
-      // file: null
+      reportDate: null,
+      goodsId: null,
+      origin: null
     }
   },
   mounted() {
