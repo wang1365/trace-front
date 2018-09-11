@@ -107,7 +107,7 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/quality-report/index'),
         name: 'QualityReport',
-        meta: { title: 'qualityReport', icon: 'icon', noCache: true }
+        meta: { title: 'qualityReport', icon: 'form', noCache: true }
       }
     ]
   },
@@ -119,7 +119,19 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/goods/index'),
         name: 'Goods',
-        meta: { title: 'goods', icon: 'icon', noCache: true }
+        meta: { title: 'goods', icon: 'example', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/company',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/company/index'),
+        name: 'Company',
+        meta: { title: 'company', icon: 'tab', noCache: true }
       }
     ]
   },
@@ -131,7 +143,7 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/qualification/index'),
         name: 'Qualification',
-        meta: { title: 'qualification', icon: 'icon', noCache: true }
+        meta: { title: 'qualification', icon: 'documentation', noCache: true }
       }
     ]
   },

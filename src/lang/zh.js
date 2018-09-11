@@ -64,7 +64,8 @@ export default {
     externalLink: '外链',
     qualityReport: '质检报告',
     goods: '商品管理',
-    qualification: '资质证书'
+    qualification: '资质证书',
+    company: '企业管理'
   },
   navbar: {
     logOut: '退出登录',
