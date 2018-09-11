@@ -62,7 +62,9 @@ export default {
     clipboardDemo: 'Clipboard',
     i18n: '国际化',
     externalLink: '外链',
-    qualityReport: '质检报告'
+    qualityReport: '质检报告',
+    goods: '商品管理',
+    qualification: '资质证书'
   },
   navbar: {
     logOut: '退出登录',

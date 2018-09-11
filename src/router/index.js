@@ -123,6 +123,18 @@ export const asyncRouterMap = [
       }
     ]
   },
+  {
+    path: '/qualification',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/qualification/index'),
+        name: 'Qualification',
+        meta: { title: 'qualification', icon: 'icon', noCache: true }
+      }
+    ]
+  },
   // {
   //   path: '/permission',
   //   component: Layout,
