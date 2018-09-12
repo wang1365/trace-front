@@ -1,11 +1,17 @@
 <template>
-  <el-dialog :visible.sync="flag" title="添加商品" center>
+  <el-dialog :visible.sync="flag" title="添加公司" center>
     <el-form ref="form" :model="form" label-position="left">
-      <el-form-item label="商品名称">
-        <el-input v-model="form.name" placeholder="填写商品名称"/>
+      <el-form-item label="公司名称">
+        <el-input v-model="form.name" placeholder="填写公司名称"/>
       </el-form-item>
-      <el-form-item label="商品图片链接">
-        <el-input v-model="form.imageUrl" placeholder="填写商品图片链接"/>
+      <el-form-item label="公司地址">
+        <el-input v-model="form.address" placeholder="填写公司地址"/>
+      </el-form-item>
+      <el-form-item label="公司法人">
+        <el-input v-model="form.owner" placeholder="填写公司法人"/>
+      </el-form-item>
+      <el-form-item label="公司联系方式">
+        <el-input v-model="form.telephone" placeholder="填写公司联系方式"/>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -16,7 +22,7 @@
 </template>
 
 <script>
-import { addGoods } from '@/api/goods'
+import { addCompany } from '@/api/company'
 export default {
   name: 'ReportForm',
   props: {
@@ -30,7 +36,9 @@ export default {
       flag: this.dialogVisible,
       form: {
         name: null,
-        imageUrl: null
+        address: null,
+        owner: null,
+        telephone: null
       }
     }
   },
@@ -42,12 +50,12 @@ export default {
   created() {
     this.form = {
       name: null,
-      imageUrl: null
+      address: null,
+      owner: null,
+      telephone: null
     }
-    console.log('############ created')
   },
   mounted() {
-    console.log('############ mounted')
   },
   methods: {
     show() {
@@ -55,13 +63,12 @@ export default {
     },
     hide() {
       this.flag = false
-      this.$refs['upload'].clearFiles()
     },
     onPreview(file) {
       console.log(file)
     },
     onSubmit() {
-      addGoods(this.form.name, this.form.imageUrl).then(response => {
+      addCompany(this.form).then(response => {
         this.$message({
           message: `添加上传成功`,
           type: 'success'
@@ -73,7 +80,7 @@ export default {
       })
     },
     onError(err, file, fileList) {
-      this.$error(`文件${file.name}上传失败：${err}`)
+      this.$error(`添加失败：${err}`)
     },
     getFile(event) {
       this.form.file = event.target.files[0]
