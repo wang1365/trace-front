@@ -1,18 +1,16 @@
 <template>
   <div class="main">
-    <GoodsDialog ref="formDialog" @upload-success="updateGoodsList" />
+    <CompanyDialog ref="formDialog" @upload-success="updateCompanyList" />
     <el-row>
-      <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">添加商品</el-button>
+      <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">添加公司</el-button>
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" width="100" />
-        <el-table-column prop="name" label="名称" width="100" />
-        <el-table-column label="图片">
-          <template slot-scope="scope">
-            <img :src="scope.row.imageUrl" width="300" height="150" @click="onImageClick(scope.row.path)">
-          </template>
-        </el-table-column>
+        <el-table-column prop="name" label="名称" />
+        <el-table-column prop="name" label="地址" />
+        <el-table-column prop="name" label="法人" />
+        <el-table-column prop="name" label="联系方式" />
         <el-table-column width="150" label="操作">
           <template slot-scope="scope">
             <el-button size="mini" @click="onImageClick(scope.row.path)">查看</el-button>
@@ -28,13 +26,13 @@
 </template>
 
 <script>
-import { getAllGoods, deleteGoods } from '@/api/goods'
-import GoodsDialog from './CompanyDialog'
+import { getAllCompany, deleteCompany } from '@/api/company'
+import CompanyDialog from './CompanyDialog'
 
 export default {
   name: 'Company',
   components: {
-    GoodsDialog
+    CompanyDialog
   },
   data() {
     return {
@@ -45,7 +43,7 @@ export default {
     }
   },
   created() {
-    this.updateGoodsList()
+    this.updateCompanyList()
   },
   methods: {
     handleView(index, row) {
@@ -54,8 +52,8 @@ export default {
     showModal() {
       this.$refs['formDialog'].show()
     },
-    updateGoodsList() {
-      getAllGoods().then(response => {
+    updateCompanyList() {
+      getAllCompany().then(response => {
         this.items = response.data
       })
     },
@@ -69,10 +67,10 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteGoods(id)
+        deleteCompany(id)
           .then(response => {
             this.$message({ type: 'success', message: '删除成功!' })
-            this.updateGoodsList()
+            this.updateCompanyList()
           })
           .catch(err => {
             this.$message({ type: 'error', message: '删除失败：' + err })
