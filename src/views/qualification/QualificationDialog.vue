@@ -1,18 +1,12 @@
 <template>
   <el-dialog :visible.sync="flag" title="添加质量检测报告" center>
     <el-form ref="form" :model="form">
-      <el-form-item label="报告日期">
-        <el-date-picker v-model="form.reportDate" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
-      </el-form-item>
-      <el-form-item label="检测商品">
-        <el-select v-model="form.goodsId" placeholder="请选择">
-          <el-option v-for="item in goodsList" :key="item.id" :label="item.name" :value="item.id"/>
+      <el-form-item label="公司">
+        <el-select v-model="form.companyId" placeholder="请选择">
+          <el-option v-for="item in companyList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="产地">
-        <el-input v-model="form.origin" placeholder="请输入产地" />
-      </el-form-item>
-      <el-form-item>
+      <el-form-item label="资质和荣誉证书">
         <el-upload
           ref="upload"
           :on-success="onSuccess"
@@ -26,7 +20,7 @@
           list-type="picture"
           class="upload-demo"
           action="/web/qualityReport/add">
-          <el-button slot="trigger" size="small" icon="el-icon-plus" type="primary">选择报告</el-button>
+          <el-button slot="trigger" size="small" icon="el-icon-plus" type="primary">选择图片</el-button>
           <div slot="trigger" class="el-upload__tip">只能上传jpg/png文件，且不超过20mb</div>
         </el-upload>
       </el-form-item>
@@ -39,7 +33,7 @@
 </template>
 
 <script>
-import { getAllGoods } from '@/api/goods'
+import { getAllCompany } from '@/api/company'
 export default {
   name: 'ReportForm',
   props: {
@@ -54,10 +48,10 @@ export default {
       form: {
         createTime: null,
         reportDate: null,
-        goodsId: null,
+        companyId: null,
         origin: null
       },
-      goodsList: [],
+      companyList: [],
       fileList: []
     }
   },
@@ -70,13 +64,13 @@ export default {
     this.form = {
       createTime: null,
       reportDate: null,
-      goodsId: null,
+      companyId: null,
       origin: null
     }
   },
   mounted() {
-    getAllGoods()
-      .then(response => { this.goodsList = response.data })
+    getAllCompany()
+      .then(response => { this.companyList = response.data })
       .catch(err => console.error(err))
   },
   methods: {

@@ -1,14 +1,14 @@
 <template>
   <div class="main">
-    <ReportDialog ref="formDialog" @upload-success="updateReportList" />
+    <QualificationDialog ref="formDialog" @upload-success="updateQualification" />
     <el-row>
       <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">添加报告</el-button>
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" width="100" />
-        <el-table-column prop="goods.name" label="商品名称" width="100" />
-        <el-table-column prop="origin" label="商品产地" width="150" />
+        <el-table-column prop="qualification.name" label="证书名称" width="100" />
+        <el-table-column prop="origin" label="证书产地" width="150" />
         <el-table-column prop="createTime" label="创建日期" />
         <el-table-column prop="reportDate" label="报告日期" />
         <el-table-column label="图片">
@@ -31,8 +31,7 @@
 </template>
 
 <script>
-import { getAllQualityReport, deleteQualityReport } from '@/api/qualityReport'
-import { getAllGoods } from '@/api/goods'
+import { getAllQualification, deleteQualification } from '@/api/qualification'
 import QualificationDialog from './QualificationDialog'
 
 export default {
@@ -47,12 +46,12 @@ export default {
       imageDialogVisible: false,
       selectedImage: null,
 
-      goodsList: []
+      qualificationList: []
     }
   },
   created() {
-    this.updateReportList()
-    getAllGoods().then(response => { this.goodsList = response.data })
+    this.updateQualification()
+    getAllQualification().then(response => { this.qualificationList = response.data })
   },
   methods: {
     handleView(index, row) {
@@ -61,8 +60,8 @@ export default {
     showModal() {
       this.$refs['formDialog'].show()
     },
-    updateReportList() {
-      getAllQualityReport().then(response => {
+    updateQualification() {
+      getAllQualification().then(response => {
         this.items = response.data.data
       })
     },
@@ -76,12 +75,12 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteQualityReport({ id: id })
+        deleteQualification({ id: id })
         this.$message({
           type: 'success',
           message: '删除成功!'
         })
-        this.updateReportList()
+        this.updateQualification()
       }).catch(() => {
         this.$message({
           type: 'info',
