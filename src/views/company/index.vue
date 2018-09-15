@@ -8,9 +8,9 @@
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" width="100" />
         <el-table-column prop="name" label="名称" />
-        <el-table-column prop="name" label="地址" />
-        <el-table-column prop="name" label="法人" />
-        <el-table-column prop="name" label="联系方式" />
+        <el-table-column prop="address" label="地址" />
+        <el-table-column prop="owner" label="法人" />
+        <el-table-column prop="telephone" label="联系方式" />
         <el-table-column width="150" label="操作">
           <template slot-scope="scope">
             <el-button size="mini" @click="onImageClick(scope.row.path)">查看</el-button>
@@ -54,7 +54,7 @@ export default {
     },
     updateCompanyList() {
       getAllCompany().then(response => {
-        this.items = response.data
+        this.items = response.data.data
       })
     },
     onImageClick(path) {
