@@ -19,7 +19,7 @@
           name="file"
           list-type="picture"
           class="upload-demo"
-          action="/web/qualityReport/add">
+          action="/web/qualification/add">
           <el-button slot="trigger" size="small" icon="el-icon-plus" type="primary">选择图片</el-button>
           <div slot="trigger" class="el-upload__tip">只能上传jpg/png文件，且不超过20mb</div>
         </el-upload>
@@ -47,9 +47,7 @@ export default {
       flag: this.dialogVisible,
       form: {
         createTime: null,
-        reportDate: null,
-        companyId: null,
-        origin: null
+        companyId: null
       },
       companyList: [],
       fileList: []
@@ -63,14 +61,12 @@ export default {
   created() {
     this.form = {
       createTime: null,
-      reportDate: null,
-      companyId: null,
-      origin: null
+      companyId: null
     }
   },
   mounted() {
     getAllCompany()
-      .then(response => { this.companyList = response.data })
+      .then(response => { this.companyList = response.data.data })
       .catch(err => console.error(err))
   },
   methods: {
@@ -96,7 +92,7 @@ export default {
       this.$emit('upload-success')
     },
     onError(err, file, fileList) {
-      this.$error(`文件${file.name}上传失败：${err}`)
+      this.$message({ message: `文件${file.name}上传失败：${err}`, type: 'error' })
     },
     getFile(event) {
       this.form.file = event.target.files[0]
