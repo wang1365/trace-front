@@ -147,6 +147,18 @@ export const asyncRouterMap = [
       }
     ]
   },
+  {
+    path: '/qrcode',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/qrcode/index'),
+        name: 'Qrcode',
+        meta: { title: 'qrcode', icon: 'documentation', noCache: true }
+      }
+    ]
+  },
   // {
   //   path: '/permission',
   //   component: Layout,
