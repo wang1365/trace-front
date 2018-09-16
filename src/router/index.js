@@ -155,7 +155,7 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/qrcode/index'),
         name: 'Qrcode',
-        meta: { title: 'qrcode', icon: 'documentation', noCache: true }
+        meta: { title: 'qrcode', icon: 'table', noCache: true }
       }
     ]
   },
