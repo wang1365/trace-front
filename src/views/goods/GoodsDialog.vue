@@ -1,15 +1,15 @@
 <template>
-  <el-dialog :visible.sync="flag" title="添加商品" center>
-    <el-form ref="form" :model="form" label-position="left">
-      <el-form-item label="商品名称">
-        <el-input v-model="form.name" placeholder="填写商品名称"/>
+  <el-dialog :visible.sync="flag" title="添加商品">
+    <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-position="left">
+      <el-form-item label="商品名称" prop="name">
+        <el-input v-model="ruleForm.name" placeholder="填写商品名称"/>
       </el-form-item>
-      <el-form-item label="商品图片链接">
-        <el-input v-model="form.imageUrl" placeholder="填写商品图片链接"/>
+      <el-form-item label="商品图片链接" prop="imageUrl">
+        <el-input v-model="ruleForm.imageUrl" placeholder="填写商品图片链接"/>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button type="success" size="small" @click="onSubmit()">添加</el-button>
+      <el-button type="success" size="small" @click="onSubmit('ruleForm')">添加</el-button>
       <el-button size="small" @click="flag = false">取消</el-button>
     </div>
   </el-dialog>
@@ -17,6 +17,7 @@
 
 <script>
 import { addGoods } from '@/api/goods'
+
 export default {
   name: 'ReportForm',
   props: {
@@ -28,23 +29,30 @@ export default {
   data() {
     return {
       flag: this.dialogVisible,
-      form: {
+      ruleForm: {
         name: null,
         imageUrl: null
+      },
+      formRules: {
+        name: [
+          { required: true, message: '请输入商品名称', trigger: 'blur' }
+        ]
       }
     }
   },
   watch: {
     dialogVisible(newVal) {
+      if (!newVal) {
+        this.$refs['ruleForm'].resetFields()
+      }
       this.flag = this.dialogVisible
     }
   },
   created() {
-    this.form = {
-      name: null,
-      imageUrl: null
-    }
-    console.log('############ created')
+    // this.ruleForm = {
+    //   name: null,
+    //   imageUrl: null
+    // }
   },
   mounted() {
     console.log('############ mounted')
@@ -55,28 +63,21 @@ export default {
     },
     hide() {
       this.flag = false
-      this.$refs['upload'].clearFiles()
     },
-    onPreview(file) {
-      console.log(file)
-    },
-    onSubmit() {
-      addGoods(this.form.name, this.form.imageUrl).then(response => {
-        this.$message({
-          message: `添加上传成功`,
-          type: 'success'
+    onSubmit(form) {
+      this.$refs[form].validate((valid) => {
+        console.log('$$$$$$$$$$$$$$$$', valid)
+        if (!valid) {
+          return false
+        }
+        addGoods(this.ruleForm.name, this.ruleForm.imageUrl).then((response) => {
+          this.$message({ message: `添加商品成功`, type: 'success' })
+          this.$emit('add-success')
+          this.hide()
+        }).catch(err => {
+          this.$message({ message: `添加失败：${err}`, type: 'error' })
         })
-        this.$emit('upload-success')
-        this.hide()
-      }).catch(err => {
-        this.$error(`添加失败：${err}`)
       })
-    },
-    onError(err, file, fileList) {
-      this.$error(`文件${file.name}上传失败：${err}`)
-    },
-    getFile(event) {
-      this.form.file = event.target.files[0]
     }
   }
 }

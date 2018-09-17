@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <GoodsDialog ref="formDialog" @upload-success="updateGoodsList" />
+    <GoodsDialog ref="formDialog" @add-success="updateGoodsList" />
     <el-row>
       <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">添加商品</el-button>
     </el-row>
@@ -10,12 +10,11 @@
         <el-table-column prop="name" label="名称" width="100" />
         <el-table-column label="图片">
           <template slot-scope="scope">
-            <img :src="scope.row.imageUrl" width="300" height="150" @click="onImageClick(scope.row.path)">
+            <img :src="scope.row.imageUrl" width="300" @click="onImageClick(scope.row.path)">
           </template>
         </el-table-column>
-        <el-table-column width="150" label="操作">
+        <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" @click="onImageClick(scope.row.path)">查看</el-button>
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
@@ -91,9 +90,6 @@ export default {
   }
   .el-row {
     margin-bottom: 20px;
-    &:last-child {
-      margin-bottom: 0;
-    }
   }
   .el-col {
     border-radius: 4px;
