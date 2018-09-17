@@ -1,6 +1,9 @@
 <template>
   <el-dialog :visible.sync="flag" title="添加质量检测报告" center>
-    <el-form ref="form" :model="form">
+    <el-form ref="form" :model="form" align="left">
+      <el-form-item label="标题">
+        <el-input v-model="form.title" placeholder="请输入报告标题" />
+      </el-form-item>
       <el-form-item label="报告日期">
         <el-date-picker v-model="form.reportDate" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
       </el-form-item>
@@ -11,6 +14,9 @@
       </el-form-item>
       <el-form-item label="产地">
         <el-input v-model="form.origin" placeholder="请输入产地" />
+      </el-form-item>
+      <el-form-item label="说明">
+        <el-input v-model="form.description" placeholder="请输入说明" />
       </el-form-item>
       <el-form-item>
         <el-upload
@@ -55,7 +61,9 @@ export default {
         createTime: null,
         reportDate: null,
         goodsId: null,
-        origin: null
+        origin: null,
+        title: null,
+        description: null
       },
       goodsList: [],
       fileList: []
@@ -71,7 +79,9 @@ export default {
       createTime: null,
       reportDate: null,
       goodsId: null,
-      origin: null
+      origin: null,
+      title: null,
+      description: null
     }
   },
   mounted() {

@@ -7,7 +7,12 @@
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="goods.id" label="商品ID" />
         <el-table-column prop="goods.name" label="商品名称" />
-        <el-table-column prop="qrcodeUrl" label="二维码" />
+        <el-table-column prop="qrcodeUrl" label="二维码" >
+          <template slot-scope="scope">
+            <p>{{ scope.row.qrcodeUrl }}</p>
+            <img :src="scope.row.qrcodeUrl">
+          </template>
+        </el-table-column>
         <el-table-column width="150" label="操作">
           <template slot-scope="scope">
             <el-button size="mini" @click="onImageClick(scope.row.path)">查看</el-button>
