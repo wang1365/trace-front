@@ -1,7 +1,17 @@
 <template>
   <div class="main">
     <el-row>
-      <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">添加公司</el-button>
+      <el-col v-for="item in items" :span="6" :key="item.goods.id" :offset="2" >
+        <el-card :body-style="{ padding: '30px' }">
+          <img :src="item.qrcodeUrl" class="image" >
+          <div style="padding: 14px;">
+            <span>{{ item.goods.name }}</span>
+            <div class="bottom clearfix">
+              <el-button type="primary" class="button">打印二维码</el-button>
+            </div>
+          </div>
+        </el-card>
+      </el-col>
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
@@ -70,11 +80,32 @@ export default {
   }
   .el-row {
     margin-bottom: 20px;
-    &:last-child {
-      margin-bottom: 0;
-    }
   }
   .el-col {
     border-radius: 4px;
+  }
+  .time {
+    font-size: 13px;
+    color: #999;
+  }
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+  .button {
+    /*padding: 0;*/
+    float: right;
+  }
+  .image {
+    width: 100%;
+    display: block;
+  }
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
   }
 </style>
