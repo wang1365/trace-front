@@ -49,10 +49,6 @@ export default {
     }
   },
   created() {
-    // this.ruleForm = {
-    //   name: null,
-    //   imageUrl: null
-    // }
   },
   mounted() {
     console.log('############ mounted')
@@ -84,5 +80,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
