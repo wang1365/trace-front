@@ -1,18 +1,18 @@
 <template>
   <el-dialog :visible.sync="flag" title="添加质量检测报告" center>
-    <el-form ref="form" :model="form" align="left">
-      <el-form-item label="标题">
+    <el-form ref="form" :model="form" :rules="rules" align="left">
+      <el-form-item label="标题" prop="title">
         <el-input v-model="form.title" placeholder="请输入报告标题" />
       </el-form-item>
-      <el-form-item label="报告日期">
+      <el-form-item label="报告日期" prop="reportDate">
         <el-date-picker v-model="form.reportDate" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
       </el-form-item>
-      <el-form-item label="检测商品">
+      <el-form-item label="检测商品" prop="goodsId">
         <el-select v-model="form.goodsId" placeholder="请选择">
           <el-option v-for="item in goodsList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="产地">
+      <el-form-item label="产地" prop="origin">
         <el-input v-model="form.origin" placeholder="请输入产地" />
       </el-form-item>
       <el-form-item label="说明">
@@ -39,7 +39,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="flag = false">取 消</el-button>
-      <el-button slot="footer" class="dialog-footer" type="success" size="small" @click="onSubmit(fileList)">上传报告</el-button>
+      <el-button slot="footer" class="dialog-footer" type="success" size="small" @click="onSubmit('form')">上传报告</el-button>
     </div>
   </el-dialog>
 </template>
@@ -64,6 +64,12 @@ export default {
         origin: null,
         title: null,
         description: null
+      },
+      rules: {
+        title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
+        reportDate: [{ required: true, message: '请选择检测日期', trigger: 'blur' }],
+        goodsId: [{ required: true, message: '请选择商品', trigger: 'blur' }],
+        origin: [{ required: true, message: '请输入产地', trigger: 'blur' }]
       },
       goodsList: [],
       fileList: []
@@ -100,8 +106,13 @@ export default {
     onPreview(file) {
       console.log(file)
     },
-    onSubmit(fileList) {
-      this.$refs.upload.submit()
+    onSubmit(form) {
+      this.$refs[form].validate(valid => {
+        if (!valid) {
+          return false
+        }
+        this.$refs.upload.submit()
+      })
     },
     onSuccess(response, file, fileList) {
       this.$message({
