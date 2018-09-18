@@ -1,13 +1,13 @@
 <template>
-  <div class="main">
+  <div id="qrcodeMain" class="main">
     <el-row>
-      <el-col v-for="item in items" :span="6" :key="item.goods.id" :offset="2" >
+      <el-col v-for="(item, index) in items" :span="6" :key="item.goods.id" :offset="2" >
         <el-card :body-style="{ padding: '30px' }">
-          <img :src="item.qrcodeUrl" class="image" >
+          <img :src="item.qrcodeUrl" :id="'qrcode'+index" class="image" >
           <div style="padding: 14px;">
             <span>{{ item.goods.name }}</span>
             <div class="bottom clearfix">
-              <el-button type="primary" class="button">打印二维码</el-button>
+              <el-button type="primary" class="button" @click="printContent(index)">打印二维码</el-button>
             </div>
           </div>
         </el-card>
@@ -69,6 +69,18 @@ export default {
     onImageClick(path) {
       this.selectedImage = path
       this.imageDialogVisible = true
+    },
+    printContent(index) {
+      // let subOutputRankPrint = document.getElementById(`qrcode${index}`)
+      const subOutputRankPrint = document.getElementById('qrcodeMain')
+      console.log(subOutputRankPrint.innerHTML)
+      const newContent = subOutputRankPrint.innerHTML
+      const oldContent = document.body.innerHTML
+      document.body.innerHTML = newContent
+      window.print()
+      window.location.reload()
+      document.body.innerHTML = oldContent
+      return false
     }
   }
 }
