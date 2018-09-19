@@ -1,7 +1,7 @@
 <template>
   <el-dialog :visible.sync="flag" title="添加质量检测报告" center>
-    <el-form ref="form" :model="form">
-      <el-form-item label="公司">
+    <el-form ref="form" :rules="rules" :model="form">
+      <el-form-item label="公司" prop="companyId">
         <el-select v-model="form.companyId" placeholder="请选择">
           <el-option v-for="item in companyList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
@@ -27,7 +27,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="flag = false">取 消</el-button>
-      <el-button slot="footer" class="dialog-footer" type="success" size="small" @click="onSubmit(fileList)">上传报告</el-button>
+      <el-button slot="footer" class="dialog-footer" type="success" size="small" @click="onSubmit('form')">上传报告</el-button>
     </div>
   </el-dialog>
 </template>
@@ -50,7 +50,12 @@ export default {
         companyId: null
       },
       companyList: [],
-      fileList: []
+      fileList: [],
+      rules: {
+        companyId: [
+          { required: true, message: '请选择公司', trigger: 'blur' }
+        ]
+      }
     }
   },
   watch: {
@@ -80,8 +85,12 @@ export default {
     onPreview(file) {
       console.log(file)
     },
-    onSubmit(fileList) {
-      this.$refs.upload.submit()
+    onSubmit(form) {
+      this.$refs[form].validate(valid => {
+        if (valid) {
+          this.$refs.upload.submit()
+        }
+      })
     },
     onSuccess(response, file, fileList) {
       this.$message({
