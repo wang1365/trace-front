@@ -1,8 +1,11 @@
 <template>
   <div id="qrcodeMain" class="main">
     <el-row>
+      <div id="qrcode" ref="qrcode"> 前端生成的二维码</div>
+    </el-row>
+    <el-row>
       <el-col v-for="(item, index) in items" :span="6" :key="item.goods.id" :offset="2" >
-        <el-card :body-style="{ padding: '30px' }">
+        <el-card :body-style="{ padding: '30px' }" style="backgroundColor: 'green'">
           <img :src="item.qrcodeUrl" :id="'qrcode'+index" class="image" >
           <div style="padding: 14px;">
             <span>{{ item.goods.name }}</span>
@@ -13,23 +16,6 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-row class="table">
-      <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column prop="goods.id" label="商品ID" />
-        <el-table-column prop="goods.name" label="商品名称" />
-        <el-table-column prop="qrcodeUrl" label="二维码" >
-          <template slot-scope="scope">
-            <p>{{ scope.row.qrcodeUrl }}</p>
-            <img :src="scope.row.qrcodeUrl">
-          </template>
-        </el-table-column>
-        <el-table-column width="150" label="操作">
-          <template slot-scope="scope">
-            <el-button size="mini" @click="onImageClick(scope.row.path)">查看</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-row>
     <el-dialog :visible.sync="imageDialogVisible" center>
       <img :src="selectedImage" width="100%" height="100%">
     </el-dialog>
@@ -38,10 +24,12 @@
 
 <script>
 import { getAllQrcode } from '@/api/qrcode'
+import QRCode from 'qrcodejs2'
 
 export default {
   name: 'Qrcode',
   components: {
+    QRCode
   },
   data() {
     return {
@@ -53,6 +41,7 @@ export default {
   },
   created() {
     this.updateQrcodeList()
+    this.createQrcode()
   },
   methods: {
     handleView(index, row) {
@@ -81,6 +70,20 @@ export default {
       window.location.reload()
       document.body.innerHTML = oldContent
       return false
+    },
+    createQrcode() {
+      this.$nextTick(() => {
+        const qrcode = new QRCode('qrcode', {
+          width: 100,
+          height: 100, // 高度
+          text: '56663159' // 二维码内容
+          // render: 'canvas' // 设置渲染方式（有两种方式 table和canvas，默认是canvas）
+          // background: '#f0f'
+          // foreground: '#ff0'
+        })
+        console.log(qrcode)
+        return qrcode
+      })
     }
   }
 }
