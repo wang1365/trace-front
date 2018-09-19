@@ -1,12 +1,10 @@
 <template>
   <div id="qrcodeMain" class="main">
     <el-row>
-      <div id="qrcode" ref="qrcode"> 前端生成的二维码</div>
-    </el-row>
-    <el-row>
       <el-col v-for="(item, index) in items" :span="6" :key="item.goods.id" :offset="2" >
-        <el-card :body-style="{ padding: '30px' }" style="backgroundColor: 'green'">
-          <img :src="item.qrcodeUrl" :id="'qrcode'+index" class="image" >
+        <el-card :body-style="{ padding: '30px' }" :id="'card'+index" style="backgroundColor: 'green'">
+          <!--<img :src="item.qrcodeUrl" :id="'qrcode'+index" class="image" >-->
+          <div :id="`qrcode`+index" :ref="`qrcode`+index" style="padding-bottom: 20px"> 溯源二维码：</div>
           <div style="padding: 14px;">
             <span>{{ item.goods.name }}</span>
             <div class="bottom clearfix">
@@ -53,6 +51,7 @@ export default {
     updateQrcodeList() {
       getAllQrcode().then(response => {
         this.items = response.data.data
+        this.createQrcode()
       })
     },
     onImageClick(path) {
@@ -61,7 +60,7 @@ export default {
     },
     printContent(index) {
       // let subOutputRankPrint = document.getElementById(`qrcode${index}`)
-      const subOutputRankPrint = document.getElementById('qrcodeMain')
+      const subOutputRankPrint = document.getElementById(`card${index}`)
       console.log(subOutputRankPrint.innerHTML)
       const newContent = subOutputRankPrint.innerHTML
       const oldContent = document.body.innerHTML
@@ -73,16 +72,16 @@ export default {
     },
     createQrcode() {
       this.$nextTick(() => {
-        const qrcode = new QRCode('qrcode', {
-          width: 100,
-          height: 100, // 高度
-          text: '56663159' // 二维码内容
-          // render: 'canvas' // 设置渲染方式（有两种方式 table和canvas，默认是canvas）
-          // background: '#f0f'
-          // foreground: '#ff0'
+        this.items.forEach((v, index, arr) => {
+          new QRCode(`qrcode${index}`, {
+            width: 250,
+            height: 250, // 高度
+            text: v.goods.name, // 二维码内容
+            // render: 'canvas' // 设置渲染方式（有两种方式 table和canvas，默认是canvas）
+            background: '#f0f',
+            foreground: '#ff0'
+          })
         })
-        console.log(qrcode)
-        return qrcode
       })
     }
   }
