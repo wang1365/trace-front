@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="flag" title="添加质量检测报告" center>
+  <el-dialog :visible.sync="flag" title="添加公司资质证书" center>
     <el-form ref="form" :rules="rules" :model="form">
       <el-form-item label="公司" prop="companyId">
         <el-select v-model="form.companyId" placeholder="请选择">
