@@ -2,14 +2,17 @@
   <div class="main">
     <OrderDialog ref="formDialog" @add-success="updateOrderList" />
     <el-row>
-      <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">添加订单</el-button>
+      <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">录入订单</el-button>
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="order.id" label="ID" width="100" />
-        <el-table-column prop="order.createTime" label="ID" width="100" />
-        <el-table-column prop="goods.name" label="名称" width="100" />
-        <el-table-column prop="report.title" label="名称" width="100" />
+        <el-table-column prop="order.orderTime" label="时间" />
+        <el-table-column prop="order.address" label="地点" />
+        <el-table-column prop="order.quantity" label="采购数量" />
+        <el-table-column prop="order.unit" label="单位" />
+        <el-table-column prop="goods.name" label="商品名称" />
+        <el-table-column prop="report.title" label="质检报告" />
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
@@ -37,8 +40,7 @@ export default {
       items: [],
       dialogVisible: false,
       imageDialogVisible: false,
-      selectedImage: null,
-      cardMode: true
+      selectedImage: null
     }
   },
   created() {

@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="flag" title="添加订单">
+  <el-dialog :visible.sync="flag" title="新增订单">
     <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-position="left" size="mini">
       <el-form-item label="商品" prop="goodsId">
         <el-select v-model="ruleForm.goodsId" placeholder="请选择">
@@ -16,6 +16,9 @@
         <el-select v-model="ruleForm.unit" placeholder="请选择">
           <el-option v-for="item in units" :key="item" :label="item" :value="item"/>
         </el-select>
+      </el-form-item>
+      <el-form-item label="采购时间" prop="orderTime">
+        <el-date-picker v-model="ruleForm.orderTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
       </el-form-item>
       <el-form-item label="采购地点" prop="address">
         <el-input v-model="ruleForm.address" placeholder="填写采购地点"/>
@@ -62,6 +65,7 @@ export default {
         goodsId: null,
         quantity: null,
         unit: null,
+        orderTime: null,
         reportId: null,
         address: null,
         buyerId: null,
@@ -75,6 +79,9 @@ export default {
         ],
         name: [
           { required: true, message: '请输入订单名称', trigger: 'blur' }
+        ],
+        orderTime: [
+          { required: true, message: '请选择采购时间', trigger: 'blur' }
         ]
       }
     }
