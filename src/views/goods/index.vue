@@ -115,6 +115,7 @@ export default {
     width: 300px;
     height: 370px;
     margin-bottom: 10px;
+    background-color: #d3dce6;
   }
   .card:hover {
     width: 330px;

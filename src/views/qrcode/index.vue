@@ -2,7 +2,7 @@
   <div id="qrcodeMain" class="main">
     <el-row>
       <el-col v-for="(item, index) in items" :span="6" :key="item.goods.id" :offset="2" >
-        <el-card :body-style="{ padding: '30px' }" :id="'card'+index" style="backgroundColor: 'green'">
+        <el-card :body-style="{ padding: '30px' }" :id="'card'+index" class="card">
           <!--<img :src="item.qrcodeUrl" :id="'qrcode'+index" class="image" >-->
           <div :id="`qrcode`+index" :ref="`qrcode`+index" style="padding-bottom: 20px"> 溯源二维码：</div>
           <div style="padding: 14px;">
@@ -133,9 +133,8 @@ export default {
     /*padding: 0;*/
     float: right;
   }
-  .image {
-    width: 100%;
-    display: block;
+  .card {
+    margin-bottom: 10px;
   }
   .clearfix:before,
   .clearfix:after {
