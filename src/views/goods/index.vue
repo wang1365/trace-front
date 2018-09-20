@@ -4,6 +4,19 @@
     <el-row>
       <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">添加商品</el-button>
     </el-row>
+    <el-row>
+      <el-col v-for="item in items" :key="item.id" span="6" offset="2" >
+        <el-card :body-style="{ padding: '15px' }" class="card">
+          <img :src="item.imageUrl" class="image" >
+          <div style="padding: 14px;">
+            <span>{{ item.name }}</span>
+            <div class="bottom clearfix">
+              <el-button type="primary" class="button" @click="onDeleteBtnClick(item.id)">删除</el-button>
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" width="100" />
@@ -63,7 +76,7 @@ export default {
       this.imageDialogVisible = true
     },
     onDeleteBtnClick(id) {
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+      this.$confirm('是否确认要删除该商品?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -93,5 +106,37 @@ export default {
   }
   .el-col {
     border-radius: 4px;
+  }
+  .time {
+    font-size: 13px;
+    color: #999;
+  }
+  .card {
+    width: 300px;
+    height: 370px;
+    margin-bottom: 10px;
+  }
+  .card:hover {
+    width: 330px;
+  }
+  .bottom {
+    bottom: 15px;
+    line-height: 12px;
+  }
+  .button {
+    /*padding: 0;*/
+    float: right;
+  }
+  .image {
+    width: 100%;
+    display: block;
+  }
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
   }
 </style>
