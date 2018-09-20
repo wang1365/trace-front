@@ -3,9 +3,14 @@
     <GoodsDialog ref="formDialog" @add-success="updateGoodsList" />
     <el-row>
       <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">添加商品</el-button>
+      <el-switch
+        v-model="cardMode"
+        style="margin-left: 20px"
+        active-text="卡片显示"
+        inactive-text="表格显示"/>
     </el-row>
-    <el-row>
-      <el-col v-for="item in items" :key="item.id" span="6" offset="2" >
+    <el-row v-if="cardMode">
+      <el-col v-for="item in items" :key="item.id" :span="6" :offset="2" >
         <el-card :body-style="{ padding: '15px' }" class="card">
           <img :src="item.imageUrl" class="image" >
           <div style="padding: 14px;">
@@ -17,7 +22,7 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-row class="table">
+    <el-row v-if="!cardMode" class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" width="100" />
         <el-table-column prop="name" label="名称" width="100" />
@@ -53,7 +58,8 @@ export default {
       items: [],
       dialogVisible: false,
       imageDialogVisible: false,
-      selectedImage: null
+      selectedImage: null,
+      cardMode: true
     }
   },
   created() {

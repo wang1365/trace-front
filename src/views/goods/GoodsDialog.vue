@@ -62,7 +62,6 @@ export default {
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
-        console.log('$$$$$$$$$$$$$$$$', valid)
         if (!valid) {
           return false
         }

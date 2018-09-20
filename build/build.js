@@ -46,7 +46,7 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
 
     if (process.env.npm_config_preview) {
       const port = 9526
-      const host = 'http://localhost:' + port
+      const host = 'http://127.0.0.1:' + port
       const basePath = config.build.assetsPublicPath
       const app = connect()
 
@@ -59,7 +59,7 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
 
       app.listen(port, function() {
         console.log(
-          chalk.green(`> Listening at  http://localhost:${port}${basePath}`)
+          chalk.green(`> Listening at  http://127.0.0.1:${port}${basePath}`)
         )
       })
     }
