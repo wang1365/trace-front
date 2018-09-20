@@ -159,6 +159,18 @@ export const asyncRouterMap = [
       }
     ]
   },
+  {
+    path: '/order',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/order/index'),
+        name: 'Order',
+        meta: { title: 'order', icon: 'table', noCache: true }
+      }
+    ]
+  },
   // {
   //   path: '/permission',
   //   component: Layout,
