@@ -69,7 +69,8 @@ export default {
     qrcode: '溯源码管理',
     order: '收购订单管理',
     person: '人员管理',
-    config: '配置管理'
+    config: '配置管理',
+    plant: '种植信息'
   },
   navbar: {
     logOut: '退出登录',
