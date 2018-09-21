@@ -68,7 +68,8 @@ export default {
     company: '企业管理',
     qrcode: '溯源码管理',
     order: '收购订单管理',
-    person: '人员管理'
+    person: '人员管理',
+    config: '配置管理'
   },
   navbar: {
     logOut: '退出登录',

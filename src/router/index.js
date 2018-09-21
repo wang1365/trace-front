@@ -100,6 +100,35 @@ export default new Router({
 
 export const asyncRouterMap = [
   {
+    path: '/config',
+    component: Layout,
+    meta: {
+      title: 'config',
+      icon: 'table',
+      collapse: true
+    },
+    children: [
+      {
+        path: 'person',
+        component: () => import('@/views/person/index'),
+        name: 'Person',
+        meta: { title: 'person', icon: 'people', noCache: true }
+      },
+      {
+        path: 'company',
+        component: () => import('@/views/company/index'),
+        name: 'Company',
+        meta: { title: 'company', icon: 'tab', noCache: true }
+      },
+      {
+        path: 'goods',
+        component: () => import('@/views/goods/index'),
+        name: 'Goods',
+        meta: { title: 'goods', icon: 'example', noCache: true }
+      }
+    ]
+  },
+  {
     path: '/quality-report',
     component: Layout,
     children: [
@@ -108,42 +137,6 @@ export const asyncRouterMap = [
         component: () => import('@/views/quality-report/index'),
         name: 'QualityReport',
         meta: { title: 'qualityReport', icon: 'form', noCache: true }
-      }
-    ]
-  },
-  {
-    path: '/goods',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/goods/index'),
-        name: 'Goods',
-        meta: { title: 'goods', icon: 'example', noCache: true }
-      }
-    ]
-  },
-  {
-    path: '/company',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/company/index'),
-        name: 'Company',
-        meta: { title: 'company', icon: 'tab', noCache: true }
-      }
-    ]
-  },
-  {
-    path: '/person',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/person/index'),
-        name: 'Person',
-        meta: { title: 'person', icon: 'tab', noCache: true }
       }
     ]
   },
