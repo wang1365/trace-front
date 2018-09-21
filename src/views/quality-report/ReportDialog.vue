@@ -1,6 +1,6 @@
 <template>
   <el-dialog :visible.sync="flag" title="添加质量检测报告" center>
-    <el-form ref="form" :model="form" :rules="rules" align="left">
+    <el-form ref="form" :model="form" :rules="rules" align="left" label-width="80px">
       <el-form-item label="标题" prop="title">
         <el-input v-model="form.title" placeholder="请输入报告标题" />
       </el-form-item>

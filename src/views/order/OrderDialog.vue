@@ -1,6 +1,6 @@
 <template>
-  <el-dialog :visible.sync="flag" title="新增订单">
-    <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-position="left" size="mini">
+  <el-dialog :visible.sync="flag" title="新增订单" center>
+    <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="100px">
       <el-form-item label="商品" prop="goodsId">
         <el-select v-model="ruleForm.goodsId" placeholder="请选择">
           <el-option v-for="item in goodsList" :key="item.id" :label="item.name" :value="item.id"/>

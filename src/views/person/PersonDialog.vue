@@ -1,6 +1,6 @@
 <template>
   <el-dialog :visible.sync="flag" title="新增人员">
-    <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-position="left" size="mini">
+    <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="80px">
       <el-form-item label="姓名" prop="name">
         <el-input v-model="ruleForm.name" placeholder="填写姓名"/>
       </el-form-item>

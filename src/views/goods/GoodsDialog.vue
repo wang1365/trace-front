@@ -1,10 +1,10 @@
 <template>
   <el-dialog :visible.sync="flag" title="添加商品">
-    <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-position="left">
+    <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="80px">
       <el-form-item label="商品名称" prop="name">
         <el-input v-model="ruleForm.name" placeholder="填写商品名称"/>
       </el-form-item>
-      <el-form-item label="商品图片链接" prop="imageUrl">
+      <el-form-item label="图片链接" prop="imageUrl">
         <el-input v-model="ruleForm.imageUrl" placeholder="填写商品图片链接"/>
       </el-form-item>
     </el-form>

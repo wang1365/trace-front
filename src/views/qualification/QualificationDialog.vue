@@ -1,6 +1,6 @@
 <template>
   <el-dialog :visible.sync="flag" title="添加公司资质证书" center>
-    <el-form ref="form" :rules="rules" :model="form">
+    <el-form ref="form" :rules="rules" :model="form" label-width="80px">
       <el-form-item label="公司" prop="companyId">
         <el-select v-model="form.companyId" placeholder="请选择">
           <el-option v-for="item in companyList" :key="item.id" :label="item.name" :value="item.id"/>

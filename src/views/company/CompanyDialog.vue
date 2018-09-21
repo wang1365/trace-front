@@ -1,6 +1,6 @@
 <template>
   <el-dialog :visible.sync="flag" title="添加公司" center>
-    <el-form ref="form" :model="form" label-position="left">
+    <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="公司名称">
         <el-input v-model="form.name" placeholder="填写公司名称"/>
       </el-form-item>
