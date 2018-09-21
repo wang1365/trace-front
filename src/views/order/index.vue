@@ -7,11 +7,13 @@
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="order.id" label="ID" width="100" />
+        <el-table-column prop="goods.name" label="商品名称" />
         <el-table-column prop="order.orderTime" label="时间" />
         <el-table-column prop="order.address" label="地点" />
         <el-table-column prop="order.quantity" label="采购数量" />
         <el-table-column prop="order.unit" label="单位" />
-        <el-table-column prop="goods.name" label="商品名称" />
+        <el-table-column prop="order.buyerId" label="收购人" />
+        <el-table-column prop="order.sellerId" label="卖家(农户)" />
         <el-table-column prop="report.title" label="质检报告" />
         <el-table-column label="操作">
           <template slot-scope="scope">
