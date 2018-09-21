@@ -67,7 +67,8 @@ export default {
     qualification: '资质证书',
     company: '企业管理',
     qrcode: '溯源码管理',
-    order: '收购订单管理'
+    order: '收购订单管理',
+    person: '人员管理'
   },
   navbar: {
     logOut: '退出登录',

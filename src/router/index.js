@@ -136,6 +136,18 @@ export const asyncRouterMap = [
     ]
   },
   {
+    path: '/person',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/person/index'),
+        name: 'Person',
+        meta: { title: 'person', icon: 'tab', noCache: true }
+      }
+    ]
+  },
+  {
     path: '/qualification',
     component: Layout,
     children: [
