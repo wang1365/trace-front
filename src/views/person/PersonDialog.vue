@@ -32,9 +32,7 @@
 </template>
 
 <script>
-import { getAllGoods } from '@/api/goods'
-import { getAllQualityReport } from '@/api/qualityReport'
-import { addOrder } from '@/api/order'
+import { addPerson } from '@/api/person'
 
 export default {
   name: 'ReportForm',
@@ -83,8 +81,6 @@ export default {
   created() {
   },
   mounted() {
-    this.getGoodsList()
-    this.getReportList()
   },
   methods: {
     show() {
@@ -98,27 +94,13 @@ export default {
         if (!valid) {
           return false
         }
-        addOrder(this.ruleForm).then((response) => {
+        addPerson(this.ruleForm).then((response) => {
           this.$message({ message: `添加人员成功`, type: 'success' })
           this.$emit('add-success')
           this.hide()
         }).catch(err => {
           this.$message({ message: `添加失败：${err}`, type: 'error' })
         })
-      })
-    },
-    getGoodsList() {
-      getAllGoods().then(res => {
-        this.goodsList = res.data
-      }).catch(err => {
-        this.$message({ message: `获取商品列表失败, ${err}`, type: 'error' })
-      })
-    },
-    getReportList() {
-      getAllQualityReport().then(res => {
-        this.reportList = res.data.data
-      }).catch(err => {
-        this.$message({ message: `获取质检报告列表失败, ${err}`, type: 'error' })
       })
     }
   }
