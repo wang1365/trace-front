@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="flag" title="新增订单" center>
+  <el-dialog :visible.sync="flag" title="新增种植计划" center>
     <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="100px">
       <el-form-item label="商品" prop="goodsId">
         <el-select v-model="ruleForm.goodsId" placeholder="请选择">
@@ -44,6 +44,7 @@
 
 <script>
 import { getAllGoods } from '@/api/goods'
+import { getAllPerson } from '@/api/person'
 import { addPlant } from '@/api/plant'
 
 export default {
@@ -59,7 +60,7 @@ export default {
       flag: this.dialogVisible,
       goodsList: [],
       reportList: [],
-      units: ['kg', '个'],
+      personList: [],
       ruleForm: {
         goodsId: null,
         quantity: null,
@@ -97,6 +98,7 @@ export default {
   },
   mounted() {
     this.getGoodsList()
+    this.getPersonList()
     this.getPlantList()
   },
   methods: {
@@ -122,11 +124,19 @@ export default {
     },
     getGoodsList() {
       getAllGoods().then(res => {
-        this.goodsList = res.data
+        this.goodsList = res.data.data
       }).catch(err => {
         this.$message({ message: `获取商品列表失败, ${err}`, type: 'error' })
       })
+    },
+    getPersonList() {
+      getAllPerson().then(res => {
+        this.personList = res.data.data
+      }).catch(err => {
+        this.$message({ message: `获取人员列表失败, ${err}`, type: 'error' })
+      })
     }
+
   }
 }
 </script>

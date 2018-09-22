@@ -74,7 +74,7 @@ export default {
     },
     updateGoodsList() {
       getAllGoods().then(response => {
-        this.items = response.data
+        this.items = response.data.data
       })
     },
     onImageClick(path) {

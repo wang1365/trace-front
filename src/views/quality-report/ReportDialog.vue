@@ -92,7 +92,7 @@ export default {
   },
   mounted() {
     getAllGoods()
-      .then(response => { this.goodsList = response.data })
+      .then(response => { this.goodsList = response.data.data })
       .catch(err => console.error(err))
   },
   methods: {
