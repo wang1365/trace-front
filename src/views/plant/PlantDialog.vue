@@ -1,38 +1,21 @@
 <template>
   <el-dialog :visible.sync="flag" title="新增种植计划" center>
     <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="100px">
-      <el-form-item label="商品" prop="goodsId">
+      <el-form-item label="农作物名称" prop="goodsId">
         <el-select v-model="ruleForm.goodsId" placeholder="请选择">
           <el-option v-for="item in goodsList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
       </el-form-item>
-      <el-form-item
-        :rules="[ {required: true, message:'请输入数量', trigger:'blur'}]"
-        label="采购数量"
-        prop="quantity">
-        <el-input v-model.number="ruleForm.quantity" placeholder="填写商品数量"/>
-      </el-form-item>
-      <el-form-item label="单位" prop="unit">
-        <el-select v-model="ruleForm.unit" placeholder="请选择">
-          <el-option v-for="item in units" :key="item" :label="item" :value="item"/>
+      <el-form-item label="农户" prop="farmerId">
+        <el-select v-model="ruleForm.farmerId" placeholder="请选择">
+          <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="采购时间" prop="orderTime">
-        <el-date-picker v-model="ruleForm.orderTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
+      <el-form-item label="开始时间" prop="startDate">
+        <el-date-picker v-model="ruleForm.startDate" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
       </el-form-item>
-      <el-form-item label="采购地点" prop="address">
-        <el-input v-model="ruleForm.address" placeholder="填写采购地点"/>
-      </el-form-item>
-      <el-form-item label="采购人" prop="buyerId">
-        <el-input v-model="ruleForm.buyerId" placeholder="填写采购人"/>
-      </el-form-item>
-      <el-form-item label="菜农" prop="sellerId">
-        <el-input v-model="ruleForm.sellerId" placeholder="填写菜农"/>
-      </el-form-item>
-      <el-form-item label="相关质检报告" prop="reportId">
-        <el-select v-model="ruleForm.reportId" placeholder="请选择">
-          <el-option v-for="item in reportList" :key="item.id" :label="item.title" :value="item.id"/>
-        </el-select>
+      <el-form-item label="地点" prop="address">
+        <el-input v-model="ruleForm.address" placeholder="填写种植地点"/>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -63,25 +46,19 @@ export default {
       personList: [],
       ruleForm: {
         goodsId: null,
-        quantity: null,
-        unit: null,
-        orderTime: null,
-        reportId: null,
-        address: null,
-        buyerId: null,
-        sellerId: null,
-        dealDate: null,
-        createTime: null
+        farmerId: null,
+        startDate: null,
+        address: null
       },
       formRules: {
         goodsId: [
-          { required: true, message: '请选择一个商品', trigger: 'blur' }
+          { required: true, message: '请选择一个农作物名称', trigger: 'blur' }
         ],
-        name: [
-          { required: true, message: '请输入订单名称', trigger: 'blur' }
+        farmerId: [
+          { required: true, message: '请选择种植户', trigger: 'blur' }
         ],
-        orderTime: [
-          { required: true, message: '请选择采购时间', trigger: 'blur' }
+        startDate: [
+          { required: true, message: '请选择种植开始时间', trigger: 'blur' }
         ]
       }
     }
@@ -126,7 +103,7 @@ export default {
       getAllGoods().then(res => {
         this.goodsList = res.data.data
       }).catch(err => {
-        this.$message({ message: `获取商品列表失败, ${err}`, type: 'error' })
+        this.$message({ message: `获取农作物名称列表失败, ${err}`, type: 'error' })
       })
     },
     getPersonList() {

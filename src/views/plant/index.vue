@@ -6,17 +6,15 @@
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column prop="order.id" label="ID" width="100" />
-        <el-table-column prop="goods.name" label="商品名称" />
-        <el-table-column prop="order.orderTime" label="时间" />
-        <el-table-column prop="order.address" label="地点" />
-        <el-table-column prop="order.quantity" label="采购数量" />
-        <el-table-column prop="order.unit" label="单位" />
-        <el-table-column prop="order.buyerId" label="收购人" />
-        <el-table-column prop="order.sellerId" label="卖家(农户)" />
-        <el-table-column prop="report.title" label="质检报告" />
+        <el-table-column prop="plant.id" label="ID" width="100" />
+        <el-table-column prop="plant.startDate" label="开始时间" />
+        <el-table-column prop="farmer.name" label="农户姓名" />
+        <el-table-column prop="goods.name" label="农作物名称" />
+        <el-table-column prop="plant.address" label="地点" />
+        <el-table-column prop="plant.createTime" label="记录时间" />
         <el-table-column label="操作">
           <template slot-scope="scope">
+            <el-button size="mini" type="success" icon="el-icon-tickets" @click="onDeleteBtnClick(scope.row.order.id)">详情</el-button>
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.order.id)">删除</el-button>
           </template>
         </el-table-column>

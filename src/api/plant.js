@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
-export function addPlant(name, imageUrl) {
+export function addPlant(data) {
   return request({
     url: '/web/plant/add',
     method: 'post',
-    data: { name, imageUrl }
+    data: data
   })
 }
 
