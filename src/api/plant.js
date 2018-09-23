@@ -8,6 +8,14 @@ export function addPlant(data) {
   })
 }
 
+export function addPlantItem(data) {
+  return request({
+    url: '/web/plant/item/add',
+    method: 'post',
+    data: data
+  })
+}
+
 export function getAllPlant(params) {
   return request({
     url: '/web/plant/list',
@@ -16,9 +24,25 @@ export function getAllPlant(params) {
   })
 }
 
+export function getAllPlantItem(params) {
+  return request({
+    url: '/web/plant/item/list',
+    method: 'get',
+    params: params
+  })
+}
+
 export function deletePlant(id) {
   return request({
     url: '/web/plant/delete',
+    method: 'post',
+    params: { id }
+  })
+}
+
+export function deletePlantItem(id) {
+  return request({
+    url: '/web/plant/item/delete',
     method: 'post',
     params: { id }
   })

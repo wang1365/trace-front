@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="flag" title="新增订单" center>
+  <el-dialog :visible.sync="flag" title="新增种植计划" center>
     <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="100px">
       <el-form-item label="商品" prop="goodsId">
         <el-select v-model="ruleForm.goodsId" placeholder="请选择">
@@ -78,7 +78,7 @@ export default {
           { required: true, message: '请选择一个商品', trigger: 'blur' }
         ],
         name: [
-          { required: true, message: '请输入订单名称', trigger: 'blur' }
+          { required: true, message: '请输入种植计划名称', trigger: 'blur' }
         ],
         orderTime: [
           { required: true, message: '请选择采购时间', trigger: 'blur' }
@@ -113,7 +113,7 @@ export default {
           return false
         }
         addOrder(this.ruleForm).then((response) => {
-          this.$message({ message: `添加订单成功`, type: 'success' })
+          this.$message({ message: `添加种植计划成功`, type: 'success' })
           this.$emit('add-success')
           this.hide()
         }).catch(err => {
@@ -132,7 +132,7 @@ export default {
       getAllQualityReport().then(res => {
         this.reportList = res.data.data
       }).catch(err => {
-        this.$message({ message: `获取质检报告列表失败, ${err}`, type: 'error' })
+        this.$message({ message: `获取列表失败, ${err}`, type: 'error' })
       })
     }
   }

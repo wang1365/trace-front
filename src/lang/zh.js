@@ -70,7 +70,9 @@ export default {
     order: '收购订单管理',
     person: '人员管理',
     config: '配置管理',
-    plant: '种植信息'
+    plantInfo: '种植信息',
+    plantBase: '种植计划',
+    plantDetail: '详情管理'
   },
   navbar: {
     logOut: '退出登录',

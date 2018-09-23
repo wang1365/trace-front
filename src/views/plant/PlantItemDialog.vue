@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="flag" title="新增种植计划" center>
+  <el-dialog :visible.sync="flag" title="新增种植条目" center>
     <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="100px">
       <el-form-item label="农作物名称" prop="goodsId">
         <el-select v-model="ruleForm.goodsId" placeholder="请选择">
@@ -28,10 +28,10 @@
 <script>
 import { getAllGoods } from '@/api/goods'
 import { getAllPerson } from '@/api/person'
-import { addPlant } from '@/api/plant'
+import { addPlantItem } from '@/api/plant'
 
 export default {
-  name: 'PlantForm',
+  name: 'PlantItemForm',
   props: {
     dialogVisible: {
       type: Boolean,
@@ -76,7 +76,7 @@ export default {
   mounted() {
     this.getGoodsList()
     this.getPersonList()
-    this.getPlantList()
+    this.getPlantItemList()
   },
   methods: {
     show() {
@@ -90,8 +90,8 @@ export default {
         if (!valid) {
           return false
         }
-        addPlant(this.ruleForm).then((response) => {
-          this.$message({ message: `添加种植计划成功`, type: 'success' })
+        addPlantItem(this.ruleForm).then((response) => {
+          this.$message({ message: `添加种植条目成功`, type: 'success' })
           this.$emit('add-success')
           this.hide()
         }).catch(err => {

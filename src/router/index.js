@@ -104,8 +104,7 @@ export const asyncRouterMap = [
     component: Layout,
     meta: {
       title: 'config',
-      icon: 'table',
-      collapse: true
+      icon: 'table'
     },
     children: [
       {
@@ -125,6 +124,28 @@ export const asyncRouterMap = [
         component: () => import('@/views/goods/index'),
         name: 'Goods',
         meta: { title: 'goods', icon: 'example', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/plant',
+    component: Layout,
+    meta: {
+      title: 'plantInfo',
+      icon: 'table'
+    },
+    children: [
+      {
+        path: 'base',
+        component: () => import('@/views/plant/base'),
+        name: 'PlantBase',
+        meta: { title: 'plantBase', icon: 'table', noCache: true }
+      },
+      {
+        path: 'detail/:plantId',
+        component: () => import('@/views/plant/detail'),
+        name: 'PlantDetail',
+        meta: { title: 'plantDetail', icon: 'table', noCache: true }
       }
     ]
   },
@@ -173,18 +194,6 @@ export const asyncRouterMap = [
         component: () => import('@/views/order/index'),
         name: 'Order',
         meta: { title: 'order', icon: 'table', noCache: true }
-      }
-    ]
-  },
-  {
-    path: '/plant',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/plant/index'),
-        name: 'Plant',
-        meta: { title: 'plant', icon: 'table', noCache: true }
       }
     ]
   },
