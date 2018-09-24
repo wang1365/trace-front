@@ -32,6 +32,13 @@ export function getAllPlantItem(params) {
   })
 }
 
+export function getPlantActionTypeList() {
+  return request({
+    url: '/web/plant/getPlantActionTypeList',
+    method: 'get'
+  })
+}
+
 export function getPlantItemByPlant(plantId) {
   return request({
     url: '/web/plant/getPlantItemByPlant',

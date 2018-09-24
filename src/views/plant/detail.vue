@@ -1,23 +1,31 @@
 <template>
   <div class="main">
-    <PlantItemDialog ref="formDialog" @add-success="_getPlantItemByPlant" />
+    <PlantItemDialog
+      v-if="dialogVisible"
+      ref="formDialog"
+      :plant="selectedPlant"
+      :dialog-visible="dialogVisible"
+      :person-list="personList"
+      :plant-action-type-list="plantActionTypeList"
+      @closed="_getPlantItemByPlant(selectedPlantId)" />
     <el-row>
       <el-select v-model="selectedPersonId" placeholder="请选择农户" @change="_getPlantByPerson(selectedPersonId)">
         <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id" />
       </el-select>
-      <el-select v-model="selectedPlantId" placeholder="请选择种植计划">
-        <el-option v-for="item in plantList" :key="item.plant.id" :label="getPlantLabel(item)" :value="item.id" @change="_getPlantItemByPlant"/>
+      <el-select v-model="selectedPlantId" placeholder="请选择种植计划" @change="_getPlantItemByPlant(selectedPlantId)">
+        <el-option v-for="item in plantList" :key="item.plant.id" :label="getPlantLabel(item)" :value="item.plant.id" />
       </el-select>
-      <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">添加种植条目</el-button>
+      <el-button :disabled="!selectedPlantId || selectedPlantId<=0" type="success" icon="el-icon-plus" size="small" @click="showModal">添加种植条目</el-button>
     </el-row>
     <el-row class="table">
-      <el-table :data="items" size="small" border stripe highlight-current-row>
+      <el-table :data="plantItemList" size="small" border stripe highlight-current-row>
         <el-table-column prop="plantItem.id" label="ID" width="100" />
-        <el-table-column prop="plant.startDate" label="开始时间" />
+        <el-table-column prop="plantItem.plantId" label="种植计划ID" />
+        <el-table-column prop="plantItem.actionType" label="实施类型" />
+        <el-table-column prop="plantItem.actionDate" label="开始时间" />
         <el-table-column prop="farmer.name" label="农户姓名" />
         <el-table-column prop="goods.name" label="农作物名称" />
-        <el-table-column prop="plant.address" label="地点" />
-        <el-table-column prop="plant.createTime" label="记录时间" />
+        <el-table-column prop="plantItem.createTime" label="记录时间" />
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="success" icon="el-icon-tickets" @click="onCheckDetail(scope.row.plant.id)">详情</el-button>
@@ -30,7 +38,7 @@
 </template>
 
 <script>
-import { getAllPlant, getPlantItemByPlant, deletePlantItem } from '@/api/plant'
+import { getAllPlant, getPlantItemByPlant, getPlantActionTypeList, deletePlantItem } from '@/api/plant'
 import { getAllPerson } from '@/api/person'
 import PlantItemDialog from './PlantItemDialog'
 
@@ -43,19 +51,32 @@ export default {
     return {
       personList: [],
       plantList: [],
+      plantItemList: [],
+      plantActionTypeList: [],
       selectedPersonId: null,
       selectedPlantId: null,
-      items: [],
       dialogVisible: false
     }
   },
+  computed: {
+    selectedPlant() {
+      return this.plantList.find(plant => {
+        return plant.plant.id === this.selectedPlantId
+      })
+    }
+
+  },
   created() {
+  },
+  mounted() {
     this._getPersonList()
+    this._getPlantActionTypeList()
   },
   methods: {
     handleView(index, row) {
     },
     showModal() {
+      this.dialogVisible = true
       this.$refs['formDialog'].show()
     },
     getPlantLabel(plant) {
@@ -72,6 +93,7 @@ export default {
     _getPlantByPerson(personId) {
       console.log('#### getPlantListByPerson')
       this.plantList = []
+      this.selectedPlantId = null
       getAllPlant({ farmerId: personId }).then(res => {
         this.plantList = res.data.data
       })
@@ -79,7 +101,12 @@ export default {
     _getPlantItemByPlant() {
       console.log('##### _getPlantItemByPlant')
       getPlantItemByPlant(this.selectedPlantId).then(response => {
-        this.items = response.data.data
+        this.plantItemList = response.data.data
+      })
+    },
+    _getPlantActionTypeList() {
+      getPlantActionTypeList().then(res => {
+        this.plantActionTypeList = res.data.data
       })
     },
     onDeleteBtnClick(id) {
