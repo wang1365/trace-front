@@ -75,8 +75,7 @@ export default {
   },
   mounted() {
     this.getGoodsList()
-    this.getPersonList()
-    this.getPlantItemList()
+    this._getPersonList()
   },
   methods: {
     show() {
@@ -106,7 +105,7 @@ export default {
         this.$message({ message: `获取农作物名称列表失败, ${err}`, type: 'error' })
       })
     },
-    getPersonList() {
+    _getPersonList() {
       getAllPerson().then(res => {
         this.personList = res.data.data
       }).catch(err => {

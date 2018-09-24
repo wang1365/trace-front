@@ -32,6 +32,14 @@ export function getAllPlantItem(params) {
   })
 }
 
+export function getPlantItemByPlant(plantId) {
+  return request({
+    url: '/web/plant/getPlantItemByPlant',
+    method: 'get',
+    params: { plantId }
+  })
+}
+
 export function deletePlant(id) {
   return request({
     url: '/web/plant/delete',

@@ -37,6 +37,7 @@ export default {
   },
   data() {
     return {
+      farmerId: this.$route.params.plantId,
       items: [],
       dialogVisible: false,
       imageDialogVisible: false,
