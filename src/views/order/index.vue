@@ -18,6 +18,7 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.order.id)">删除</el-button>
+            <el-button size="mini" type="warning" @click="delivery(scope.row.order.id)">配送</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -81,6 +82,9 @@ export default {
       }).catch(() => {
         this.$message({ type: 'info', message: '已取消删除' })
       })
+    },
+    delivery(id) {
+      /** TODO */
     }
   }
 }

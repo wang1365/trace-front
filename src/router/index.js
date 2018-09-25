@@ -197,6 +197,18 @@ export const asyncRouterMap = [
       }
     ]
   },
+  {
+    path: '/waybill',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/waybill/index'),
+        name: 'Waybill',
+        meta: { title: 'waybill', icon: 'table', noCache: true }
+      }
+    ]
+  },
   // {
   //   path: '/permission',
   //   component: Layout,
