@@ -16,6 +16,8 @@
         <el-option v-for="item in plantList" :key="item.plant.id" :label="getPlantLabel(item)" :value="item.plant.id" />
       </el-select>
       <el-button :disabled="!selectedPlantId || selectedPlantId<=0" type="success" icon="el-icon-plus" size="small" @click="showModal">添加种植条目</el-button>
+      <span style="color: rgba(0,0,0,0.2)"> 说明: 添加条目前请先选择农户和种植计划</span>
+
     </el-row>
     <el-row class="table">
       <el-table :data="plantItemList" size="small" border stripe highlight-current-row>
