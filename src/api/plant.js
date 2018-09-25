@@ -57,7 +57,7 @@ export function deletePlant(id) {
 
 export function deletePlantItem(id) {
   return request({
-    url: '/web/plant/item/delete',
+    url: '/web/plant/deletePlantItemById',
     method: 'post',
     params: { id }
   })

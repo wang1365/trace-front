@@ -123,7 +123,7 @@ export default {
     },
     getGoodsList() {
       getAllGoods().then(res => {
-        this.goodsList = res.data
+        this.goodsList = res.data.data
       }).catch(err => {
         this.$message({ message: `获取商品列表失败, ${err}`, type: 'error' })
       })

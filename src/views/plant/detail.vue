@@ -30,8 +30,7 @@
         <el-table-column prop="plantItem.createTime" label="记录时间" />
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" type="success" icon="el-icon-tickets" @click="onCheckDetail(scope.row.plant.id)">详情</el-button>
-            <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.plant.id)">删除</el-button>
+            <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.plantItem.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -126,7 +125,7 @@ export default {
         deletePlantItem(id)
           .then(response => {
             this.$message({ type: 'success', message: '删除成功!' })
-            this.updatePlantItemList()
+            this._getPlantItemByPlant()
           })
           .catch(err => {
             this.$message({ type: 'error', message: '删除失败：' + err })
