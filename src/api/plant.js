@@ -10,7 +10,7 @@ export function addPlant(data) {
 
 export function addPlantItem(data) {
   return request({
-    url: '/web/plant/item/add',
+    url: '/web/plant/addPlantItem',
     method: 'post',
     data: data
   })

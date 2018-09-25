@@ -7,12 +7,12 @@
       :dialog-visible="dialogVisible"
       :person-list="personList"
       :plant-action-type-list="plantActionTypeList"
-      @closed="_getPlantItemByPlant(selectedPlantId)" />
+      @add-success="_getPlantItemByPlant(selectedPlantId)" />
     <el-row>
-      <el-select v-model="selectedPersonId" placeholder="请选择农户" @change="_getPlantByPerson(selectedPersonId)">
+      <el-select v-model="selectedPersonId" placeholder="请选择农户" width="100px" size="mini" @change="_getPlantByPerson(selectedPersonId)">
         <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id" />
       </el-select>
-      <el-select v-model="selectedPlantId" placeholder="请选择种植计划" @change="_getPlantItemByPlant(selectedPlantId)">
+      <el-select v-model="selectedPlantId" placeholder="请选择种植计划" width="200px" size="mini" @change="_getPlantItemByPlant(selectedPlantId)">
         <el-option v-for="item in plantList" :key="item.plant.id" :label="getPlantLabel(item)" :value="item.plant.id" />
       </el-select>
       <el-button :disabled="!selectedPlantId || selectedPlantId<=0" type="success" icon="el-icon-plus" size="small" @click="showModal">添加种植条目</el-button>
@@ -23,7 +23,7 @@
       <el-table :data="plantItemList" size="small" border stripe highlight-current-row>
         <el-table-column prop="plantItem.id" label="ID" width="100" />
         <el-table-column prop="plantItem.plantId" label="种植计划ID" />
-        <el-table-column prop="plantItem.actionType" label="实施类型" />
+        <el-table-column prop="actionType.name" label="实施类型" />
         <el-table-column prop="plantItem.actionDate" label="开始时间" />
         <el-table-column prop="farmer.name" label="农户姓名" />
         <el-table-column prop="goods.name" label="农作物名称" />
@@ -86,6 +86,12 @@ export default {
     },
     onCheckDetail(plantId) {
 
+    },
+    getActionTypeName(typeId) {
+      console.log('############', this.plantActionTypeList)
+      // return this.plantActionTypeList.find(v => {
+      //   return v.id === typeId
+      // }).name || ''
     },
     _getPersonList() {
       getAllPerson().then(res => {

@@ -6,7 +6,7 @@
       </el-form-item>
       <el-form-item label="生产行为" prop="actionType">
         <el-select v-model="ruleForm.actionType" placeholder="请选择">
-          <el-option v-for="item in plantActionTypeList" :key="item.value" :label="item.name" :value="item.value"/>
+          <el-option v-for="item in plantActionTypeList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
       </el-form-item>
       <el-form-item label="实施人" prop="actionFarmerId">
@@ -52,7 +52,7 @@ export default {
     return {
       flag: this.dialogVisible,
       ruleForm: {
-        plantId: null,
+        plantId: this.plant.plant.id,
         actionType: null,
         actionFarmerId: this.plant.farmer.id,
         actionDate: null,
