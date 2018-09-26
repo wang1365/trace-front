@@ -7,3 +7,11 @@ export function getAllWaybill(params) {
     params: params
   })
 }
+
+export function addWaybill(params) {
+  return request({
+    url: '/web/waybill/add',
+    method: 'post',
+    data: params
+  })
+}

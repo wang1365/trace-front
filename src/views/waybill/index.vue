@@ -1,5 +1,9 @@
 <template>
   <div class="main">
+    <WaybillDialog ref="formDialog" @add-success="showWaybills"/>
+    <el-row>
+      <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">新建运单</el-button>
+    </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" bwaybill stripe highlight-current-row>
         <el-table-column prop="id" label="ID" width="100" />
@@ -21,10 +25,12 @@
 
 <script>
 import { getAllWaybill } from '@/api/waybill'
+import WaybillDialog from './WaybillDialog'
 
 export default {
   name: 'Waybill',
   components: {
+    WaybillDialog
   },
   data() {
     return {
@@ -38,6 +44,9 @@ export default {
     this.showWaybills()
   },
   methods: {
+    showModal() {
+      this.$refs['formDialog'].show()
+    },
     handleView(index, row) {
       console.log(index, row)
     },
