@@ -119,7 +119,7 @@ export default {
           this.loading = true
           this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
             this.loading = false
-            this.$router.push({ path: '/config' })
+            this.$router.push({ path: '/' })
             console.log('login success')
           }).catch(() => {
             this.loading = false
