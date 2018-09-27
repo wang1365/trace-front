@@ -10,6 +10,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
+      '/login': {
+        target: 'http://localhost:8080',
+        secure: false,
+        changeOrigin: true
+      },
       '/web/**': {
         target: 'http://localhost:8080',
         secure: false,
@@ -26,7 +31,7 @@ module.exports = {
 
     // can be overwritten by process.env.HOST
     // if you want dev by ip, please set host: '0.0.0.0'
-    host: '127.0.0.1',
+    host: 'localhost',
     port: 9527, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,

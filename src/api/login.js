@@ -2,24 +2,25 @@ import request from '@/utils/request'
 
 export function loginByUsername(username, password) {
   const data = {
-    username,
-    password
+    username: 'admin',
+    password: '111111'
   }
   return request({
-    url: '/login/login',
+    url: '/login',
     method: 'post',
-    data
-    // transformRequest: [function(data) {
-    //   // Do whatever you want to transform the data
-    //   let ret = ''
-    //   for (const it in data) {
-    //     ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-    //   }
-    //   return ret
-    // }],
-    // headers: {
-    //   'Content-Type': 'application/x-www-form-urlencoded'
-    // }
+    data,
+    transformRequest: [function(data) {
+      // Do whatever you want to transform the data
+      let ret = ''
+      for (const it in data) {
+        ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+      }
+      return ret
+    }],
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+      // 'Access-Control-Allow-Origin': '*'
+    }
   })
 }
 

@@ -21,6 +21,7 @@ const user = {
       state.code = code
     },
     SET_TOKEN: (state, token) => {
+      console.log('set token:', token)
       state.token = token
     },
     SET_INTRODUCTION: (state, introduction) => {
@@ -49,9 +50,10 @@ const user = {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         loginByUsername(username, userInfo.password).then(response => {
-          const data = response.data
-          commit('SET_TOKEN', data.token)
-          setToken(response.data.token)
+          // const data = response.data
+          commit('SET_TOKEN', response.headers['cookie-bearer'])
+          console.log(response)
+          setToken(response.headers['cookie-bearer'])
           resolve()
         }).catch(error => {
           reject(error)
@@ -101,7 +103,9 @@ const user = {
     // 登出
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
+        console.log('logout')
         logout(state.token).then(() => {
+          console.log('logout success')
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
           removeToken()
@@ -115,6 +119,7 @@ const user = {
     // 前端 登出
     FedLogOut({ commit }) {
       return new Promise(resolve => {
+        console.log('FedLogOut')
         commit('SET_TOKEN', '')
         removeToken()
         resolve()
@@ -124,6 +129,7 @@ const user = {
     // 动态修改权限
     ChangeRoles({ commit }, role) {
       return new Promise(resolve => {
+        console.log('ChangeRoles', role)
         commit('SET_TOKEN', role)
         setToken(role)
         getUserInfo(role).then(response => {

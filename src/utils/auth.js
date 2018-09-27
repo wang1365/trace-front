@@ -1,15 +1,23 @@
 import Cookies from 'js-cookie'
 
 const TokenKey = 'Admin-Token'
+// const TokenKey = 'COOKIE-BEARER'
 
 export function getToken() {
-  return Cookies.get(TokenKey)
+  const ck = Cookies.get(TokenKey)
+  return ck
 }
 
 export function setToken(token) {
-  return Cookies.set(TokenKey, token)
+  const ret = Cookies.set(TokenKey, token)
+  Cookies.set('cookie-bear', 'b')
+  console.log('setToken', TokenKey, token)
+  console.log('get All cookie:', Cookies.get())
+
+  return ret
 }
 
 export function removeToken() {
+  console.log('removeToken', TokenKey)
   return Cookies.remove(TokenKey)
 }

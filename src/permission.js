@@ -24,6 +24,8 @@ router.beforeEach((to, from, next) => {
       next({ path: '/' })
       NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
     } else {
+      // wxc：暂不检查角色权限，直接路由
+      // next()
       if (store.getters.roles.length === 0) { // 判断当前用户是否已拉取完user_info信息
         store.dispatch('GetUserInfo').then(res => { // 拉取user_info
           const roles = res.data.roles // note: roles must be a array! such as: ['editor','develop']
@@ -48,6 +50,7 @@ router.beforeEach((to, from, next) => {
       }
     }
   } else {
+    console.info('Token not found')
     /* has no token*/
     if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
       next()
