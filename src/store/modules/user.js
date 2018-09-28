@@ -1,4 +1,5 @@
-import { loginByUsername, logout, getUserInfo } from '@/api/login'
+import { loginByUsername, getUserInfo } from '@/api/login'
+// import { logout } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
@@ -104,15 +105,18 @@ const user = {
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
         console.log('logout')
-        logout(state.token).then(() => {
-          console.log('logout success')
-          commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
-          removeToken()
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
+        // wxc: only remove token, not send logout to server
+        removeToken()
+        resolve()
+        // logout(state.token).then(() => {
+        //   console.log('logout success')
+        //   commit('SET_TOKEN', '')
+        //   commit('SET_ROLES', [])
+        //   removeToken()
+        //   resolve()
+        // }).catch(error => {
+        //   reject(error)
+        // })
       })
     },
 
