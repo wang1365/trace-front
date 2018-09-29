@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       activeName: 'directly',
-      inputData: 'https://github.com/PanJiaChen/vue-element-admin'
+      inputData: 'https://github.com/wang1365'
     }
   },
   methods: {
