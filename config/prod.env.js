@@ -1,5 +1,5 @@
 module.exports = {
   NODE_ENV: '"production"',
   ENV_CONFIG: '"prod"',
-  BASE_API: '"https://www.tiaocaishi.com"'
+  BASE_API: '"http://www.tiaocaishi.com:8080"'
 }
