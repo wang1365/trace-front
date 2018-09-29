@@ -83,11 +83,12 @@ export default {
     theme: '换肤'
   },
   login: {
-    title: '系统登录',
+    title: '溯源管理系统',
     logIn: '登录',
     username: '账号',
     password: '密码',
     any: '随便填',
+    contactadmin: '忘记账号密码请联系管理员王晓森、王晓川.',
     thirdparty: '第三方登录',
     thirdpartyTips: '本地不能模拟，请结合自己业务进行模拟！！！'
   },
