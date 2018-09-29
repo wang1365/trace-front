@@ -22,7 +22,7 @@ const user = {
       state.code = code
     },
     SET_TOKEN: (state, token) => {
-      console.log('set token:', token)
+      console.log('change  state,set token:', token)
       state.token = token
     },
     SET_INTRODUCTION: (state, introduction) => {
@@ -53,6 +53,7 @@ const user = {
         loginByUsername(username, userInfo.password).then(response => {
           // const data = response.data
           commit('SET_TOKEN', response.headers['cookie-bearer'])
+          console.log(response)
           console.log(response)
           setToken(response.headers['cookie-bearer'])
           resolve()

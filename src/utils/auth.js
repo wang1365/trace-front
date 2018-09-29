@@ -10,7 +10,6 @@ export function getToken() {
 
 export function setToken(token) {
   const ret = Cookies.set(TokenKey, token)
-  Cookies.set('cookie-bear', 'b')
   console.log('setToken', TokenKey, token)
   console.log('get All cookie:', Cookies.get())
 
