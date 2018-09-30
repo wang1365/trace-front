@@ -83,7 +83,7 @@ export default {
     theme: '换肤'
   },
   login: {
-    title: '溯源管理系统',
+    title: '果龙仓-溯源平台管理系统',
     logIn: '登录',
     username: '账号',
     password: '密码',

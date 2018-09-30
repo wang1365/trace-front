@@ -6,6 +6,7 @@
       <div class="title-container">
         <h3 class="title">{{ $t('login.title') }}</h3>
         <lang-select class="set-language"/>
+        <h4 class="subtitle">山东省寿光市文家街道桑家村</h4>
       </div>
 
       <el-form-item prop="username">
@@ -237,8 +238,15 @@ $light_gray:#eee;
   .title-container {
     position: relative;
     .title {
-      font-size: 26px;
+      font-size: 30px;
       color: $light_gray;
+      margin: 0px auto 40px auto;
+      text-align: center;
+      font-weight: bold;
+    }
+    .subtitle {
+      font-size: 20px;
+      color: $dark_gray;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;
