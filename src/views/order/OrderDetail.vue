@@ -1,28 +1,11 @@
 <template>
   <div class="main">
     <OrderDialog ref="formDialog" @add-success="updateOrderList" />
+    <div><a :href="h5Url">{{ h5Url }}</a></div>
     <el-row>
       <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">录入订单</el-button>
     </el-row>
-    <el-row class="table">
-      <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column prop="order.id" label="ID" width="100" />
-        <el-table-column prop="goods.name" label="商品名称" />
-        <el-table-column prop="order.orderTime" label="收购时间" />
-        <el-table-column prop="order.address" label="收购地点" />
-        <el-table-column prop="order.quantity" label="收购数量" />
-        <el-table-column prop="order.unit" label="单位" width="50px"/>
-        <el-table-column prop="order.buyerId" label="收购人" />
-        <el-table-column prop="order.sellerId" label="卖家(农户)" />
-        <el-table-column prop="report.title" label="质检报告" />
-        <el-table-column label="操作" width="200px">
-          <template slot-scope="scope">
-            <el-button size="mini" type="primary" @click="goOrderDetail(scope.row.order.id)">溯源二维码</el-button>
-            <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.order.id)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-row>
+    <el-row class="table"/>
     <el-dialog :visible.sync="imageDialogVisible" center>
       <img :src="selectedImage" width="100%" height="100%">
     </el-dialog>
@@ -34,19 +17,27 @@ import { getAllOrder, deleteOrder } from '@/api/order'
 import OrderDialog from './OrderDialog'
 
 export default {
-  name: 'Order',
+  name: 'OrderDetail',
   components: {
     OrderDialog
   },
   data() {
     return {
+      orderId: null,
+      h5Url: null,
       items: [],
       dialogVisible: false,
       imageDialogVisible: false,
       selectedImage: null
     }
   },
-  created() {
+  watch: {
+    orderId() {
+      this.h5Url = 'http://www.tiaocaishi.com:9527/#/goods/' + this.orderId
+    }
+  },
+  mounted() {
+    this.orderId = this.$route.params.orderId
     this.updateOrderList()
   },
   methods: {
@@ -85,9 +76,6 @@ export default {
     },
     delivery(id) {
       /** TODO */
-    },
-    goOrderDetail(orderId) {
-      this.$router.push(`/order/detail/${orderId}`)
     }
   }
 }

@@ -194,6 +194,12 @@ export const asyncRouterMap = [
         component: () => import('@/views/order/index'),
         name: 'Order',
         meta: { title: 'order', icon: 'table', noCache: true }
+      },
+      {
+        path: 'detail/:orderId',
+        component: () => import('@/views/order/OrderDetail'),
+        name: 'OrderDetail',
+        hidden: true
       }
     ]
   },
