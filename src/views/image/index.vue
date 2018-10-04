@@ -7,10 +7,12 @@
         <el-table-column prop="catName" label="类别" />
         <el-table-column prop="name" label="名称" />
         <el-table-column prop="localPath" label="本地地址" />
-        <el-table-column prop="urlPath" label="链接地址" />
+        <el-table-column prop="urlPath" label="链接地址" >
+          <template slot-scope="scope"><a :href="scope.row.urlPath">{{ scope.row.urlPath }}</a></template>
+        </el-table-column>
         <el-table-column label="图片">
           <template slot-scope="scope">
-            <img :src="scope.row.imageUrl" width="300" @click="onImageClick(scope.row.path)">
+            <img :src="scope.row.urlPath" width="300" @click="onImageClick(scope.row.path)">
           </template>
         </el-table-column>
         <el-table-column label="操作">
