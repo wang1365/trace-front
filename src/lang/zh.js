@@ -73,7 +73,8 @@ export default {
     plantInfo: '种植信息',
     plantBase: '种植计划',
     plantDetail: '详情管理',
-    waybill: '运单管理'
+    waybill: '运单管理',
+    image: '图片管理'
   },
   navbar: {
     logOut: '退出登录',

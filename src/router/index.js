@@ -215,6 +215,18 @@ export const asyncRouterMap = [
       }
     ]
   },
+  {
+    path: '/image',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/image/index'),
+        name: 'Image',
+        meta: { title: 'image', icon: 'table', noCache: true }
+      }
+    ]
+  },
   // {
   //   path: '/permission',
   //   component: Layout,
