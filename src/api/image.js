@@ -1,16 +1,24 @@
 import request from '@/utils/request'
 
-export function addImage(data) {
+export function addImage(name, catId) {
   return request({
     url: '/web/addImage',
     method: 'post',
-    data: data
+    param: { name, catId }
   })
 }
 
 export function getImageList(params) {
   return request({
     url: '/web/getImageList',
+    method: 'get',
+    params: params
+  })
+}
+
+export function getImageCategoryList(params) {
+  return request({
+    url: '/web/getImageCategoryList',
     method: 'get',
     params: params
   })

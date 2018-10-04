@@ -3,9 +3,27 @@
     <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="80px">
       <el-form-item label="图片名称" prop="name">
         <el-input v-model="ruleForm.name" placeholder="填写图片名称"/>
+      </el-form-item >
+      <el-form-item label="类别" prop="catId">
+        <el-select v-model="ruleForm.catId" placeholder="请选择类别">
+          <el-option v-for="item in catList" :key="item.id" :label="item.name" :value="item.id"/>
+        </el-select>
       </el-form-item>
-      <el-form-item label="图片链接" prop="imageUrl">
-        <el-input v-model="ruleForm.imageUrl" placeholder="填写图片图片链接"/>
+      <el-form-item>
+        <el-upload
+          ref="upload"
+          :auto-upload="false"
+          :limit="1"
+          :file-list="fileList"
+          :data="ruleForm"
+          :headers="{ 'cookie-bearer': token}"
+          name="file"
+          list-type="picture"
+          class="upload-demo"
+          action="/web/addImage">
+          <el-button slot="trigger" size="small" icon="el-icon-plus" type="primary">选择图片</el-button>
+          <div slot="trigger" class="el-upload__tip">只能上传jpg/png文件，且不超过20mb</div>
+        </el-upload>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -16,7 +34,7 @@
 </template>
 
 <script>
-import { addImage } from '@/api/image'
+import { getImageCategoryList } from '@/api/image'
 
 export default {
   name: 'ReportForm',
@@ -29,13 +47,19 @@ export default {
   data() {
     return {
       flag: this.dialogVisible,
+      catList: [],
+      token: null,
+      fileList: [],
       ruleForm: {
-        name: null,
-        imageUrl: null
+        catId: null,
+        name: null
       },
       formRules: {
         name: [
           { required: true, message: '请输入图片名称', trigger: 'blur' }
+        ],
+        catId: [
+          { required: true, message: '请选择类别', trigger: 'blur' }
         ]
       }
     }
@@ -52,6 +76,10 @@ export default {
   },
   mounted() {
     console.log('############ mounted')
+    this.token = this.$store.getters.token
+    getImageCategoryList().then(res => {
+      this.catList = res.data.data
+    })
   },
   methods: {
     show() {
@@ -65,13 +93,15 @@ export default {
         if (!valid) {
           return false
         }
-        addImage(this.ruleForm.name, this.ruleForm.imageUrl).then((response) => {
-          this.$message({ message: `添加图片成功`, type: 'success' })
-          this.$emit('add-success')
-          this.hide()
-        }).catch(err => {
-          this.$message({ message: `添加失败：${err}`, type: 'error' })
-        })
+
+        this.$refs.upload.submit()
+        // addImage(this.ruleForm.name, this.ruleForm.catId).then((response) => {
+        //   this.$message({ message: `添加图片成功`, type: 'success' })
+        //   this.$emit('add-success')
+        //   this.hide()
+        // }).catch(err => {
+        //   this.$message({ message: `添加失败：${err}`, type: 'error' })
+        // })
       })
     }
   }

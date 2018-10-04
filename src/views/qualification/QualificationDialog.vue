@@ -12,6 +12,7 @@
           :on-success="onSuccess"
           :on-error="onError"
           :on-preview="onPreview"
+          :headers="{ 'cookie-bearer': token}"
           :auto-upload="false"
           :limit="1"
           :file-list="fileList"
@@ -45,6 +46,7 @@ export default {
   data() {
     return {
       flag: this.dialogVisible,
+      token: null,
       form: {
         createTime: null,
         companyId: null
@@ -70,6 +72,7 @@ export default {
     }
   },
   mounted() {
+    this.token = this.$store.getters.token
     getAllCompany()
       .then(response => { this.companyList = response.data.data })
       .catch(err => console.error(err))
