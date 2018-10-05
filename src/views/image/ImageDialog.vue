@@ -14,6 +14,8 @@
           ref="upload"
           :auto-upload="false"
           :limit="1"
+          :on-success="onSuccess"
+          :on-error="onError"
           :file-list="fileList"
           :data="ruleForm"
           :headers="{ 'cookie-bearer': token}"
@@ -47,6 +49,7 @@ export default {
   data() {
     return {
       flag: this.dialogVisible,
+      useOriginName: true,
       catList: [],
       token: null,
       fileList: [],
@@ -95,14 +98,18 @@ export default {
         }
 
         this.$refs.upload.submit()
-        // addImage(this.ruleForm.name, this.ruleForm.catId).then((response) => {
-        //   this.$message({ message: `添加图片成功`, type: 'success' })
-        //   this.$emit('add-success')
-        //   this.hide()
-        // }).catch(err => {
-        //   this.$message({ message: `添加失败：${err}`, type: 'error' })
-        // })
       })
+    },
+    onSuccess(response, file, fileList) {
+      this.$message({
+        message: `文件${file.name}上传成功`,
+        type: 'success'
+      })
+      this.hide()
+      this.$emit('add-success')
+    },
+    onError(err, file, fileList) {
+      this.$message({ message: `文件${file.name}上传失败：${err}`, type: 'error' })
     }
   }
 }
