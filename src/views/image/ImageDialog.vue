@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { getImageCategoryList } from '@/api/image'
+import { getImageCategoryList, getImageByName } from '@/api/image'
 
 export default {
   name: 'ReportForm',
@@ -78,6 +78,7 @@ export default {
   created() {
   },
   mounted() {
+    this.fileList = []
     console.log('############ mounted')
     this.token = this.$store.getters.token
     getImageCategoryList().then(res => {
@@ -97,14 +98,21 @@ export default {
           return false
         }
 
-        this.$refs.upload.submit()
+        getImageByName(this.ruleForm.name).then(res => {
+          const imageList = res.data.data
+          console.log('TTTTTTT, ', this.fileList)
+          if (imageList.length > 0) {
+            this.$message({ message: `文件"${this.ruleForm.name}"在服务器上已经存在！`, type: 'error' })
+          } else {
+            this.$refs.upload.submit()
+          }
+        }).catch(err => {
+          this.$message({ message: `查询失败，${err}`, type: 'error' })
+        })
       })
     },
     onSuccess(response, file, fileList) {
-      this.$message({
-        message: `文件${file.name}上传成功`,
-        type: 'success'
-      })
+      this.$message({ message: `文件${file.name}上传成功`, type: 'success' })
       this.hide()
       this.$emit('add-success')
     },

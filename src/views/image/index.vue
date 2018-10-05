@@ -6,19 +6,19 @@
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" width="100" />
-        <el-table-column prop="catName" label="类别" />
-        <el-table-column prop="name" label="名称" />
-        <el-table-column prop="localPath" label="本地地址" />
+        <el-table-column prop="id" label="ID" width="80" />
+        <el-table-column prop="catName" label="类别" width="80" />
+        <el-table-column prop="name" label="名称" width="120" />
+        <el-table-column prop="localPath" label="本地地址" width="200"/>
         <el-table-column prop="urlPath" label="链接地址" >
           <template slot-scope="scope"><a :href="scope.row.urlPath">{{ scope.row.urlPath }}</a></template>
         </el-table-column>
-        <el-table-column label="图片">
+        <el-table-column label="图片" width="250">
           <template slot-scope="scope">
-            <img :src="scope.row.urlPath" width="300" @click="onImageClick(scope.row.path)">
+            <img :src="scope.row.urlPath" width="230px" @click="onImageClick(scope.row.path)">
           </template>
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="100" >
           <template slot-scope="scope">
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>

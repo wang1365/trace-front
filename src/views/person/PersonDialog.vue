@@ -5,8 +5,8 @@
         <el-input v-model="ruleForm.name" placeholder="填写姓名"/>
       </el-form-item>
       <el-form-item label="性别" prop="idCard">
-        <el-radio v-model="ruleForm.gender" label="1">男</el-radio>
-        <el-radio v-model="ruleForm.gender" label="2">女</el-radio>
+        <el-radio v-model="ruleForm.gender" label="男">男</el-radio>
+        <el-radio v-model="ruleForm.gender" label="女">女</el-radio>
       </el-form-item>
       <el-form-item label="身份证" prop="idCard">
         <el-input v-model="ruleForm.idCard" placeholder="填写身份证"/>

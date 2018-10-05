@@ -16,6 +16,14 @@ export function getImageList(params) {
   })
 }
 
+export function getImageByName(name) {
+  return request({
+    url: '/web/getImageByName',
+    method: 'get',
+    params: { name }
+  })
+}
+
 export function getImageCategoryList(params) {
   return request({
     url: '/web/getImageCategoryList',
