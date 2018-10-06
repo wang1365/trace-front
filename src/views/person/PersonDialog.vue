@@ -51,7 +51,7 @@ export default {
       ruleForm: {
         name: null,
         idCard: null,
-        gender: null,
+        gender: '男',
         birthday: null,
         familyAddress: null,
         mobileNo: null,
