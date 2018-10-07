@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="flag" title="新增人员">
+  <el-dialog :visible.sync="visible" :title="action==='add'?'新增人员':'人员修改'">
     <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="80px">
       <el-form-item label="姓名" prop="name">
         <el-input v-model="ruleForm.name" placeholder="填写姓名"/>
@@ -25,30 +25,29 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button type="success" size="small" @click="onSubmit('ruleForm')">添加</el-button>
-      <el-button size="small" @click="flag = false">取消</el-button>
+      <el-button type="success" size="small" @click="onSubmit('ruleForm')">保存</el-button>
+      <el-button size="small" @click="visible = false">取消</el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
-import { addPerson } from '@/api/person'
+import { addPerson, updatePerson } from '@/api/person'
 
 export default {
   name: 'ReportForm',
   props: {
-    dialogVisible: {
-      type: Boolean,
-      default: false
-    }
+
   },
   data() {
     return {
-      flag: this.dialogVisible,
+      visible: false,
+      action: 'add',
       goodsList: [],
       reportList: [],
       units: ['kg', '个'],
       ruleForm: {
+        id: null,
         name: null,
         idCard: null,
         gender: '男',
@@ -70,31 +69,32 @@ export default {
       }
     }
   },
-  watch: {
-    dialogVisible(newVal) {
-      if (!newVal) {
-        this.$refs['ruleForm'].resetFields()
-      }
-      this.flag = this.dialogVisible
-    }
-  },
   created() {
   },
   mounted() {
   },
   methods: {
-    show() {
-      this.flag = true
+    show(action, person) {
+      if (action === 'modify') {
+        this.action = action
+        this.ruleForm = person
+      } else {
+        this.action = 'add'
+      }
+      this.visible = true
     },
     hide() {
-      this.flag = false
+      this.visible = false
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
         if (!valid) {
           return false
         }
-        addPerson(this.ruleForm).then((response) => {
+
+        console.log('action:', this.action)
+        const restApi = this.action === 'modify' ? updatePerson : addPerson
+        restApi(this.ruleForm).then((response) => {
           this.$message({ message: `添加人员成功`, type: 'success' })
           this.$emit('add-success')
           this.hide()

@@ -4,10 +4,10 @@
       <el-col v-for="(item, index) in items" :span="6" :key="item.id" :offset="2" >
         <el-card :body-style="{ padding: '30px' }" :id="'card'+index" class="card">
           <!--<img :src="item.qrcodeUrl" :id="'qrcode'+index" class="image" >-->
-          <div>订单 {{ item.id }} 溯源二维码：</div>
-          <div :id="`qrcode`+index" :ref="`qrcode`+index" style="padding-bottom: 20px"/>
-          <div style="padding: 14px;">
-            <span>{{ item.summary }}</span>
+          <div>订单 <span style="color: #1478F0">{{ item.id }}</span> 溯源二维码：</div>
+          <div :id="`qrcode`+index" :ref="`qrcode`+index" style="margin: 10px"/>
+          <div>
+            <span style="color: #30B08F">{{ item.summary }}</span>
             <div class="bottom clearfix">
               <el-button type="primary" class="button" @click="printContent(index)">打印二维码</el-button>
             </div>

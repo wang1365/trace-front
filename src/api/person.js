@@ -8,6 +8,14 @@ export function addPerson(data) {
   })
 }
 
+export function updatePerson(data) {
+  return request({
+    url: '/web/person/updatePerson',
+    method: 'post',
+    data: data
+  })
+}
+
 export function getAllPerson(params) {
   return request({
     url: '/web/person/list',

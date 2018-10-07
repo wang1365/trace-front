@@ -1,6 +1,7 @@
 <template>
   <div class="main">
     <PersonDialog ref="formDialog" @add-success="updatePersonList" />
+    <!--<PersonDialog ref="modifyDialog" :person="modifyPerson" action="modify" @add-success="updatePersonList" />-->
     <el-row>
       <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">录入人员</el-button>
     </el-row>
@@ -16,14 +17,12 @@
         <el-table-column prop="company" label="单位" />
         <el-table-column label="操作">
           <template slot-scope="scope">
+            <el-button size="mini" type="warning" @click="showModal('modify', scope.row)">修改</el-button>
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
     </el-row>
-    <el-dialog :visible.sync="imageDialogVisible" center>
-      <img :src="selectedImage" width="100%" height="100%">
-    </el-dialog>
   </div>
 </template>
 
@@ -40,8 +39,13 @@ export default {
     return {
       items: [],
       dialogVisible: false,
-      imageDialogVisible: false,
-      selectedImage: null
+      selectedPerson: null,
+      showAddDialog: false
+    }
+  },
+  computed: {
+    modifyPerson() {
+      return this.selectedPerson
     }
   },
   created() {
@@ -51,8 +55,13 @@ export default {
     handleView(index, row) {
       console.log(index, row)
     },
-    showModal() {
-      this.$refs['formDialog'].show()
+    showModal(action, person) {
+      this.$refs['formDialog'].show(action, person)
+    },
+    showModifyDialog(person) {
+      this.selectedPerson = person
+      console.log('show modify modal;', person)
+      this.$refs['modifyDialog'].show()
     },
     updatePersonList() {
       getAllPerson().then(response => {
