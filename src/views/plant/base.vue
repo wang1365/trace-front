@@ -71,7 +71,7 @@ export default {
       this.$router.push({ name: 'PlantDetail', params: { plantId: plantId }})
     },
     onDeleteBtnClick(id) {
-      this.$confirm('是否确认要删除该订单?', '提示', {
+      this.$confirm('是否确认要删除?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
