@@ -7,10 +7,9 @@
         </el-select>
       </el-form-item>
       <el-form-item
-        :rules="[ {required: true, message:'请输入数量', trigger:'blur'}]"
         label="采购数量"
         prop="quantity">
-        <el-input v-model.number="ruleForm.quantity" placeholder="填写商品数量"/>
+        <el-input v-model.number="ruleForm.quantity" type="number" placeholder="填写商品数量"/>
       </el-form-item>
       <el-form-item label="单位" prop="unit">
         <el-select v-model="ruleForm.unit" placeholder="请选择">
@@ -24,7 +23,7 @@
         <el-input v-model="ruleForm.address" placeholder="填写采购地点"/>
       </el-form-item>
       <el-form-item label="采购人" prop="buyerId">
-        <el-input v-model="ruleForm.buyerId" placeholder="填写采购人"/>
+        <el-input v-model.trim="ruleForm.buyerId" placeholder="填写采购人"/>
       </el-form-item>
       <el-form-item label="菜农" prop="sellerId">
         <el-input v-model="ruleForm.sellerId" placeholder="填写菜农"/>
@@ -75,13 +74,19 @@ export default {
       },
       formRules: {
         goodsId: [
-          { required: true, message: '请选择一个商品', trigger: 'blur' }
+          { required: true, message: '商品不能为空', trigger: 'blur' }
         ],
         name: [
           { required: true, message: '请输入种植计划名称', trigger: 'blur' }
         ],
         orderTime: [
           { required: true, message: '请选择采购时间', trigger: 'blur' }
+        ],
+        quantity: [
+          { required: true, message: '采购数量不能为空', trigger: 'blur' }
+        ],
+        unit: [
+          { required: true, message: '采购单位不能为空', trigger: 'blur' }
         ]
       }
     }
