@@ -1,15 +1,16 @@
 <template>
   <div class="main">
-    <PlantDialog ref="formDialog" @add-success="updatePlantList" />
+    <PlantDialog ref="formDialog" :plant-list="items" @add-success="updatePlantList" />
     <el-row>
       <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">添加种植计划</el-button>
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="plant.id" label="ID" width="100" />
-        <el-table-column prop="plant.startDate" label="开始时间" />
         <el-table-column prop="farmer.name" label="农户姓名" />
         <el-table-column prop="goods.name" label="农作物名称" />
+        <el-table-column prop="plant.year" label="年度" />
+        <el-table-column prop="plant.startDate" label="开始时间" />
         <el-table-column prop="plant.address" label="地点" />
         <el-table-column prop="plant.createTime" label="记录时间" />
         <el-table-column label="操作">

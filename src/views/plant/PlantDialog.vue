@@ -11,6 +11,9 @@
           <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
       </el-form-item>
+      <el-form-item label="种植年度" prop="year">
+        <el-date-picker v-model="ruleForm.year" value-format="yyyy" type="year" placeholder="选择年"/>
+      </el-form-item>
       <el-form-item label="开始时间" prop="startDate">
         <el-date-picker v-model="ruleForm.startDate" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
       </el-form-item>
@@ -33,12 +36,29 @@ import { addPlant } from '@/api/plant'
 export default {
   name: 'PlantForm',
   props: {
+    plantList: {
+      type: Array,
+      default: null
+    },
     dialogVisible: {
       type: Boolean,
       default: false
     }
   },
   data() {
+    const validateDup = (rule, value, callback) => {
+      console.log('validateDup:', rule, value, this.ruleForm, this.plantList)
+      const dup = this.plantList.find((v) => {
+        return this.ruleForm.goodsId === v.plant.goodsId &&
+        this.ruleForm.farmerId === v.plant.farmerId &&
+        Number(this.ruleForm.year) === v.plant.year
+      })
+      console.log('888888888888888888 ', dup)
+      if (dup) {
+        console.log('dup!!!!!!!!!!!!!!!')
+        callback(new Error('每年每个农户每个商品只能添加一个种植计划'))
+      }
+    }
     return {
       flag: this.dialogVisible,
       goodsList: [],
@@ -48,14 +68,21 @@ export default {
         goodsId: null,
         farmerId: null,
         startDate: null,
-        address: null
+        address: null,
+        year: null
       },
       formRules: {
         goodsId: [
-          { required: true, message: '请选择一个农作物名称', trigger: 'blur' }
+          { required: true, message: '请选择一个农作物名称', trigger: 'blur' },
+          { validator: validateDup, trigger: 'blur' }
         ],
         farmerId: [
-          { required: true, message: '请选择种植户', trigger: 'blur' }
+          { required: true, message: '请选择种植户', trigger: 'blur' },
+          { validator: validateDup, trigger: 'blur' }
+        ],
+        year: [
+          { required: true, message: '年度不能为空', trigger: 'blur' },
+          { validator: validateDup, trigger: 'blur' }
         ],
         startDate: [
           { required: true, message: '请选择种植开始时间', trigger: 'blur' }
@@ -76,7 +103,6 @@ export default {
   mounted() {
     this.getGoodsList()
     this._getPersonList()
-    this.getPlantList()
   },
   methods: {
     show() {
