@@ -30,9 +30,14 @@
           <el-option v-for="item in personList" :key="item.id" :label="item.id + '.' + item.name" :value="item.id"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="采摘条目" prop="plantItemId">
-        <el-select v-model="ruleForm.unit" placeholder="关联种植计划中的采摘">
-          <el-option v-for="item in plantItemList" :key="item" :label="item" :value="item"/>
+      <el-form-item label="种植计划" prop="plantId">
+        <el-select v-model="ruleForm.plantId" placeholder="关联种植计划">
+          <el-option v-for="item in plantList" :key="item.id" :label="item" :value="item.id"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="采摘条目" prop="pickId">
+        <el-select v-model="ruleForm.pickId" placeholder="关联种植计划中的采摘">
+          <el-option v-for="item in pickList" :key="item.id" :label="item" :value="item.id"/>
         </el-select>
       </el-form-item>
       <el-form-item label="相关质检报告" prop="reportId">
@@ -52,7 +57,8 @@
 import { getAllGoods } from '@/api/goods'
 import { getAllQualityReport } from '@/api/qualityReport'
 import { addOrder } from '@/api/order'
-import { getPickPlantItemListByPerson } from '@/api/plant'
+import { getAllPerson } from '@/api/person'
+import { getPlantListByPerson, getPickListByPlant } from '@/api/plant'
 
 export default {
   name: 'ReportForm',
@@ -68,6 +74,8 @@ export default {
       goodsList: [],
       reportList: [],
       units: ['kg', '个'],
+      plantList: [],
+      pickList: [],
       ruleForm: {
         goodsId: null,
         quantity: null,
@@ -79,7 +87,8 @@ export default {
         sellerId: null,
         dealDate: null,
         createTime: null,
-        plantItemId: null
+        plantId: null,
+        pickId: null
       },
       formRules: {
         goodsId: [
@@ -100,6 +109,14 @@ export default {
       }
     }
   },
+  computed: {
+    sellerId() {
+      return this.ruleForm.sellerId
+    },
+    plantId() {
+      return this.ruleForm.plantId
+    }
+  },
   watch: {
     dialogVisible(newVal) {
       if (!newVal) {
@@ -107,21 +124,36 @@ export default {
       }
       this.flag = this.dialogVisible
     },
-    ruleForm: {
-      handler(newV, oldV) {
-        if (newV.sellerId !== oldV.sellerId) {
-          this.updatePlantItemList()
-          this.ruleForm.plantItemId = null
-        }
-      },
-      deep: true
+    sellerId() {
+      this.updatePlantListByPerson(this.ruleForm.sellerId)
+      this.ruleForm.plantId = null
+    },
+    plantId() {
+      this.updatePickListByPlant(this.ruleForm.plantId)
+      this.ruleForm.pickId = null
     }
+    // ,
+    // ruleForm: {
+    //   handler(newV, oldV) {
+    //     console.log('select seller changes, ', newV.sellerId, oldV.sellerId)
+    //     if (newV.sellerId !== oldV.sellerId) {
+    //       this.updatePlantListByPerson()
+    //       this.ruleForm.plantId = null
+    //     }
+    //     if (newV.plantId !== oldV.plantId) {
+    //       this.updatePickListByPlant()
+    //       this.ruleForm.pickId = null
+    //     }
+    //   },
+    //   deep: true
+    // }
   },
   created() {
   },
   mounted() {
     this.getGoodsList()
     this.getReportList()
+    this.getPersonList()
   },
   methods: {
     show() {
@@ -151,6 +183,13 @@ export default {
         this.$message({ message: `获取商品列表失败, ${err}`, type: 'error' })
       })
     },
+    getPersonList() {
+      getAllPerson().then(res => {
+        this.personList = res.data.data
+      }).catch(err => {
+        this.$message({ message: `获取人员列表失败, ${err}`, type: 'error' })
+      })
+    },
     getReportList() {
       getAllQualityReport().then(res => {
         this.reportList = res.data.data
@@ -158,9 +197,14 @@ export default {
         this.$message({ message: `获取列表失败, ${err}`, type: 'error' })
       })
     },
-    updatePlantItemList(personId) {
-      getPickPlantItemListByPerson(personId).then(res => {
-        this.plantItemList = res.data.data
+    updatePlantListByPerson(personId) {
+      getPlantListByPerson(personId).then(res => {
+        this.plantList = res.data.data
+      })
+    },
+    updatePickListByPlant(plantId) {
+      getPickListByPlant(plantId).then(res => {
+        this.pickList = res.data.data
       })
     }
   }

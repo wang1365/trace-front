@@ -24,13 +24,31 @@ export function getAllPlant(params) {
   })
 }
 
-export function getPickPlantItemListByPerson(personId) {
+export function getPickListByPerson(personId) {
   return request({
-    url: '/web/getPickPlantItemListByPerson',
+    url: '/web/plant/getPickListByPerson',
     method: 'get',
     params: { personId }
   })
 }
+
+export function getPlantListByPerson(personId) {
+  return request({
+    url: '/web/plant/getPlantListByPerson',
+    method: 'get',
+    params: { personId }
+  })
+}
+
+export function getPickListByPlant(plantId) {
+  return request({
+    url: '/web/plant/getPickListByPlant',
+    method: 'get',
+    params: { plantId }
+  })
+}
+
+getPickListByPlant
 
 export function getAllPlantItem(params) {
   return request({

@@ -6,19 +6,21 @@
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column prop="order.id" label="ID" width="100" />
-        <el-table-column prop="goods.name" label="商品名称" />
-        <el-table-column prop="order.orderTime" label="收购时间" />
-        <el-table-column prop="order.address" label="收购地点" />
-        <el-table-column prop="order.quantity" label="收购数量" />
-        <el-table-column prop="order.unit" label="单位" width="50px"/>
-        <el-table-column prop="order.buyerId" label="收购人" />
-        <el-table-column prop="order.sellerId" label="卖家(农户)" />
-        <el-table-column prop="report.title" label="质检报告" />
+        <el-table-column prop="id" label="ID" width="100" />
+        <el-table-column prop="goodsName" label="商品名称" />
+        <el-table-column prop="orderTime" label="收购时间" />
+        <el-table-column prop="address" label="收购地点" />
+        <el-table-column prop="quantity" label="收购数量" />
+        <el-table-column prop="unit" label="单位" width="50px"/>
+        <el-table-column prop="buyerId" label="收购人" />
+        <el-table-column prop="sellerId" label="卖家(农户)" />
+        <el-table-column prop="plantId" label="种植计划" />
+        <el-table-column prop="pickId" label="采摘条目" />
+        <el-table-column prop="reportTitle" label="质检报告" />
         <el-table-column label="操作" width="200px">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" @click="goOrderDetail(scope.row.order.id)">溯源二维码</el-button>
-            <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.order.id)">删除</el-button>
+            <el-button size="mini" type="primary" @click="goOrderDetail(scope.row.id)">溯源二维码</el-button>
+            <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
