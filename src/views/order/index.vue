@@ -6,16 +6,16 @@
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" width="100" />
-        <el-table-column prop="goodsName" label="商品名称" />
-        <el-table-column prop="orderTime" label="收购时间" />
+        <el-table-column prop="id" label="ID" width="50" />
+        <el-table-column prop="goodsName" label="商品名称" width="80"/>
+        <el-table-column prop="orderTime" label="收购时间" width="85"/>
         <el-table-column prop="address" label="收购地点" />
-        <el-table-column prop="quantity" label="收购数量" />
+        <el-table-column prop="quantity" label="收购数量" width="80" />
         <el-table-column prop="unit" label="单位" width="50px"/>
-        <el-table-column prop="buyerId" label="收购人" />
-        <el-table-column prop="sellerId" label="卖家(农户)" />
-        <el-table-column prop="plantId" label="种植计划" />
-        <el-table-column prop="pickId" label="采摘条目" />
+        <el-table-column prop="buyerName" label="收购人" width="80" />
+        <el-table-column prop="sellerName" label="卖家(农户)" width="80" />
+        <el-table-column prop="plantDTO.summary" label="种植计划" />
+        <el-table-column prop="pickDTO.summary" label="采摘条目" />
         <el-table-column prop="reportTitle" label="质检报告" />
         <el-table-column label="操作" width="200px">
           <template slot-scope="scope">

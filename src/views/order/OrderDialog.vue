@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="flag" title="新增种植计划" center>
+  <el-dialog :visible.sync="flag" title="新增订单" center>
     <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="100px">
       <el-form-item label="商品" prop="goodsId">
         <el-select v-model="ruleForm.goodsId" placeholder="请选择">
@@ -23,7 +23,9 @@
         <el-input v-model="ruleForm.address" placeholder="填写采购地点"/>
       </el-form-item>
       <el-form-item label="采购人" prop="buyerId">
-        <el-input v-model.trim="ruleForm.buyerId" placeholder="填写采购人"/>
+        <el-select v-model="ruleForm.buyerId" placeholder="填写采购人">
+          <el-option v-for="item in personList" :key="item.id" :label="item.id + '.' + item.name" :value="item.id"/>
+        </el-select>
       </el-form-item>
       <el-form-item label="菜农" prop="sellerId">
         <el-select v-model="ruleForm.sellerId" placeholder="请选择">
@@ -32,12 +34,12 @@
       </el-form-item>
       <el-form-item label="种植计划" prop="plantId">
         <el-select v-model="ruleForm.plantId" placeholder="关联种植计划">
-          <el-option v-for="item in plantList" :key="item.id" :label="item" :value="item.id"/>
+          <el-option v-for="item in plantList" :key="item.id" :label="formatPlantInfo(item)" :value="item.id"/>
         </el-select>
       </el-form-item>
       <el-form-item label="采摘条目" prop="pickId">
         <el-select v-model="ruleForm.pickId" placeholder="关联种植计划中的采摘">
-          <el-option v-for="item in pickList" :key="item.id" :label="item" :value="item.id"/>
+          <el-option v-for="item in pickList" :key="item.id" :label="formatPlantItemInfo(item)" :value="item.id"/>
         </el-select>
       </el-form-item>
       <el-form-item label="相关质检报告" prop="reportId">
@@ -144,21 +146,6 @@ export default {
       this.updatePickListByPlant(this.ruleForm.plantId)
       this.ruleForm.pickId = null
     }
-    // ,
-    // ruleForm: {
-    //   handler(newV, oldV) {
-    //     console.log('select seller changes, ', newV.sellerId, oldV.sellerId)
-    //     if (newV.sellerId !== oldV.sellerId) {
-    //       this.updatePlantListByPerson()
-    //       this.ruleForm.plantId = null
-    //     }
-    //     if (newV.plantId !== oldV.plantId) {
-    //       this.updatePickListByPlant()
-    //       this.ruleForm.pickId = null
-    //     }
-    //   },
-    //   deep: true
-    // }
   },
   created() {
   },
@@ -187,6 +174,12 @@ export default {
           this.$message({ message: `添加失败：${err}`, type: 'error' })
         })
       })
+    },
+    formatPlantInfo(plant) {
+      return plant.id + '/' + plant.farmerName + '/' + plant.goodsName + '/' + plant.year
+    },
+    formatPlantItemInfo(item) {
+      return item.id + '/' + item.farmerName + '/' + item.actionName + '/' + new Date(item.actionDate).toLocaleDateString()
     },
     getGoodsList() {
       getAllGoods().then(res => {
