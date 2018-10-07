@@ -105,6 +105,18 @@ export default {
         ],
         unit: [
           { required: true, message: '采购单位不能为空', trigger: 'blur' }
+        ],
+        buyerId: [
+          { required: true, message: '采购人不能为空', trigger: 'blur' }
+        ],
+        sellerId: [
+          { required: true, message: '卖方不能为空', trigger: 'blur' }
+        ],
+        plantId: [
+          { required: true, message: '卖方关联的种植计划不能为空', trigger: 'blur' }
+        ],
+        pickId: [
+          { required: true, message: '关联的卖方采购条目不能为空', trigger: 'blur' }
         ]
       }
     }
