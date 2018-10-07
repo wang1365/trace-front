@@ -4,10 +4,10 @@
       <el-col v-for="(item, index) in items" :span="6" :key="item.id" :offset="2" >
         <el-card :body-style="{ padding: '30px' }" :id="'card'+index" class="card">
           <!--<img :src="item.qrcodeUrl" :id="'qrcode'+index" class="image" >-->
-          <div>订单 <span style="color: #1478F0">{{ item.id }}</span> 溯源二维码：</div>
+          <div><span style="color: #1478F0">手机扫一扫</span><span> 溯源二维码：</span></div>
           <div :id="`qrcode`+index" :ref="`qrcode`+index" style="margin: 10px"/>
           <div>
-            <span style="color: #30B08F">{{ item.summary }}</span>
+            <span style="color: #30B08F">订单{{ item.summary }}</span>
             <div class="bottom clearfix">
               <el-button type="primary" class="button" @click="printContent(index)">打印二维码</el-button>
             </div>
@@ -75,7 +75,7 @@ export default {
     createQrcode() {
       this.$nextTick(() => {
         this.items.forEach((order, index, arr) => {
-          const baseUrl = 'http://www.tiaocaishi.com:9527/#/goods/'
+          const baseUrl = 'http://www.tiaocaishi.com:9527/h5/#/goods/'
           new QRCode(`qrcode${index}`, {
             width: 250,
             height: 250, // 高度

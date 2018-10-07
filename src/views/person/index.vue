@@ -8,7 +8,9 @@
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" sortable width="80" />
         <el-table-column prop="name" label="姓名" sortable width="100" />
-        <el-table-column prop="gender" label="性别" width="50" />
+        <el-table-column prop="gender" label="性别" width="50" >
+          <template slot-scope="scope"><span :class="scope.row.gender === '男' ? 'gender-m':'gender-f'">{{ scope.row.gender }}</span></template>
+        </el-table-column>
         <el-table-column label="出生日期" sortable width="120">
           <template slot-scope="scope">{{ scope.row.birthday| formatDate }}</template>
         </el-table-column>
@@ -127,5 +129,11 @@ export default {
   }
   .clearfix:after {
     clear: both
+  }
+  .gender-m {
+    color: #1478F0;
+  }
+  .gender-f {
+    color: #a13e0d;
   }
 </style>
