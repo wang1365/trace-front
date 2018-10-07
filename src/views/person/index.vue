@@ -1,7 +1,6 @@
 <template>
   <div class="main">
     <PersonDialog ref="formDialog" @add-success="updatePersonList" />
-    <!--<PersonDialog ref="modifyDialog" :person="modifyPerson" action="modify" @add-success="updatePersonList" />-->
     <el-row>
       <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">录入人员</el-button>
     </el-row>
@@ -10,14 +9,16 @@
         <el-table-column prop="id" label="ID" sortable width="80" />
         <el-table-column prop="name" label="姓名" sortable width="100" />
         <el-table-column prop="gender" label="性别" width="50" />
-        <el-table-column prop="birthday" label="出生日期" sortable width="120"/>
+        <el-table-column label="出生日期" sortable width="120">
+          <template slot-scope="scope">{{ scope.row.birthday| formatDate }}</template>
+        </el-table-column>
         <el-table-column prop="idCard" label="身份证号" width="150"/>
         <el-table-column prop="familyAddress" label="家庭地址" />
         <el-table-column prop="mobileNo" label="联系方式" width="120"/>
         <el-table-column prop="company" label="单位" />
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" type="warning" @click="showModal('modify', scope.row)">修改</el-button>
+            <el-button size="mini" type="primary" @click="showModal('modify', scope.row)">修改</el-button>
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
@@ -43,11 +44,6 @@ export default {
       showAddDialog: false
     }
   },
-  computed: {
-    modifyPerson() {
-      return this.selectedPerson
-    }
-  },
   created() {
     this.updatePersonList()
   },
@@ -57,11 +53,6 @@ export default {
     },
     showModal(action, person) {
       this.$refs['formDialog'].show(action, person)
-    },
-    showModifyDialog(person) {
-      this.selectedPerson = person
-      console.log('show modify modal;', person)
-      this.$refs['modifyDialog'].show()
     },
     updatePersonList() {
       getAllPerson().then(response => {

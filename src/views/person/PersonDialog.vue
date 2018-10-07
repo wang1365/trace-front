@@ -57,14 +57,8 @@ export default {
         company: null
       },
       formRules: {
-        goodsId: [
-          { required: true, message: '请选择一个商品', trigger: 'blur' }
-        ],
         name: [
           { required: true, message: '请输入人员名称', trigger: 'blur' }
-        ],
-        orderTime: [
-          { required: true, message: '请选择采购时间', trigger: 'blur' }
         ]
       }
     }
@@ -78,6 +72,9 @@ export default {
       if (action === 'modify') {
         this.action = action
         this.ruleForm = person
+        if (person && person.birthday) {
+          person.birthday = this.$options.filters.formatDate(person.birthday)
+        }
       } else {
         this.action = 'add'
       }
