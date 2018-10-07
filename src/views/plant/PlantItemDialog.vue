@@ -102,6 +102,7 @@ export default {
         }
         addPlantItem(this.ruleForm).then((response) => {
           this.$message({ message: `添加种植条目成功`, type: 'success' })
+          this.$refs['ruleForm'].resetFields()
           this.$emit('add-success')
           this.hide()
         }).catch(err => {

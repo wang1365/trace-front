@@ -96,12 +96,10 @@ export default {
       })
     },
     onSuccess(response, file, fileList) {
-      this.$message({
-        message: `文件${file.name}上传成功`,
-        type: 'success'
-      })
-      this.hide()
+      this.$message({ message: `文件${file.name}上传成功`, type: 'success' })
+      this.$refs['form'].resetFields()
       this.$emit('upload-success')
+      this.hide()
     },
     onError(err, file, fileList) {
       this.$message({ message: `文件${file.name}上传失败：${err}`, type: 'error' })

@@ -94,6 +94,7 @@ export default {
         restApi(this.ruleForm).then((response) => {
           this.$message({ message: `添加人员成功`, type: 'success' })
           this.$emit('add-success')
+          this.$refs['ruleForm'].resetFields()
           this.hide()
         }).catch(err => {
           this.$message({ message: `添加失败：${err}`, type: 'error' })

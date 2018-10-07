@@ -78,6 +78,7 @@ export default {
         }
         addWaybill(this.ruleForm).then((response) => {
           this.$message({ message: `添加运单成功`, type: 'success' })
+          this.$refs['ruleForm'].resetFields()
           this.$emit('add-success')
           this.hide()
         }).catch(err => {

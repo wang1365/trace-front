@@ -78,11 +78,9 @@ export default {
           return
         }
         addCompany(this.form).then(response => {
-          this.$message({
-            message: `添加上传成功`,
-            type: 'success'
-          })
+          this.$message({ message: `添加上传成功`, type: 'success' })
           this.$emit('upload-success')
+          this.$refs['form'].resetFields()
           this.hide()
         }).catch(err => {
           this.$error(`添加失败：${err}`)
