@@ -87,11 +87,9 @@ export default {
         this.$message({ type: 'info', message: '已取消删除' })
       })
     },
-    delivery(id) {
-      /** TODO */
-    },
     goOrderDetail(orderId) {
-      this.$router.push(`/order/detail/${orderId}`)
+      this.$router.push('/qrcode/index')
+      // this.$router.push(`/order/detail/${orderId}`)
     }
   }
 }
