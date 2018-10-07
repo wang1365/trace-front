@@ -21,9 +21,9 @@
     </el-row>
     <el-row class="table">
       <el-table :data="plantItemList" size="small" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" sortable width="100" />
+        <el-table-column prop="id" label="ID" sortable width="80" />
         <!--<el-table-column prop="plantId" label="种植计划ID" />-->
-        <el-table-column prop="actionName" sortable label="实施类型" />
+        <el-table-column prop="actionName" sortable label="实施类型" width="100"/>
         <el-table-column :formatter="dateFormat" sortable label="开始时间" >
           <template slot-scope="scope">{{ scope.row.actionDate | formatDate }}</template>
         </el-table-column>
@@ -32,6 +32,7 @@
         <el-table-column :formatter="dateTimeFormat" sortable label="记录时间" >
           <template slot-scope="scope">{{ scope.row.createTime | formatDatetime }}</template>
         </el-table-column>
+        <el-table-column prop="actionContent" label="内容" />
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>

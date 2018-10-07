@@ -60,7 +60,6 @@ export default {
       flag: this.dialogVisible,
       token: null,
       form: {
-        createTime: null,
         reportDate: null,
         goodsId: null,
         origin: null,

@@ -6,13 +6,17 @@
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" sortable width="100" />
+        <el-table-column prop="id" label="ID" sortable width="80" />
         <el-table-column prop="title" label="标题" />
         <el-table-column prop="goodsName" label="商品名称" sortable width="100" />
         <el-table-column prop="origin" label="商品产地" width="150" />
-        <el-table-column prop="createTime" sortable label="创建日期" />
-        <el-table-column prop="reportDate" sortable label="报告日期" />
-        <el-table-column prop="description||''" label="说明" />
+        <el-table-column sortable label="创建日期" >
+          <template slot-scope="scope">{{ scope.row.createTime|formatDatetime }}</template>
+        </el-table-column>
+        <el-table-column sortable label="报告日期" >
+          <template slot-scope="scope">{{ scope.row.reportDate|formatDate }}</template>
+        </el-table-column>
+        <el-table-column prop="description" label="说明" />
         <el-table-column label="图片">
           <template slot-scope="scope">
             <img :src="scope.row.path" width="300" height="150" @click="onImageClick(scope.row.path)">
