@@ -1,12 +1,12 @@
 <template>
   <div id="qrcodeMain" class="main">
     <el-row>
-      <el-col v-for="(item, index) in items" :span="6" :key="item.goods.id" :offset="2" >
+      <el-col v-for="(item, index) in items" :span="6" :key="item.id" :offset="2" >
         <el-card :body-style="{ padding: '30px' }" :id="'card'+index" class="card">
           <!--<img :src="item.qrcodeUrl" :id="'qrcode'+index" class="image" >-->
           <div :id="`qrcode`+index" :ref="`qrcode`+index" style="padding-bottom: 20px"> 溯源二维码：</div>
           <div style="padding: 14px;">
-            <span>{{ item.goods.name }}</span>
+            <span>{{ item.summary }}</span>
             <div class="bottom clearfix">
               <el-button type="primary" class="button" @click="printContent(index)">打印二维码</el-button>
             </div>
@@ -21,7 +21,9 @@
 </template>
 
 <script>
-import { getAllQrcode } from '@/api/qrcode'
+import { getAllOrder } from '@/api/order'
+
+'@/api/order'
 import QRCode from 'qrcodejs2'
 
 export default {
@@ -39,7 +41,6 @@ export default {
   },
   created() {
     this.updateQrcodeList()
-    this.createQrcode()
   },
   methods: {
     handleView(index, row) {
@@ -49,7 +50,7 @@ export default {
       this.$refs['formDialog'].show()
     },
     updateQrcodeList() {
-      getAllQrcode().then(response => {
+      getAllOrder().then(response => {
         this.items = response.data.data
         this.createQrcode()
       })
@@ -72,11 +73,12 @@ export default {
     },
     createQrcode() {
       this.$nextTick(() => {
-        this.items.forEach((v, index, arr) => {
+        this.items.forEach((order, index, arr) => {
+          const baseUrl = 'http://www.tiaocaishi.com:9527/#/goods/'
           new QRCode(`qrcode${index}`, {
             width: 250,
             height: 250, // 高度
-            text: v.goods.name, // 二维码内容
+            text: baseUrl + order.id, // 二维码内容
             // render: 'canvas' // 设置渲染方式（有两种方式 table和canvas，默认是canvas）
             background: '#f0f',
             foreground: '#ff0'
