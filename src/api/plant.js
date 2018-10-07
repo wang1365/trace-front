@@ -24,6 +24,14 @@ export function getAllPlant(params) {
   })
 }
 
+export function getPickPlantItemListByPerson(personId) {
+  return request({
+    url: '/web/getPickPlantItemListByPerson',
+    method: 'get',
+    params: { personId }
+  })
+}
+
 export function getAllPlantItem(params) {
   return request({
     url: '/web/plant/item/list',

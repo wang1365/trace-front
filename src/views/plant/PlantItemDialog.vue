@@ -52,9 +52,9 @@ export default {
     return {
       flag: this.dialogVisible,
       ruleForm: {
-        plantId: this.plant.plant.id,
+        plantId: this.plant.id,
         actionType: null,
-        actionFarmerId: this.plant.farmer.id,
+        actionFarmerId: this.plant.farmerId,
         actionDate: null,
         actionContent: null
       },
@@ -73,7 +73,7 @@ export default {
   },
   computed: {
     title() {
-      return this.plant.farmer.name + ':' + this.plant.goods.name + ':' + this.plant.plant.startDate
+      return this.plant.farmerName + ':' + this.plant.goodsName + ':' + this.plant.startDate
     }
   },
   // watch: {

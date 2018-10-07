@@ -13,7 +13,7 @@
         <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id" />
       </el-select>
       <el-select v-model="selectedPlantId" placeholder="请选择种植计划" width="200px" size="mini" @change="_getPlantItemByPlant(selectedPlantId)">
-        <el-option v-for="item in plantList" :key="item.plant.id" :label="getPlantLabel(item)" :value="item.plant.id" />
+        <el-option v-for="item in plantList" :key="item.id" :label="getPlantLabel(item)" :value="item.id" />
       </el-select>
       <el-button :disabled="!selectedPlantId || selectedPlantId<=0" type="success" icon="el-icon-plus" size="small" @click="showModal">添加种植条目</el-button>
       <span style="color: rgba(0,0,0,0.2)"> 说明: 添加条目前请先选择农户和种植计划</span>
@@ -21,16 +21,16 @@
     </el-row>
     <el-row class="table">
       <el-table :data="plantItemList" size="small" border stripe highlight-current-row>
-        <el-table-column prop="plantItem.id" label="ID" width="100" />
-        <el-table-column prop="plantItem.plantId" label="种植计划ID" />
-        <el-table-column prop="actionType.name" label="实施类型" />
-        <el-table-column prop="plantItem.actionDate" label="开始时间" />
-        <el-table-column prop="farmer.name" label="农户姓名" />
-        <el-table-column prop="goods.name" label="农作物名称" />
-        <el-table-column prop="plantItem.createTime" label="记录时间" />
+        <el-table-column prop="id" label="ID" width="100" />
+        <!--<el-table-column prop="plantId" label="种植计划ID" />-->
+        <el-table-column prop="actionName" label="实施类型" />
+        <el-table-column :formatter="dateFormat" prop="actionDate" label="开始时间" />
+        <el-table-column prop="farmerName" label="农户姓名" />
+        <!--<el-table-column prop="goodsName" label="农作物名称" />-->
+        <el-table-column :formatter="dateTimeFormat" prop="createTime" label="记录时间" />
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.plantItem.id)">删除</el-button>
+            <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -62,7 +62,7 @@ export default {
   computed: {
     selectedPlant() {
       return this.plantList.find(plant => {
-        return plant.plant.id === this.selectedPlantId
+        return plant.id === this.selectedPlantId
       })
     }
 
@@ -81,10 +81,24 @@ export default {
       this.$refs['formDialog'].show()
     },
     getPlantLabel(plant) {
-      return plant.goods.name + ' / ' + plant.plant.startDate + ' / ' + plant.plant.address
+      return plant.goodsName + ' / ' + plant.startDate + ' / ' + plant.address
     },
     onCheckDetail(plantId) {
 
+    },
+    dateFormat(row, column) {
+      const date = row[column.property]
+      if (date === undefined) {
+        return ''
+      }
+      return new Date(date).toLocaleDateString()
+    },
+    dateTimeFormat(row, column) {
+      const date = row[column.property]
+      if (date === undefined) {
+        return ''
+      }
+      return new Date(date).toLocaleString()
     },
     getActionTypeName(typeId) {
       console.log('############', this.plantActionTypeList)

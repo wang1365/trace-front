@@ -26,7 +26,14 @@
         <el-input v-model.trim="ruleForm.buyerId" placeholder="填写采购人"/>
       </el-form-item>
       <el-form-item label="菜农" prop="sellerId">
-        <el-input v-model="ruleForm.sellerId" placeholder="填写菜农"/>
+        <el-select v-model="ruleForm.sellerId" placeholder="请选择">
+          <el-option v-for="item in personList" :key="item.id" :label="item.id + '.' + item.name" :value="item.id"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="采摘条目" prop="plantItemId">
+        <el-select v-model="ruleForm.unit" placeholder="关联种植计划中的采摘">
+          <el-option v-for="item in plantItemList" :key="item" :label="item" :value="item"/>
+        </el-select>
       </el-form-item>
       <el-form-item label="相关质检报告" prop="reportId">
         <el-select v-model="ruleForm.reportId" placeholder="请选择">
@@ -45,6 +52,7 @@
 import { getAllGoods } from '@/api/goods'
 import { getAllQualityReport } from '@/api/qualityReport'
 import { addOrder } from '@/api/order'
+import { getPickPlantItemListByPerson } from '@/api/plant'
 
 export default {
   name: 'ReportForm',
@@ -70,7 +78,8 @@ export default {
         buyerId: null,
         sellerId: null,
         dealDate: null,
-        createTime: null
+        createTime: null,
+        plantItemId: null
       },
       formRules: {
         goodsId: [
@@ -97,6 +106,15 @@ export default {
         this.$refs['ruleForm'].resetFields()
       }
       this.flag = this.dialogVisible
+    },
+    ruleForm: {
+      handler(newV, oldV) {
+        if (newV.sellerId !== oldV.sellerId) {
+          this.updatePlantItemList()
+          this.ruleForm.plantItemId = null
+        }
+      },
+      deep: true
     }
   },
   created() {
@@ -138,6 +156,11 @@ export default {
         this.reportList = res.data.data
       }).catch(err => {
         this.$message({ message: `获取列表失败, ${err}`, type: 'error' })
+      })
+    },
+    updatePlantItemList(personId) {
+      getPickPlantItemListByPerson(personId).then(res => {
+        this.plantItemList = res.data.data
       })
     }
   }
