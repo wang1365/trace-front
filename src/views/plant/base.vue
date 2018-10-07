@@ -6,13 +6,13 @@
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" width="100" />
-        <el-table-column prop="farmerName" label="农户姓名" />
-        <el-table-column prop="goodsName" label="农作物名称" />
-        <el-table-column prop="year" label="年度" />
-        <el-table-column prop="startDate" label="开始时间" />
+        <el-table-column prop="id" label="ID" sortable width="100" />
+        <el-table-column prop="farmerName" sortable label="农户姓名" />
+        <el-table-column prop="goodsName" sortable label="农作物名称" />
+        <el-table-column prop="year" sortable label="年度" />
+        <el-table-column prop="startDate" sortable label="开始时间" />
         <el-table-column prop="address" label="地点" />
-        <el-table-column prop="createTime" label="记录时间" />
+        <el-table-column prop="createTime" sortable label="记录时间" />
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="success" icon="el-icon-tickets" @click="onCheckDetail(scope.row.id)">详情</el-button>

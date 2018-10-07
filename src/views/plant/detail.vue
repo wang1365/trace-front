@@ -21,13 +21,13 @@
     </el-row>
     <el-row class="table">
       <el-table :data="plantItemList" size="small" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" width="100" />
+        <el-table-column prop="id" label="ID" sortable width="100" />
         <!--<el-table-column prop="plantId" label="种植计划ID" />-->
-        <el-table-column prop="actionName" label="实施类型" />
-        <el-table-column :formatter="dateFormat" prop="actionDate" label="开始时间" />
-        <el-table-column prop="farmerName" label="农户姓名" />
+        <el-table-column prop="actionName" sortable label="实施类型" />
+        <el-table-column :formatter="dateFormat" prop="actionDate" sortable label="开始时间" />
+        <el-table-column prop="farmerName" sortable label="农户姓名" />
         <!--<el-table-column prop="goodsName" label="农作物名称" />-->
-        <el-table-column :formatter="dateTimeFormat" prop="createTime" label="记录时间" />
+        <el-table-column :formatter="dateTimeFormat" prop="createTime" sortable label="记录时间" />
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>

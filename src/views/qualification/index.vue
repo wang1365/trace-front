@@ -6,8 +6,8 @@
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" width="100" />
-        <el-table-column prop="company.name" label="公司" />
+        <el-table-column prop="id" label="ID" sortable width="100" />
+        <el-table-column prop="company.name" sortable label="公司" />
         <el-table-column label="证书图片">
           <template slot-scope="scope">
             <img :src="scope.row.path" width="300" height="150" @click="onImageClick(scope.row.path)">

@@ -6,13 +6,13 @@
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" width="100" />
-        <el-table-column prop="name" label="姓名" />
-        <el-table-column prop="gender" label="性别" />
-        <el-table-column prop="birthday" label="出生日期" />
-        <el-table-column prop="idCard" label="身份证号" />
+        <el-table-column prop="id" label="ID" sortable width="80" />
+        <el-table-column prop="name" label="姓名" sortable width="100" />
+        <el-table-column prop="gender" label="性别" width="50" />
+        <el-table-column prop="birthday" label="出生日期" sortable width="120"/>
+        <el-table-column prop="idCard" label="身份证号" width="150"/>
         <el-table-column prop="familyAddress" label="家庭地址" />
-        <el-table-column prop="mobileNo" label="联系方式" />
+        <el-table-column prop="mobileNo" label="联系方式" width="120"/>
         <el-table-column prop="company" label="单位" />
         <el-table-column label="操作">
           <template slot-scope="scope">
