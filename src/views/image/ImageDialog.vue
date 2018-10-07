@@ -79,7 +79,6 @@ export default {
   },
   mounted() {
     this.fileList = []
-    console.log('############ mounted')
     this.token = this.$store.getters.token
     getImageCategoryList().then(res => {
       this.catList = res.data.data

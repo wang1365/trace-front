@@ -51,7 +51,6 @@ export default {
   created() {
   },
   mounted() {
-    console.log('############ mounted')
   },
   methods: {
     show() {

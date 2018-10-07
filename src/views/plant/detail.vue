@@ -22,7 +22,7 @@
     <el-row class="table">
       <el-table :data="plantItemList" size="small" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" sortable width="80" />
-        <!--<el-table-column prop="plantId" label="种植计划ID" />-->
+        <el-table-column prop="plantId" label="种植计划ID" width="85"/>
         <el-table-column prop="actionName" sortable label="实施类型" width="100"/>
         <el-table-column :formatter="dateFormat" sortable label="开始时间" >
           <template slot-scope="scope">{{ scope.row.actionDate | formatDate }}</template>
@@ -105,19 +105,12 @@ export default {
       }
       return new Date(date).toLocaleString()
     },
-    getActionTypeName(typeId) {
-      console.log('############', this.plantActionTypeList)
-      // return this.plantActionTypeList.find(v => {
-      //   return v.id === typeId
-      // }).name || ''
-    },
     _getPersonList() {
       getAllPerson().then(res => {
         this.personList = res.data.data
       })
     },
     _getPlantByPerson(personId) {
-      console.log('#### getPlantListByPerson')
       this.plantList = []
       this.selectedPlantId = null
       getAllPlant({ farmerId: personId }).then(res => {
@@ -125,7 +118,6 @@ export default {
       })
     },
     _getPlantItemByPlant() {
-      console.log('##### _getPlantItemByPlant')
       getPlantItemByPlant(this.selectedPlantId).then(response => {
         this.plantItemList = response.data.data
       })
