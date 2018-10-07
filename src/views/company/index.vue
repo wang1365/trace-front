@@ -13,8 +13,8 @@
         <el-table-column prop="telephone" label="联系方式" />
         <el-table-column width="150" label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" @click="onImageClick(scope.row.path)">查看</el-button>
-            <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
+            <el-button size="small" type="primary" @click="showModal('modify', scope.row)">修改</el-button>
+            <el-button size="small" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -49,8 +49,8 @@ export default {
     handleView(index, row) {
       console.log(index, row)
     },
-    showModal() {
-      this.$refs['formDialog'].show()
+    showModal(action, company) {
+      this.$refs['formDialog'].show(action, company)
     },
     updateCompanyList() {
       getAllCompany().then(response => {

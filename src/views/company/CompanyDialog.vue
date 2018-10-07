@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="flag" title="添加公司" center>
+  <el-dialog :visible.sync="visible" :title="title" :before-close="onBeforeClose" center>
     <el-form ref="form" :model="form" :rules="rules" label-width="80px">
       <el-form-item label="公司名称" prop="name">
         <el-input v-model="form.name" placeholder="填写公司名称"/>
@@ -15,14 +15,14 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button type="success" size="small" @click="onSubmit('form')">添加</el-button>
-      <el-button size="small" @click="flag = false">取消</el-button>
+      <el-button type="success" size="small" @click="onSubmit('form')">保存</el-button>
+      <el-button size="small" @click="visible = false">取消</el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
-import { addCompany } from '@/api/company'
+import { addCompany, updateCompany } from '@/api/company'
 export default {
   name: 'ReportForm',
   props: {
@@ -33,7 +33,8 @@ export default {
   },
   data() {
     return {
-      flag: this.dialogVisible,
+      visible: false,
+      action: 'add',
       form: {
         name: null,
         address: null,
@@ -47,27 +48,27 @@ export default {
       }
     }
   },
-  watch: {
-    dialogVisible(newVal) {
-      this.flag = this.dialogVisible
+  computed: {
+    title() {
+      return this.action === 'modify' ? '修改公司信息' : '添加公司'
     }
   },
   created() {
-    this.form = {
-      name: null,
-      address: null,
-      owner: null,
-      telephone: null
-    }
   },
   mounted() {
   },
   methods: {
-    show() {
-      this.flag = true
+    show(action, company) {
+      if (action === 'modify') {
+        this.action = action
+        this.form = company
+      } else {
+        this.action = 'add'
+      }
+      this.visible = true
     },
     hide() {
-      this.flag = false
+      this.visible = false
     },
     onPreview(file) {
       console.log(file)
@@ -77,7 +78,8 @@ export default {
         if (!valid) {
           return
         }
-        addCompany(this.form).then(response => {
+        const callRest = this.action === 'modify' ? updateCompany : addCompany
+        callRest(this.form).then(response => {
           this.$message({ message: `添加上传成功`, type: 'success' })
           this.$emit('upload-success')
           this.$refs['form'].resetFields()
@@ -86,6 +88,13 @@ export default {
           this.$error(`添加失败：${err}`)
         })
       })
+    },
+    onBeforeClose(done) {
+      console.log('onBeforeClose')
+      if (this.$refs['form']) {
+        this.$refs['form'].resetFields()
+      }
+      done()
     }
   }
 }
