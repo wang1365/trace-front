@@ -10,9 +10,13 @@
         <el-table-column prop="farmerName" sortable label="农户姓名" />
         <el-table-column prop="goodsName" sortable label="农作物名称" />
         <el-table-column prop="year" sortable label="年度" />
-        <el-table-column prop="startDate" sortable label="开始时间" />
+        <el-table-column sortable label="开始时间" >
+          <template slot-scope="scope">{{ scope.row.startDate | formatDate }}</template>
+        </el-table-column>
         <el-table-column prop="address" label="地点" />
-        <el-table-column prop="createTime" sortable label="记录时间" />
+        <el-table-column sortable label="记录时间" >
+          <template slot-scope="scope">{{ scope.row.createTime | formatDatetime }}</template>
+        </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="success" icon="el-icon-tickets" @click="onCheckDetail(scope.row.id)">详情</el-button>

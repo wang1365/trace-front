@@ -24,10 +24,14 @@
         <el-table-column prop="id" label="ID" sortable width="100" />
         <!--<el-table-column prop="plantId" label="种植计划ID" />-->
         <el-table-column prop="actionName" sortable label="实施类型" />
-        <el-table-column :formatter="dateFormat" prop="actionDate" sortable label="开始时间" />
+        <el-table-column :formatter="dateFormat" sortable label="开始时间" >
+          <template slot-scope="scope">{{ scope.row.actionDate | formatDate }}</template>
+        </el-table-column>
         <el-table-column prop="farmerName" sortable label="农户姓名" />
         <!--<el-table-column prop="goodsName" label="农作物名称" />-->
-        <el-table-column :formatter="dateTimeFormat" prop="createTime" sortable label="记录时间" />
+        <el-table-column :formatter="dateTimeFormat" sortable label="记录时间" >
+          <template slot-scope="scope">{{ scope.row.createTime | formatDatetime }}</template>
+        </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
@@ -81,7 +85,7 @@ export default {
       this.$refs['formDialog'].show()
     },
     getPlantLabel(plant) {
-      return plant.goodsName + ' / ' + plant.startDate + ' / ' + plant.address
+      return plant.goodsName + ' / ' + this.$options.filters.formatDate(plant.startDate) + ' / ' + plant.address
     },
     onCheckDetail(plantId) {
 

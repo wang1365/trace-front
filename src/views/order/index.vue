@@ -8,7 +8,9 @@
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" sortable width="50" />
         <el-table-column prop="goodsName" label="商品名称" sortable width="80"/>
-        <el-table-column prop="orderTime" label="收购时间" sortable width="85"/>
+        <el-table-column label="收购时间" sortable width="85">
+          <template slot-scope="scope">{{ scope.row.orderTime|formatDate }}</template>
+        </el-table-column>
         <el-table-column prop="address" label="收购地点" />
         <el-table-column prop="quantity" label="收购数量" width="80" />
         <el-table-column prop="unit" label="单位" width="50px"/>

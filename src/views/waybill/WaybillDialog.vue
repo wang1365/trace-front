@@ -14,13 +14,13 @@
         <el-input v-model="ruleForm.platNumber" placeholder="填写车牌号"/>
       </el-form-item>
       <el-form-item label="起始时间" prop="startTime">
-        <el-date-picker v-model="ruleForm.startTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
+        <el-date-picker v-model="ruleForm.startTime" type="datetime" placeholder="选择起始时间"/>
       </el-form-item>
       <el-form-item label="起始地点" prop="startLocation">
         <el-input v-model="ruleForm.startLocation" placeholder="填写起始地点"/>
       </el-form-item>
       <el-form-item label="终止时间" prop="endTime">
-        <el-date-picker v-model="ruleForm.endTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
+        <el-date-picker v-model="ruleForm.endTime" type="datetime" placeholder="选择日期终止时间"/>
       </el-form-item>
       <el-form-item label="终止地点" prop="endLocation">
         <el-input v-model="ruleForm.endLocation" placeholder="填写终止地点"/>
