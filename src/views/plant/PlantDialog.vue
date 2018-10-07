@@ -47,16 +47,15 @@ export default {
   },
   data() {
     const validateDup = (rule, value, callback) => {
-      console.log('validateDup:', rule, value, this.ruleForm, this.plantList)
       const dup = this.plantList.find((v) => {
         return this.ruleForm.goodsId === v.plant.goodsId &&
         this.ruleForm.farmerId === v.plant.farmerId &&
         Number(this.ruleForm.year) === v.plant.year
       })
-      console.log('888888888888888888 ', dup)
       if (dup) {
-        console.log('dup!!!!!!!!!!!!!!!')
         callback(new Error('每年每个农户每个商品只能添加一个种植计划'))
+      } else {
+        callback()
       }
     }
     return {
