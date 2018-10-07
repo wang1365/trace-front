@@ -39,10 +39,6 @@ export default {
     plantList: {
       type: Array,
       default: null
-    },
-    dialogVisible: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
@@ -59,7 +55,7 @@ export default {
       }
     }
     return {
-      flag: this.dialogVisible,
+      flag: false,
       goodsList: [],
       reportList: [],
       personList: [],
@@ -87,14 +83,6 @@ export default {
           { required: true, message: '请选择种植开始时间', trigger: 'blur' }
         ]
       }
-    }
-  },
-  watch: {
-    dialogVisible(newVal) {
-      if (!newVal) {
-        this.$refs['ruleForm'].resetFields()
-      }
-      this.flag = this.dialogVisible
     }
   },
   created() {

@@ -1,12 +1,7 @@
 <template>
   <div class="main">
     <PlantItemDialog
-      v-if="dialogVisible"
       ref="formDialog"
-      :plant="selectedPlant"
-      :dialog-visible="dialogVisible"
-      :person-list="personList"
-      :plant-action-type-list="plantActionTypeList"
       @add-success="_getPlantItemByPlant(selectedPlantId)" />
     <el-row>
       <el-select v-model="selectedPersonId" placeholder="请选择农户" width="100px" size="mini" @change="_getPlantByPerson(selectedPersonId)">
@@ -44,7 +39,7 @@
 </template>
 
 <script>
-import { getAllPlant, getPlantItemByPlant, getPlantActionTypeList, deletePlantItem } from '@/api/plant'
+import { getPlantListByPerson, getPlantItemByPlant, getPlantActionTypeList, deletePlantItem } from '@/api/plant'
 import { getAllPerson } from '@/api/person'
 import PlantItemDialog from './PlantItemDialog'
 
@@ -65,12 +60,6 @@ export default {
     }
   },
   computed: {
-    selectedPlant() {
-      return this.plantList.find(plant => {
-        return plant.id === this.selectedPlantId
-      })
-    }
-
   },
   created() {
   },
@@ -82,8 +71,7 @@ export default {
     handleView(index, row) {
     },
     showModal() {
-      this.dialogVisible = true
-      this.$refs['formDialog'].show()
+      this.$refs['formDialog'].show(this.selectedPlantId, this.selectedPersonId, this.personList, this.plantActionTypeList)
     },
     getPlantLabel(plant) {
       return plant.goodsName + ' / ' + this.$options.filters.formatDate(plant.startDate) + ' / ' + plant.address
@@ -112,8 +100,9 @@ export default {
     },
     _getPlantByPerson(personId) {
       this.plantList = []
+      this.plantItemList = []
       this.selectedPlantId = null
-      getAllPlant({ farmerId: personId }).then(res => {
+      getPlantListByPerson(personId).then(res => {
         this.plantList = res.data.data
       })
     },

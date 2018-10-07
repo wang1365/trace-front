@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="flag" :title="'新增种植条目 ('+title+')'" >
+  <el-dialog :visible.sync="visible" title="新增种植条目" >
     <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="100px">
       <el-form-item label="时间" prop="actionDate">
         <el-date-picker v-model="ruleForm.actionDate" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
@@ -20,7 +20,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button type="success" size="small" @click="onSubmit('ruleForm')">添加</el-button>
-      <el-button size="small" @click="flag = false">取消</el-button>
+      <el-button size="small" @click="visible = false">取消</el-button>
     </div>
   </el-dialog>
 </template>
@@ -31,30 +31,25 @@ import { addPlantItem } from '@/api/plant'
 export default {
   name: 'PlantItemForm',
   props: {
-    dialogVisible: {
-      type: Boolean,
-      default: false
-    },
-    plant: {
-      type: Object,
-      default: null
-    },
-    personList: {
-      type: Array,
-      default: null
-    },
-    plantActionTypeList: {
-      type: Array,
-      default: null
-    }
+
   },
   data() {
     return {
-      flag: this.dialogVisible,
+      visible: false,
+      personId: null,
+      plantActionTypeList: [],
+      personList: [],
+      // ruleForm: {
+      //   plantId: this.plant.id,
+      //   actionType: null,
+      //   actionFarmerId: this.plant.farmerId,
+      //   actionDate: null,
+      //   actionContent: null
+      // },
       ruleForm: {
-        plantId: this.plant.id,
+        plantId: null,
         actionType: null,
-        actionFarmerId: this.plant.farmerId,
+        actionFarmerId: null,
         actionDate: null,
         actionContent: null
       },
@@ -74,26 +69,25 @@ export default {
   computed: {
     title() {
       return this.plant.farmerName + ':' + this.plant.goodsName + ':' + this.plant.startDate
+    },
+    plantId() {
+      return this.plant.id
     }
   },
-  // watch: {
-  //   dialogVisible(newVal) {
-  //     if (!newVal) {
-  //       this.$refs['ruleForm'].resetFields()
-  //     }
-  //     this.flag = this.dialogVisible
-  //   }
-  // },
   created() {
   },
   mounted() {
   },
   methods: {
-    show() {
-      this.flag = true
+    show(plantId, personId, personList, plantActionTypeList) {
+      this.ruleForm.plantId = plantId
+      this.personId = personId
+      this.personList = personList
+      this.plantActionTypeList = plantActionTypeList
+      this.visible = true
     },
     hide() {
-      this.flag = false
+      this.visible = false
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
