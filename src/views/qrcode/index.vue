@@ -4,7 +4,8 @@
       <el-col v-for="(item, index) in items" :span="6" :key="item.id" :offset="2" >
         <el-card :body-style="{ padding: '30px' }" :id="'card'+index" class="card">
           <!--<img :src="item.qrcodeUrl" :id="'qrcode'+index" class="image" >-->
-          <div :id="`qrcode`+index" :ref="`qrcode`+index" style="padding-bottom: 20px"> 溯源二维码：</div>
+          <div>订单 {{ item.id }} 溯源二维码：</div>
+          <div :id="`qrcode`+index" :ref="`qrcode`+index" style="padding-bottom: 20px"/>
           <div style="padding: 14px;">
             <span>{{ item.summary }}</span>
             <div class="bottom clearfix">
@@ -61,7 +62,7 @@ export default {
     },
     printContent(index) {
       // let subOutputRankPrint = document.getElementById(`qrcode${index}`)
-      const subOutputRankPrint = document.getElementById(`card${index}`)
+      const subOutputRankPrint = document.getElementById(`qrcode${index}`)
       console.log(subOutputRankPrint.innerHTML)
       const newContent = subOutputRankPrint.innerHTML
       const oldContent = document.body.innerHTML

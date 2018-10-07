@@ -33,12 +33,12 @@
         </el-select>
       </el-form-item>
       <el-form-item label="种植计划" prop="plantId">
-        <el-select v-model="ruleForm.plantId" placeholder="关联种植计划">
+        <el-select v-model="ruleForm.plantId" placeholder="关联种植计划" no-data-text="无数据，请先添加该农户的种植计划">
           <el-option v-for="item in plantList" :key="item.id" :label="formatPlantInfo(item)" :value="item.id"/>
         </el-select>
       </el-form-item>
       <el-form-item label="采摘条目" prop="pickId">
-        <el-select v-model="ruleForm.pickId" placeholder="关联种植计划中的采摘">
+        <el-select v-model="ruleForm.pickId" placeholder="关联种植计划中的采摘" no-data-text="无数据，请先添加该农户种植计划的采摘条目">
           <el-option v-for="item in pickList" :key="item.id" :label="formatPlantItemInfo(item)" :value="item.id"/>
         </el-select>
       </el-form-item>
