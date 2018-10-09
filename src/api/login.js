@@ -2,8 +2,8 @@ import request from '@/utils/request'
 
 export function loginByUsername(username, password) {
   const data = {
-    username: 'admin',
-    password: '111111'
+    username: username,
+    password: password
   }
   return request({
     url: '/web/login',

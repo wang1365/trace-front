@@ -2,6 +2,7 @@ import axios from 'axios'
 import { Message, MessageBox } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
+import router from '@/router'
 
 // create an axios instance
 const service = axios.create({
@@ -72,17 +73,27 @@ service.interceptors.response.use(
       type: 'error',
       duration: 5 * 1000
     })
+
     if (error.response && error.response.status === 401) {
-      console.log(error.response.status)
-      MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
-        confirmButtonText: '重新登录',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        store.dispatch('FedLogOut').then(() => {
-          location.reload() // 为了重新实例化vue-router对象 避免bug
+      if (router.currentRoute.name === 'login') {
+        console.log('Current route is login, should not redirect')
+        Message({
+          message: '用户名或密码错误',
+          type: 'error',
+          duration: 5 * 1000
         })
-      })
+      } else {
+        MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
+          confirmButtonText: '重新登录',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          store.dispatch('FedLogOut').then(() => {
+            location.reload() // 为了重新实例化vue-router对象 避免bug
+          })
+        })
+      }
+      console.log(error.response.status)
     }
     return Promise.reject(error)
   }
