@@ -105,7 +105,7 @@ export const asyncRouterMap = [
     component: Layout,
     meta: {
       title: 'config',
-      icon: 'table'
+      icon: 'el-icon-menu'
     },
     children: [
       {
@@ -133,7 +133,7 @@ export const asyncRouterMap = [
     component: Layout,
     meta: {
       title: 'plantInfo',
-      icon: 'table'
+      icon: 'el-icon-menu'
     },
     children: [
       {
@@ -146,7 +146,7 @@ export const asyncRouterMap = [
         path: 'detail/:plantId',
         component: () => import('@/views/plant/detail'),
         name: 'PlantDetail',
-        meta: { title: 'plantDetail', icon: 'table', noCache: true }
+        meta: { title: 'plantDetail', icon: 'excel', noCache: true }
       }
     ]
   },
@@ -158,7 +158,7 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/quality-report/index'),
         name: 'QualityReport',
-        meta: { title: 'qualityReport', icon: 'form', noCache: true }
+        meta: { title: 'qualityReport', icon: 'el-icon-mobile-phone', noCache: true }
       }
     ]
   },
@@ -170,7 +170,7 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/qualification/index'),
         name: 'Qualification',
-        meta: { title: 'qualification', icon: 'documentation', noCache: true }
+        meta: { title: 'qualification', icon: 'el-icon-tickets', noCache: true }
       }
     ]
   },
@@ -182,7 +182,7 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/qrcode/index'),
         name: 'Qrcode',
-        meta: { title: 'qrcode', icon: 'table', noCache: true }
+        meta: { title: 'qrcode', icon: 'el-icon-search', noCache: true }
       }
     ]
   },
@@ -194,7 +194,7 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/order/index'),
         name: 'Order',
-        meta: { title: 'order', icon: 'table', noCache: true }
+        meta: { title: 'order', icon: 'el-icon-goods', noCache: true }
       },
       {
         path: 'detail/:orderId',
@@ -212,7 +212,7 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/waybill/index'),
         name: 'Waybill',
-        meta: { title: 'waybill', icon: 'table', noCache: true }
+        meta: { title: 'waybill', icon: 'el-icon-news', noCache: true }
       }
     ]
   },
@@ -224,7 +224,7 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/image/index'),
         name: 'Image',
-        meta: { title: 'image', icon: 'table', noCache: true }
+        meta: { title: 'image', icon: 'el-icon-picture-outline', noCache: true }
       }
     ]
   },
@@ -260,18 +260,19 @@ export const asyncRouterMap = [
   //   ]
   // },
 
-  // {
-  //   path: '/icon',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       component: () => import('@/views/svg-icons/index'),
-  //       name: 'Icons',
-  //       meta: { title: 'icons', icon: 'icon', noCache: true }
-  //     }
-  //   ]
-  // },
+  {
+    path: '/icon',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/svg-icons/index'),
+        name: 'Icons',
+        meta: { title: 'icons', icon: 'icon', noCache: true }
+      }
+    ],
+    hidden: true
+  },
 
   /** When your routing table is too long, you can split it into small modules**/
   // componentsRouter,

@@ -67,7 +67,7 @@ export default {
     qualification: '资质证书',
     company: '企业管理',
     qrcode: '溯源码管理',
-    order: '收购订单管理',
+    order: '采购管理',
     person: '人员管理',
     config: '配置管理',
     plantInfo: '种植信息',
