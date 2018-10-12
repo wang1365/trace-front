@@ -15,7 +15,7 @@
         </el-table-column>
         <el-table-column label="图片" width="250">
           <template slot-scope="scope">
-            <img :src="scope.row.urlPath" width="230px" @click="onImageClick(scope.row.path)">
+            <img :src="scope.row.urlPath" width="230px" @click="onImageClick(scope.row.urlPath)">
           </template>
         </el-table-column>
         <el-table-column label="操作" width="100" >
