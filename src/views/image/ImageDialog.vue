@@ -1,6 +1,17 @@
 <template>
-  <el-dialog :visible.sync="flag" title="添加图片">
-    <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="80px">
+  <el-dialog
+    :visible.sync="flag"
+    title="添加图片">
+    <el-form
+      v-loading.fullscreen="loading"
+      ref="ruleForm"
+      :model="ruleForm"
+      :rules="formRules"
+      label-width="80px"
+      element-loading-text="拼命上传中..."
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
+    >
       <el-form-item label="图片名称" prop="name">
         <el-input v-model="ruleForm.name" placeholder="填写图片名称"/>
       </el-form-item >
@@ -49,6 +60,7 @@ export default {
   data() {
     return {
       flag: this.dialogVisible,
+      loading: false,
       useOriginName: true,
       catList: [],
       token: null,
@@ -99,10 +111,10 @@ export default {
 
         getImageByName(this.ruleForm.name).then(res => {
           const imageList = res.data.data
-          console.log('TTTTTTT, ', this.fileList)
           if (imageList.length > 0) {
             this.$message({ message: `文件"${this.ruleForm.name}"在服务器上已经存在！`, type: 'error' })
           } else {
+            this.loading = true
             this.$refs.upload.submit()
           }
         }).catch(err => {
@@ -111,11 +123,13 @@ export default {
       })
     },
     onSuccess(response, file, fileList) {
+      this.loading = false
       this.$message({ message: `文件${file.name}上传成功`, type: 'success' })
       this.hide()
       this.$emit('add-success')
     },
     onError(err, file, fileList) {
+      this.loading = false
       this.$message({ message: `文件${file.name}上传失败：${err}`, type: 'error' })
     }
   }

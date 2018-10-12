@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main" >
     <ImageDialog ref="formDialog" @add-success="updateImageList" />
     <el-row>
       <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">上传图片</el-button>
