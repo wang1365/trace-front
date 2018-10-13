@@ -2,12 +2,19 @@ import request from '@/utils/request'
 
 export function addPlant(data) {
   return request({
-    url: '/web/plant/add',
+    url: '/web/plant/addPlant',
     method: 'post',
     data: data
   })
 }
 
+export function updatePlant(data) {
+  return request({
+    url: '/web/plant/updatePlant',
+    method: 'post',
+    data: data
+  })
+}
 export function addPlantItem(data) {
   return request({
     url: '/web/plant/addPlantItem',
@@ -48,8 +55,6 @@ export function getPickListByPlant(plantId) {
   })
 }
 
-getPickListByPlant
-
 export function getAllPlantItem(params) {
   return request({
     url: '/web/plant/item/list',
@@ -75,7 +80,7 @@ export function getPlantItemByPlant(plantId) {
 
 export function deletePlant(id) {
   return request({
-    url: '/web/plant/delete',
+    url: '/web/plant/deletePlant',
     method: 'post',
     params: { id }
   })

@@ -50,7 +50,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button type="success" size="small" @click="onSubmit('ruleForm')">添加</el-button>
-      <el-button size="small" @click="flag = false">取消</el-button>
+      <el-button size="small" @click="visible = false">取消</el-button>
     </div>
   </el-dialog>
 </template>
@@ -72,7 +72,7 @@ export default {
   },
   data() {
     return {
-      flag: this.dialogVisible,
+      visible: this.dialogVisible,
       goodsList: [],
       reportList: [],
       units: ['kg', '个'],

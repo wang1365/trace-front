@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="flag" title="新增种植计划" center>
+  <el-dialog :visible.sync="visible" :title="title" center>
     <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="100px">
       <el-form-item label="农作物名称" prop="goodsId">
         <el-select v-model="ruleForm.goodsId" placeholder="请选择">
@@ -23,7 +23,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button type="success" size="small" @click="onSubmit('ruleForm')">添加</el-button>
-      <el-button size="small" @click="flag = false">取消</el-button>
+      <el-button size="small" @click="visible = false">取消</el-button>
     </div>
   </el-dialog>
 </template>
@@ -31,7 +31,7 @@
 <script>
 import { getAllGoods } from '@/api/goods'
 import { getAllPerson } from '@/api/person'
-import { addPlant } from '@/api/plant'
+import { addPlant, updatePlant } from '@/api/plant'
 
 export default {
   name: 'PlantForm',
@@ -55,7 +55,8 @@ export default {
       }
     }
     return {
-      flag: false,
+      visible: false,
+      action: 'add',
       goodsList: [],
       reportList: [],
       personList: [],
@@ -85,6 +86,11 @@ export default {
       }
     }
   },
+  computed: {
+    title() {
+      return this.action === 'modify' ? '修改种植计划' : '新增种植计划'
+    }
+  },
   created() {
   },
   mounted() {
@@ -92,24 +98,29 @@ export default {
     this._getPersonList()
   },
   methods: {
-    show() {
-      this.flag = true
+    show(action, form) {
+      this.action = action
+      if (action === 'modify') {
+        this.form = Object.assign({}, form)
+      }
+      this.visible = true
     },
     hide() {
-      this.flag = false
+      this.visible = false
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {
         if (!valid) {
           return false
         }
-        addPlant(this.ruleForm).then((response) => {
-          this.$message({ message: `添加种植计划成功`, type: 'success' })
+        const restInvoke = this.action === 'modify' ? updatePlant : addPlant
+        restInvoke(this.ruleForm).then((response) => {
+          this.$message({ message: `保存成功`, type: 'success' })
           this.$refs['ruleForm'].resetFields()
           this.$emit('add-success')
           this.hide()
         }).catch(err => {
-          this.$message({ message: `添加失败：${err}`, type: 'error' })
+          this.$message({ message: `保存失败：${err}`, type: 'error' })
         })
       })
     },

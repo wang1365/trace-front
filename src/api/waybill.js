@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getAllWaybill(params) {
   return request({
-    url: '/web/waybill/list',
+    url: '/web/waybill/getWaybillList',
     method: 'get',
     params: params
   })
@@ -10,7 +10,7 @@ export function getAllWaybill(params) {
 
 export function addWaybill(params) {
   return request({
-    url: '/web/waybill/add',
+    url: '/web/waybill/addWaybill',
     method: 'post',
     data: params
   })

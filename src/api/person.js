@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function addPerson(data) {
   return request({
-    url: '/web/person/add',
+    url: '/web/person/addPerson',
     method: 'post',
     data: data
   })
@@ -18,7 +18,7 @@ export function updatePerson(data) {
 
 export function getAllPerson(params) {
   return request({
-    url: '/web/person/list',
+    url: '/web/person/getPersonList',
     method: 'get',
     params: params
   })
@@ -26,7 +26,7 @@ export function getAllPerson(params) {
 
 export function deletePerson(id) {
   return request({
-    url: '/web/person/delete',
+    url: '/web/person/deletePerson',
     method: 'post',
     params: { id }
   })

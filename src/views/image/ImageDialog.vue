@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    :visible.sync="flag"
+    :visible.sync="visible"
     title="添加图片">
     <el-form
       v-loading.fullscreen="loading"
@@ -41,7 +41,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button type="success" size="small" @click="onSubmit('ruleForm')">添加</el-button>
-      <el-button size="small" @click="flag = false">取消</el-button>
+      <el-button size="small" @click="visible = false">取消</el-button>
     </div>
   </el-dialog>
 </template>
@@ -59,7 +59,7 @@ export default {
   },
   data() {
     return {
-      flag: this.dialogVisible,
+      visible: false,
       loading: false,
       useOriginName: true,
       catList: [],
@@ -80,12 +80,6 @@ export default {
     }
   },
   watch: {
-    dialogVisible(newVal) {
-      if (!newVal) {
-        this.$refs['ruleForm'].resetFields()
-      }
-      this.flag = this.dialogVisible
-    }
   },
   created() {
   },
@@ -98,10 +92,10 @@ export default {
   },
   methods: {
     show() {
-      this.flag = true
+      this.visible = true
     },
     hide() {
-      this.flag = false
+      this.visible = false
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {

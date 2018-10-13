@@ -18,7 +18,7 @@ export function updateGoods(data) {
 
 export function getAllGoods(params) {
   return request({
-    url: '/web/goods/list',
+    url: '/web/goods/getGoodsList',
     method: 'get',
     params: params
   })
@@ -26,7 +26,7 @@ export function getAllGoods(params) {
 
 export function deleteGoods(id) {
   return request({
-    url: '/web/goods/delete',
+    url: '/web/goods/deleteGoods',
     method: 'post',
     params: { id }
   })

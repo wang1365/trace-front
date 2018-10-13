@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function addOrder(data) {
   return request({
-    url: '/web/order/add',
+    url: '/web/order/addOrder',
     method: 'post',
     data: data
   })
@@ -10,7 +10,7 @@ export function addOrder(data) {
 
 export function getAllOrder(params) {
   return request({
-    url: '/web/order/list',
+    url: '/web/order/getOrderList',
     method: 'get',
     params: params
   })
@@ -18,7 +18,7 @@ export function getAllOrder(params) {
 
 export function deleteOrder(id) {
   return request({
-    url: '/web/order/delete',
+    url: '/web/order/deleteOrder',
     method: 'post',
     params: { id }
   })

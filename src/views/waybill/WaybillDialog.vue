@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="flag" title="配送订单" center>
+  <el-dialog :visible.sync="visible" title="配送订单" center>
     <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="100px">
       <el-form-item :rules="[ {required: true, message:'请输入订单号', trigger:'blur'}]" label="订单号" prop="orderId">
         <el-input v-model.number="ruleForm.orderId" placeholder="填写订单号"/>
@@ -28,7 +28,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button type="success" size="small" @click="onSubmit('ruleForm')">添加</el-button>
-      <el-button size="small" @click="flag = false">取消</el-button>
+      <el-button size="small" @click="visible = false">取消</el-button>
     </div>
   </el-dialog>
 </template>
@@ -38,14 +38,10 @@ import { addWaybill } from '@/api/waybill'
 
 export default {
   props: {
-    dialogVisible: {
-      type: Boolean,
-      default: false
-    }
   },
   data() {
     return {
-      flag: this.dialogVisible,
+      visible: false,
       ruleForm: {
         orderId: null,
         driverName: null,
@@ -66,10 +62,10 @@ export default {
   },
   methods: {
     show() {
-      this.flag = true
+      this.visible = true
     },
     hide() {
-      this.flag = false
+      this.visible = false
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {

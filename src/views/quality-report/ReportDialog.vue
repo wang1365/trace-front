@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="flag" title="添加质量检测报告" center>
+  <el-dialog :visible.sync="visible" title="添加质量检测报告" center>
     <el-form ref="form" :model="form" :rules="rules" align="left" label-width="80px">
       <el-form-item label="标题" prop="title">
         <el-input v-model="form.title" placeholder="请输入报告标题" />
@@ -39,7 +39,7 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="flag = false">取 消</el-button>
+      <el-button @click="visible = false">取 消</el-button>
       <el-button slot="footer" class="dialog-footer" type="success" size="small" @click="onSubmit('form')">上传报告</el-button>
     </div>
   </el-dialog>
@@ -50,14 +50,10 @@ import { getAllGoods } from '@/api/goods'
 export default {
   name: 'ReportForm',
   props: {
-    dialogVisible: {
-      type: Boolean,
-      default: false
-    }
   },
   data() {
     return {
-      flag: this.dialogVisible,
+      visible: false,
       token: null,
       form: {
         reportDate: null,
@@ -99,10 +95,10 @@ export default {
   },
   methods: {
     show() {
-      this.flag = true
+      this.visible = true
     },
     hide() {
-      this.flag = false
+      this.visible = false
       this.$refs['upload'].clearFiles()
     },
     onPreview(file) {

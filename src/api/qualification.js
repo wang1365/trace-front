@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function addQualification(query) {
   return request({
-    url: '/web/qualification/add',
+    url: '/web/qualification/addQualification',
     method: 'post',
     params: query
   })
@@ -10,7 +10,7 @@ export function addQualification(query) {
 
 export function getAllQualification(query) {
   return request({
-    url: '/web/qualification/list',
+    url: '/web/qualification/getQualificationList',
     method: 'get',
     params: query
   })
@@ -18,7 +18,7 @@ export function getAllQualification(query) {
 
 export function deleteQualification(query) {
   return request({
-    url: '/web/qualification/delete',
+    url: '/web/qualification/deleteQualification',
     method: 'post',
     params: query
   })
