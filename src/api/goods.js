@@ -1,10 +1,18 @@
 import request from '@/utils/request'
 
-export function addGoods(name, imageUrl) {
+export function addGoods(data) {
   return request({
-    url: '/web/goods/add',
+    url: '/web/goods/addGoods',
     method: 'post',
-    data: { name, imageUrl }
+    data: data
+  })
+}
+
+export function updateGoods(data) {
+  return request({
+    url: '/web/goods/updateGoods',
+    method: 'post',
+    data: data
   })
 }
 
