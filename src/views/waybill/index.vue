@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <WaybillDialog ref="formDialog" @add-success="showWaybills"/>
+    <WaybillDialog ref="formDialog" class="right-btn blue-btn" @add-success="showWaybills"/>
     <el-row>
       <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">新建运单</el-button>
     </el-row>

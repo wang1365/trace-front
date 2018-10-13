@@ -2,7 +2,7 @@
   <div class="main">
     <ReportDialog ref="formDialog" @upload-success="updateReportList" />
     <el-row>
-      <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">添加报告</el-button>
+      <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="showModal">添加报告</el-button>
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>

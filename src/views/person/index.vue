@@ -2,7 +2,7 @@
   <div class="main">
     <PersonDialog ref="formDialog" @add-success="updatePersonList" />
     <el-row>
-      <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">录入人员</el-button>
+      <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="showModal">录入人员</el-button>
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
@@ -12,7 +12,7 @@
           <template slot-scope="scope"><span :class="scope.row.gender === '男' ? 'gender-m':'gender-f'">{{ scope.row.gender }}</span></template>
         </el-table-column>
         <el-table-column label="出生日期" sortable width="120">
-          <template slot-scope="scope">{{ scope.row.birthday| formatDate }}</template>
+          <template slot-scope="scope"><span class="cell-hover">{{ scope.row.birthday| formatDate }}</span></template>
         </el-table-column>
         <el-table-column prop="idCard" label="身份证号" width="150"/>
         <el-table-column prop="familyAddress" label="家庭地址" />
@@ -135,5 +135,10 @@ export default {
   }
   .gender-f {
     color: #a13e0d;
+  }
+
+  .cell-hover:hover {
+    color: blue;
+    font-size: large;
   }
 </style>

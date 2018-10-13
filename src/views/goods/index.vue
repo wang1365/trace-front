@@ -2,7 +2,7 @@
   <div class="main">
     <GoodsDialog ref="formDialog" @add-success="updateGoodsList" />
     <el-row>
-      <el-button type="success" icon="el-icon-plus" size="small" @click="showModal">添加商品</el-button>
+      <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="showModal">添加商品</el-button>
       <el-switch
         v-model="cardMode"
         style="margin-left: 20px"
