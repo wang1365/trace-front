@@ -52,7 +52,7 @@ export default {
     show(action, goods) {
       this.action = action
       if (action === 'modify') {
-        this.ruleForm = goods
+        this.ruleForm = Object.assign({}, goods)
       }
       this.visible = true
     },

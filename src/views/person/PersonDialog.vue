@@ -71,8 +71,9 @@ export default {
     show(action, person) {
       if (action === 'modify') {
         this.action = action
-        this.ruleForm = person
-        if (person && person.birthday) {
+        const copy = Object.assign({}, person)
+        this.ruleForm = copy
+        if (copy && copy.birthday) {
           person.birthday = this.$options.filters.formatDate(person.birthday)
         }
       } else {

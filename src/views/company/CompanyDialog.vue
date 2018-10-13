@@ -61,7 +61,7 @@ export default {
     show(action, company) {
       if (action === 'modify') {
         this.action = action
-        this.form = company
+        this.form = Object.assign({}, company)
       } else {
         this.action = 'add'
       }
