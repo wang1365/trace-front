@@ -22,7 +22,7 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button type="success" size="small" @click="onSubmit('ruleForm')">添加</el-button>
+      <el-button type="success" size="small" @click="onSubmit('ruleForm')">保存</el-button>
       <el-button size="small" @click="visible = false">取消</el-button>
     </div>
   </el-dialog>
@@ -102,6 +102,8 @@ export default {
       this.action = action
       if (action === 'modify') {
         this.ruleForm = Object.assign({}, form)
+        this.ruleForm.year = new Date(form.year + '-01-01')
+        this.ruleForm.startDate = new Date(form.startDate)
       }
       this.visible = true
     },

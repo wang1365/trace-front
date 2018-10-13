@@ -20,7 +20,7 @@
         <el-table-column label="操作" width="250">
           <template slot-scope="scope">
             <el-button size="mini" type="success" icon="el-icon-tickets" @click="onCheckDetail(scope.row.id)">详情</el-button>
-            <!--<el-button size="mini" type="primary" @click="showModal('modify', scope.row)">修改</el-button>-->
+            <el-button size="mini" type="primary" @click="showModal('modify', scope.row)">修改</el-button>
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
@@ -45,7 +45,6 @@ export default {
     return {
       farmerId: this.$route.params.plantId,
       items: [],
-      dialogVisible: false,
       imageDialogVisible: false,
       selectedImage: null
     }

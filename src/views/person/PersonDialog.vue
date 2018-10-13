@@ -74,7 +74,7 @@ export default {
         const copy = Object.assign({}, person)
         this.ruleForm = copy
         if (copy && copy.birthday) {
-          person.birthday = this.$options.filters.formatDate(person.birthday)
+          copy.birthday = new Date(person.birthday)
         }
       } else {
         this.action = 'add'
