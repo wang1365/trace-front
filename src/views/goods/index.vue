@@ -11,28 +11,30 @@
     </el-row>
     <el-row v-if="cardMode">
       <el-col v-for="item in items" :key="item.id" :span="6" :offset="2" >
-        <el-card :body-style="{ padding: '15px' }" class="card">
+        <el-card class="card">
+          <div style="margin-bottom: 5px">{{ item.name }}</div>
           <img :src="item.imageUrl" class="image" >
-          <div style="padding: 14px;">
-            <span>{{ item.name }}</span>
+          <div style="bottom:10px;">
             <div class="bottom clearfix">
-              <el-button type="primary" class="button" @click="onDeleteBtnClick(item.id)">删除</el-button>
+              <el-button type="warning" size="mini" class="button" @click="onDeleteBtnClick(item.id)">删除</el-button>
+              <el-button type="primary" size="mini" class="button" @click="showModal('modify', item)">修改</el-button>
             </div>
           </div>
         </el-card>
       </el-col>
     </el-row>
     <el-row v-if="!cardMode" class="table">
-      <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" width="100" />
-        <el-table-column prop="name" label="名称" width="100" />
+      <el-table :data="items" border stripe highlight-current-row>
+        <el-table-column prop="id" label="ID" width="100px"/>
+        <el-table-column prop="name" label="名称" width="80px"/>
         <el-table-column label="图片">
           <template slot-scope="scope">
-            <img :src="scope.row.imageUrl" width="300" @click="onImageClick(scope.row.path)">
+            <img :src="scope.row.imageUrl" width="250px" @click="onImageClick(scope.row.path)">
           </template>
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="200px">
           <template slot-scope="scope">
+            <el-button size="mini" type="primary" @click="showModal('modify', scope.row)">修改</el-button>
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
@@ -69,8 +71,8 @@ export default {
     handleView(index, row) {
       console.log(index, row)
     },
-    showModal() {
-      this.$refs['formDialog'].show()
+    showModal(action, goods) {
+      this.$refs['formDialog'].show(action, goods)
     },
     updateGoodsList() {
       getAllGoods().then(response => {
@@ -131,13 +133,18 @@ export default {
     line-height: 12px;
   }
   .button {
-    /*padding: 0;*/
+    margin: 5px;
     float: right;
   }
   .image {
     width: 100%;
     display: block;
   }
+
+  /*.image:hover {*/
+    /*width: 100%;*/
+  /*}*/
+
   .clearfix:before,
   .clearfix:after {
     display: table;
