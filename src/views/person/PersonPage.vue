@@ -1,65 +1,62 @@
 <template>
   <div class="main">
-    <PlantDialog ref="formDialog" :plant-list="items" @add-success="updatePlantList" />
+    <PersonDialog ref="formDialog" @add-success="updatePersonList" />
     <el-row>
-      <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="showModal">添加种植计划</el-button>
+      <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="showModal">录入人员</el-button>
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" sortable width="100" />
-        <el-table-column prop="farmerName" sortable label="农户姓名" width="100" />
-        <el-table-column prop="goodsName" sortable label="农作物名称" width="120" />
-        <el-table-column prop="year" sortable label="年度" width="80" />
-        <el-table-column sortable label="开始时间" width="100" >
-          <template slot-scope="scope">{{ scope.row.startDate | formatDate }}</template>
+        <el-table-column prop="id" label="ID" sortable width="80" />
+        <el-table-column prop="name" label="姓名" sortable width="100" />
+        <el-table-column prop="gender" label="性别" width="50" >
+          <template slot-scope="scope"><span :class="scope.row.gender === '男' ? 'gender-m':'gender-f'">{{ scope.row.gender }}</span></template>
         </el-table-column>
-        <el-table-column prop="address" label="地点" />
-        <el-table-column sortable label="记录时间" >
-          <template slot-scope="scope">{{ scope.row.createTime | formatDatetime }}</template>
+        <el-table-column label="出生日期" sortable width="120">
+          <template slot-scope="scope"><span class="cell-hover">{{ scope.row.birthday| formatDate }}</span></template>
         </el-table-column>
-        <el-table-column label="操作" width="250">
+        <el-table-column prop="idCard" label="身份证号" width="150"/>
+        <el-table-column prop="familyAddress" label="家庭地址" />
+        <el-table-column prop="mobileNo" label="联系方式" width="120"/>
+        <el-table-column prop="company" label="单位" />
+        <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" type="success" icon="el-icon-tickets" @click="onCheckDetail(scope.row.id)">详情</el-button>
             <el-button size="mini" type="primary" @click="showModal('modify', scope.row)">修改</el-button>
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
     </el-row>
-    <el-dialog :visible.sync="imageDialogVisible" center>
-      <img :src="selectedImage" width="100%" height="100%">
-    </el-dialog>
   </div>
 </template>
 
 <script>
-import { getAllPlant, deletePlant } from '@/api/plant'
-import PlantDialog from './PlantDialog'
+import { getAllPerson, deletePerson } from '@/api/person'
+import PersonDialog from './PersonDialog'
 
 export default {
-  name: 'Plant',
+  name: 'PersonPage',
   components: {
-    PlantDialog
+    PersonDialog
   },
   data() {
     return {
-      farmerId: this.$route.params.plantId,
       items: [],
-      imageDialogVisible: false,
-      selectedImage: null
+      dialogVisible: false,
+      selectedPerson: null,
+      showAddDialog: false
     }
   },
   created() {
-    this.updatePlantList()
+    this.updatePersonList()
   },
   methods: {
     handleView(index, row) {
     },
-    showModal(action, item) {
-      this.$refs['formDialog'].show(action, item)
+    showModal(action, person) {
+      this.$refs['formDialog'].show(action, person)
     },
-    updatePlantList() {
-      getAllPlant().then(response => {
+    updatePersonList() {
+      getAllPerson().then(response => {
         this.items = response.data.data
       })
     },
@@ -67,19 +64,16 @@ export default {
       this.selectedImage = path
       this.imageDialogVisible = true
     },
-    onCheckDetail(plantId) {
-      this.$router.push({ name: 'PlantDetail', params: { plantId: plantId }})
-    },
     onDeleteBtnClick(id) {
-      this.$confirm('是否确认要删除?', '提示', {
+      this.$confirm('是否确认要删除该人员?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deletePlant(id)
+        deletePerson(id)
           .then(response => {
             this.$message({ type: 'success', message: '删除成功!' })
-            this.updatePlantList()
+            this.updatePersonList()
           })
           .catch(err => {
             this.$message({ type: 'error', message: '删除失败：' + err })
@@ -134,5 +128,16 @@ export default {
   }
   .clearfix:after {
     clear: both
+  }
+  .gender-m {
+    color: #1478F0;
+  }
+  .gender-f {
+    color: #a13e0d;
+  }
+
+  .cell-hover:hover {
+    color: blue;
+    font-size: large;
   }
 </style>
