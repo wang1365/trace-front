@@ -3,7 +3,7 @@
     <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside"/>
     <sidebar class="sidebar-container"/>
     <div class="main-container">
-      <navbar/>
+      <navbar class="main-bg"/>
       <tags-view/>
       <app-main/>
     </div>
@@ -67,5 +67,10 @@ export default {
     height: 100%;
     position: absolute;
     z-index: 999;
+  }
+  .main-bg {
+    background-image: url(https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1426243371,1906256964&fm=26&gp=0.jpg);
+    background-repeat: repeat;
+    background-size:100% 100%;
   }
 </style>
