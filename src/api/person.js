@@ -16,11 +16,18 @@ export function updatePerson(data) {
   })
 }
 
-export function getAllPerson(params) {
+export function getAllPerson() {
   return request({
     url: '/web/person/getPersonList',
+    method: 'get'
+  })
+}
+
+export function getPersonListByType(type) {
+  return request({
+    url: '/web/person/getPersonListByType',
     method: 'get',
-    params: params
+    params: { type }
   })
 }
 

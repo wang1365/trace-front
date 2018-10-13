@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <PersonDialog ref="formDialog" @add-success="updatePersonList" />
+    <PersonDialog ref="formDialog" :person-type="personType" @add-success="updatePersonList" />
     <el-row>
       <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="showModal">录入人员</el-button>
     </el-row>
@@ -30,13 +30,19 @@
 </template>
 
 <script>
-import { getAllPerson, deletePerson } from '@/api/person'
+import { getPersonListByType, deletePerson } from '@/api/person'
 import PersonDialog from './PersonDialog'
 
 export default {
   name: 'PersonPage',
   components: {
     PersonDialog
+  },
+  props: {
+    personType: {
+      type: Number,
+      default: 1
+    }
   },
   data() {
     return {
@@ -56,7 +62,7 @@ export default {
       this.$refs['formDialog'].show(action, person)
     },
     updatePersonList() {
-      getAllPerson().then(response => {
+      getPersonListByType(this.personType).then(response => {
         this.items = response.data.data
       })
     },

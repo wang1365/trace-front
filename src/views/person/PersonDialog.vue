@@ -37,7 +37,10 @@ import { addPerson, updatePerson } from '@/api/person'
 export default {
   name: 'ReportForm',
   props: {
-
+    personType: {
+      type: Number,
+      default: 1
+    }
   },
   data() {
     return {
@@ -49,6 +52,7 @@ export default {
       ruleForm: {
         id: null,
         name: null,
+        type: this.personType,
         idCard: null,
         gender: '男',
         birthday: null,
