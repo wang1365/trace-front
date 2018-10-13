@@ -65,7 +65,7 @@ export default {
         farmerId: null,
         startDate: null,
         address: null,
-        year: null
+        year: new Date()
       },
       formRules: {
         goodsId: [
@@ -101,7 +101,7 @@ export default {
     show(action, form) {
       this.action = action
       if (action === 'modify') {
-        this.form = Object.assign({}, form)
+        this.ruleForm = Object.assign({}, form)
       }
       this.visible = true
     },

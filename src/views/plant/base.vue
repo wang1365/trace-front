@@ -7,19 +7,20 @@
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" sortable width="100" />
-        <el-table-column prop="farmerName" sortable label="农户姓名" />
-        <el-table-column prop="goodsName" sortable label="农作物名称" />
-        <el-table-column prop="year" sortable label="年度" />
-        <el-table-column sortable label="开始时间" >
+        <el-table-column prop="farmerName" sortable label="农户姓名" width="100" />
+        <el-table-column prop="goodsName" sortable label="农作物名称" width="120" />
+        <el-table-column prop="year" sortable label="年度" width="80" />
+        <el-table-column sortable label="开始时间" width="100" >
           <template slot-scope="scope">{{ scope.row.startDate | formatDate }}</template>
         </el-table-column>
         <el-table-column prop="address" label="地点" />
         <el-table-column sortable label="记录时间" >
           <template slot-scope="scope">{{ scope.row.createTime | formatDatetime }}</template>
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="250">
           <template slot-scope="scope">
             <el-button size="mini" type="success" icon="el-icon-tickets" @click="onCheckDetail(scope.row.id)">详情</el-button>
+            <!--<el-button size="mini" type="primary" @click="showModal('modify', scope.row)">修改</el-button>-->
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
@@ -55,8 +56,8 @@ export default {
   methods: {
     handleView(index, row) {
     },
-    showModal() {
-      this.$refs['formDialog'].show()
+    showModal(action, item) {
+      this.$refs['formDialog'].show(action, item)
     },
     updatePlantList() {
       getAllPlant().then(response => {
