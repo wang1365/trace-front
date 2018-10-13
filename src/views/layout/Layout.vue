@@ -69,8 +69,7 @@ export default {
     z-index: 999;
   }
   .main-bg {
-    background-image: url(https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1426243371,1906256964&fm=26&gp=0.jpg);
-    background-repeat: repeat;
+    background: url(https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1426243371,1906256964&fm=26&gp=0.jpg) repeat;
     background-size:100% 100%;
   }
 </style>

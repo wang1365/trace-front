@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="flag" title="新增订单" center>
+  <el-dialog :visible.sync="visible" title="新增订单" center>
     <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="100px">
       <el-form-item label="商品" prop="goodsId">
         <el-select v-model="ruleForm.goodsId" placeholder="请选择">
@@ -65,14 +65,10 @@ import { getPlantListByPerson, getPickListByPlant } from '@/api/plant'
 export default {
   name: 'ReportForm',
   props: {
-    dialogVisible: {
-      type: Boolean,
-      default: false
-    }
   },
   data() {
     return {
-      visible: this.dialogVisible,
+      visible: false,
       goodsList: [],
       reportList: [],
       units: ['kg', '个'],
@@ -132,12 +128,6 @@ export default {
     }
   },
   watch: {
-    dialogVisible(newVal) {
-      if (!newVal) {
-        this.$refs['ruleForm'].resetFields()
-      }
-      this.flag = this.dialogVisible
-    },
     sellerId() {
       this.updatePlantListByPerson(this.ruleForm.sellerId)
       this.ruleForm.plantId = null
@@ -156,10 +146,10 @@ export default {
   },
   methods: {
     show() {
-      this.flag = true
+      this.visible = true
     },
     hide() {
-      this.flag = false
+      this.visible = false
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {

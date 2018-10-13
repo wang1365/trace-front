@@ -6,16 +6,17 @@
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" sortable width="50" />
-        <el-table-column prop="goodsName" label="商品名称" sortable width="80"/>
-        <el-table-column label="收购时间" sortable width="85">
+        <el-table-column prop="id" label="ID" sortable width="60" />
+        <el-table-column prop="goodsName" label="商品名称" sortable width="95"/>
+        <el-table-column label="收购时间" sortable width="95">
           <template slot-scope="scope">{{ scope.row.orderTime|formatDate }}</template>
         </el-table-column>
         <el-table-column prop="address" label="收购地点" />
-        <el-table-column prop="quantity" label="收购数量" width="80" />
-        <el-table-column prop="unit" label="单位" width="50px"/>
-        <el-table-column prop="buyerName" label="收购人" sortable width="80" />
-        <el-table-column prop="sellerName" label="卖家(农户)" sortable width="80" />
+        <el-table-column label="收购数量" width="100" >
+          <template slot-scope="scope">{{ scope.row.quantity+' '+scope.row.unit }}</template>
+        </el-table-column>
+        <el-table-column prop="buyerName" label="收购人" sortable width="90" />
+        <el-table-column prop="sellerName" label="卖家(农户)" sortable width="105" />
         <el-table-column prop="plantDTO.summary" label="种植计划" />
         <el-table-column prop="pickDTO.summary" label="采摘条目" />
         <el-table-column prop="reportTitle" label="质检报告" />
