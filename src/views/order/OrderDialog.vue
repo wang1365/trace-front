@@ -21,8 +21,8 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col v-if="ruleForm.unit" :span="8">
-          <el-form-item :label="'价格(元/'+ruleForm.unit+')'" prop="price">
+        <el-col :span="8">
+          <el-form-item :label="priceLabel" prop="price">
             <el-input v-model="ruleForm.price" placeholder="输入价格"/>
           </el-form-item>
         </el-col>
@@ -154,6 +154,9 @@ export default {
     },
     plantId() {
       return this.ruleForm.plantId
+    },
+    priceLabel() {
+      return this.ruleForm.unit === null ? '价格' : `价格(${this.ruleForm.unit})`
     }
   },
   watch: {
