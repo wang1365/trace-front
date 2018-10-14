@@ -13,10 +13,10 @@
         </el-table-column>
         <el-table-column prop="address" label="收购地点" />
         <el-table-column label="收购数量" width="100" >
-          <template slot-scope="scope">{{ scope.row.quantity + scope.row.unit }}</template>
+          <template slot-scope="scope">{{ scope.row.quantity + ' ' + scope.row.unit }}</template>
         </el-table-column>
-        <el-table-column label="价格(元/kg)" sortable width="110" >
-          <template slot-scope="scope">{{ scope.row.price/100 }}</template>
+        <el-table-column label="价格" sortable width="110" >
+          <template slot-scope="scope">{{ scope.row.price ? scope.row.price/100 + ' 元/' + scope.row.unit: '' }}</template>
         </el-table-column>
         <el-table-column prop="buyerName" label="收购人" sortable width="90" />
         <el-table-column prop="sellerName" label="卖家(农户)" sortable width="105" />
