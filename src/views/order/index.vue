@@ -26,9 +26,10 @@
         <el-table-column prop="plantDTO.summary" label="种植计划" />
         <el-table-column prop="pickDTO.summary" label="采摘条目" />
         <el-table-column prop="reportTitle" label="质检报告" />
-        <el-table-column label="操作" width="200px">
+        <el-table-column label="操作" width="240px">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" @click="goOrderDetail(scope.row.id)">溯源二维码</el-button>
+            <el-button size="mini" type="primary" @click="goOrderDetail(scope.row.id)">溯源码</el-button>
+            <el-button size="mini" type="success" @click="showModal('modify', scope.row)">修改</el-button>
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
@@ -67,8 +68,8 @@ export default {
     handleView(index, row) {
       console.log(index, row)
     },
-    showModal() {
-      this.$refs['formDialog'].show()
+    showModal(action, data) {
+      this.$refs['formDialog'].show(action, data)
     },
     updateOrderList() {
       getAllOrder().then(response => {

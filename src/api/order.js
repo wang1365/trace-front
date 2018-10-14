@@ -8,6 +8,14 @@ export function addOrder(data) {
   })
 }
 
+export function updateOrder(data) {
+  return request({
+    url: '/web/order/updateOrder',
+    method: 'post',
+    data: data
+  })
+}
+
 export function getAllOrder(params) {
   return request({
     url: '/web/order/getOrderList',

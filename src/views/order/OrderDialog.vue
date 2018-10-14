@@ -1,6 +1,6 @@
 <template>
-  <el-dialog :visible.sync="visible" title="新增订单" center>
-    <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="120px">
+  <el-dialog :visible.sync="visible" :title="title" center>
+    <el-form v-loading="loading" ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="120px">
       <el-form-item label="商品" prop="goodsId">
         <el-select v-model="ruleForm.goodsId" placeholder="请选择">
           <el-option v-for="item in goodsList" :key="item.id" :label="item.name" :value="item.id"/>
@@ -95,7 +95,7 @@
 <script>
 import { getAllGoods } from '@/api/goods'
 import { getAllQualityReport } from '@/api/qualityReport'
-import { addOrder } from '@/api/order'
+import { addOrder, updateOrder } from '@/api/order'
 import { getAllPerson } from '@/api/person'
 import { getPlantListByPerson, getPickListByPlant } from '@/api/plant'
 
@@ -106,11 +106,14 @@ export default {
   data() {
     return {
       visible: false,
+      loading: false,
+      action: 'add',
       goodsList: [],
       reportList: [],
       units: ['kg', '个'],
       plantList: [],
       pickList: [],
+      personList: [],
       ruleForm: {
         goodsId: null,
         quantity: null,
@@ -168,20 +171,29 @@ export default {
     },
     totalPrice() {
       return (this.ruleForm.price !== null && this.ruleForm.quantity !== null) ? (this.ruleForm.price * this.ruleForm.quantity) : ''
+    },
+    title() {
+      return this.action === 'modify' ? '修改订单' : '新增订单'
     }
   },
   watch: {
-    sellerId() {
-      if (this.ruleForm.sellerId) {
-        this.updatePlantListByPerson(this.ruleForm.sellerId)
+    sellerId(newV, oldV) {
+      if (newV) {
+        console.log('watch sellerId:', newV)
+        this.updatePlantListByPerson(newV)
+        if (oldV) {
+          this.ruleForm.plantId = null
+        }
       }
-      this.ruleForm.plantId = null
     },
-    plantId() {
-      if (this.ruleForm.plantId) {
-        this.updatePickListByPlant(this.ruleForm.plantId)
+    plantId(newV, oldV) {
+      if (newV) {
+        console.log('watch plantId:', newV)
+        this.updatePickListByPlant(newV)
       }
-      this.ruleForm.pickId = null
+      if (oldV) {
+        this.ruleForm.pickId = null
+      }
     }
   },
   created() {
@@ -190,9 +202,27 @@ export default {
     this.getGoodsList()
     this.getReportList()
     this.getPersonList()
+
+    if (this.ruleForm.farmerId) {
+      this.updatePlantListByPerson(this.ruleForm.farmerId)
+    }
+
+    if (this.ruleForm.plantId) {
+      this.updatePickListByPlant(this.ruleForm.plantId)
+    }
   },
   methods: {
-    show() {
+    show(action, data) {
+      this.action = action
+      if (action === 'modify') {
+        this.action = action
+        const form = Object.assign({}, data)
+        form.orderTime = new Date(data.orderTime)
+        form.price /= 100
+        this.ruleForm = form
+      } else {
+        this.action = 'add'
+      }
       this.visible = true
     },
     hide() {
@@ -206,13 +236,18 @@ export default {
 
         const copyForm = Object.assign({}, this.ruleForm)
         copyForm.price *= 100
-        addOrder(copyForm).then((response) => {
+
+        const restInvoke = this.action === 'modify' ? updateOrder : addOrder
+        this.loading = true
+        restInvoke(copyForm).then((response) => {
+          this.loading = false
           this.$refs[form].resetFields()
-          this.$message({ message: `添加种植计划成功`, type: 'success' })
+          this.$message({ message: `保存成功`, type: 'success' })
           this.$emit('add-success')
           this.hide()
         }).catch(err => {
-          this.$message({ message: `添加失败：${err}`, type: 'error' })
+          this.loading = false
+          this.$message({ message: `保存失败：${err}`, type: 'error' })
         })
       })
     },
@@ -223,34 +258,54 @@ export default {
       return item.id + '/' + item.farmerName + '/' + item.actionName + '/' + new Date(item.actionDate).toLocaleDateString()
     },
     getGoodsList() {
+      this.loading = true
       getAllGoods().then(res => {
+        this.loading = false
         this.goodsList = res.data.data
       }).catch(err => {
+        this.loading = false
         this.$message({ message: `获取商品列表失败, ${err}`, type: 'error' })
       })
     },
     getPersonList() {
+      this.loading = true
       getAllPerson().then(res => {
+        this.loading = false
         this.personList = res.data.data
       }).catch(err => {
+        this.loading = false
         this.$message({ message: `获取人员列表失败, ${err}`, type: 'error' })
       })
     },
     getReportList() {
+      this.loading = true
       getAllQualityReport().then(res => {
+        this.loading = false
         this.reportList = res.data.data
       }).catch(err => {
+        this.loading = false
         this.$message({ message: `获取列表失败, ${err}`, type: 'error' })
       })
     },
     updatePlantListByPerson(personId) {
+      console.log('updatePlantListByPerson:', personId)
+      this.loading = true
       getPlantListByPerson(personId).then(res => {
+        this.loading = false
         this.plantList = res.data.data
+      }).catch(err => {
+        this.loading = false
+        this.$message({ message: `获取列表失败, ${err}`, type: 'error' })
       })
     },
     updatePickListByPlant(plantId) {
+      this.loading = true
       getPickListByPlant(plantId).then(res => {
+        this.loading = false
         this.pickList = res.data.data
+      }).catch(err => {
+        this.loading = false
+        this.$message({ message: `获取列表失败, ${err}`, type: 'error' })
       })
     }
   }
