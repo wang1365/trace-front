@@ -1,5 +1,18 @@
 <template>
   <div id="qrcodeMain" class="main">
+    <div v-if="false" class="block">
+      <span class="demonstration">查询订单时间范围：{{ dateRange }}</span>
+      <el-date-picker
+        v-model="dateRange"
+        :picker-options="pickerOptions"
+        type="daterange"
+        align="left"
+        unlink-panels
+        range-separator="至"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"/>
+    </div>
+    <hr>
     <el-row>
       <el-col v-for="(item, index) in items" :span="6" :key="item.id" :offset="2" >
         <el-card :body-style="{ padding: '30px' }" :id="'card'+index" class="card">
@@ -37,7 +50,35 @@ export default {
       items: [],
       dialogVisible: false,
       imageDialogVisible: false,
-      selectedImage: null
+      selectedImage: null,
+      dateRange: null,
+      pickerOptions: {
+        shortcuts: [{
+          text: '最近一周',
+          onClick(picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', [start, end])
+          }
+        }, {
+          text: '最近一个月',
+          onClick(picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+            picker.$emit('pick', [start, end])
+          }
+        }, {
+          text: '最近三个月',
+          onClick(picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+            picker.$emit('pick', [start, end])
+          }
+        }]
+      }
     }
   },
   created() {
@@ -146,5 +187,13 @@ export default {
   }
   .clearfix:after {
     clear: both
+  }
+  hr {
+    width:100%;
+    margin:10px auto;
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
 </style>
