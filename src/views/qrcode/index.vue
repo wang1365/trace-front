@@ -14,11 +14,10 @@
     </div>
     <hr>
     <el-row>
-      <el-col v-for="(item, index) in items" :span="6" :key="item.id" :offset="2" >
-        <el-card :body-style="{ padding: '30px' }" :id="'card'+index" class="card">
-          <!--<img :src="item.qrcodeUrl" :id="'qrcode'+index" class="image" >-->
-          <div><span style="color: #1478F0">手机扫一扫</span><span> 溯源二维码：</span></div>
-          <div :id="`qrcode`+index" :ref="`qrcode`+index" style="margin: 10px"/>
+      <el-col v-for="(item, index) in items" :lg="6" :xs="24" :key="item.id" >
+        <el-card ref="`card${index}`" :id="'card'+index" class="card">
+          <div><span style="color: #1478F0">{{ index+1 }}.手机扫一扫</span><span> 溯源二维码：</span></div>
+          <div :id="`qrcode`+index" :ref="`qrcode`+index" class="qrcode"/>
           <div>
             <span style="color: #30B08F">订单{{ item.summary }}</span>
             <div class="bottom clearfix">
@@ -81,7 +80,16 @@ export default {
       }
     }
   },
+  computed: {
+    qrWidth() {
+      return 200
+      // return this.$refs['col'] ? this.$refs['col'].$el.clientWidth : -1
+    }
+  },
   created() {
+
+  },
+  mounted() {
     this.updateQrcodeList()
   },
   methods: {
@@ -94,7 +102,9 @@ export default {
     updateQrcodeList() {
       getAllOrder().then(response => {
         this.items = response.data.data
-        this.createQrcode()
+        this.$nextTick(() => {
+          this.createQrcode()
+        })
       })
     },
     onImageClick(path) {
@@ -114,17 +124,16 @@ export default {
       return false
     },
     createQrcode() {
-      this.$nextTick(() => {
-        this.items.forEach((order, index, arr) => {
-          const baseUrl = 'http://www.tiaocaishi.com:9527/h5/#/goods/'
-          new QRCode(`qrcode${index}`, {
-            width: 250,
-            height: 250, // 高度
-            text: baseUrl + order.id, // 二维码内容
-            // render: 'canvas' // 设置渲染方式（有两种方式 table和canvas，默认是canvas）
-            background: '#f0f',
-            foreground: '#ff0'
-          })
+      this.items.forEach((order, index, arr) => {
+        const baseUrl = 'http://www.tiaocaishi.com:9527/h5/#/goods/'
+        console.log('qr code withd:', this.qrWidth)
+        new QRCode(`qrcode${index}`, {
+          width: this.qrWidth,
+          height: this.qrWidth,
+          text: baseUrl + order.id, // 二维码内容
+          // render: 'canvas' // 设置渲染方式（有两种方式 table和canvas，默认是canvas）
+          background: '#f0f',
+          foreground: '#ff0'
         })
       })
     }
@@ -132,16 +141,16 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .main {
     padding: 20px
   }
-  .el-row {
-    margin-bottom: 20px;
-  }
-  .el-col {
-    border-radius: 4px;
-  }
+  /*.el-row {*/
+    /*margin-bottom: 20px;*/
+  /*}*/
+  /*.el-col {*/
+    /*border-radius: 4px;*/
+  /*}*/
   .time {
     font-size: 13px;
     color: #999;
@@ -178,7 +187,18 @@ export default {
     float: right;
   }
   .card {
-    margin-bottom: 10px;
+    width: 80%;
+    margin: 10px;
+    padding: 10px;
+    &:hover {
+      padding: 10px 5px;
+      background-color: #ddeed9;
+    }
+  }
+
+  .qrcode {
+    width: 100%;
+    margin: 5px auto 5px auto;
   }
   .clearfix:before,
   .clearfix:after {
@@ -196,4 +216,5 @@ export default {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   }
+
 </style>
