@@ -156,7 +156,7 @@ export default {
       return this.ruleForm.plantId
     },
     priceLabel() {
-      return this.ruleForm.unit === null ? '价格' : `价格(${this.ruleForm.unit})`
+      return this.ruleForm.unit === null ? '价格' : `价格(元/${this.ruleForm.unit})`
     }
   },
   watch: {
