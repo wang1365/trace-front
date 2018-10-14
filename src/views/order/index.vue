@@ -18,6 +18,9 @@
         <el-table-column label="价格" sortable width="110" >
           <template slot-scope="scope">{{ scope.row.price ? scope.row.price/100 + ' 元/' + scope.row.unit: '' }}</template>
         </el-table-column>
+        <el-table-column label="总价" sortable width="110" >
+          <template slot-scope="scope">{{ getTotalPrice(scope.row) }}</template>
+        </el-table-column>
         <el-table-column prop="buyerName" label="收购人" sortable width="90" />
         <el-table-column prop="sellerName" label="卖家(农户)" sortable width="105" />
         <el-table-column prop="plantDTO.summary" label="种植计划" />
@@ -53,6 +56,9 @@ export default {
       imageDialogVisible: false,
       selectedImage: null
     }
+  },
+  computed: {
+
   },
   created() {
     this.updateOrderList()
@@ -94,6 +100,12 @@ export default {
     goOrderDetail(orderId) {
       this.$router.push('/qrcode/index')
       // this.$router.push(`/order/detail/${orderId}`)
+    },
+    getTotalPrice(item) {
+      if (item.price === null || item.quantity === null) {
+        return ''
+      }
+      return (item.price / 100) * item.quantity
     }
   }
 }

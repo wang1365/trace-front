@@ -21,10 +21,18 @@
             </el-select>
           </el-form-item>
         </el-col>
+      </el-row>
+
+      <el-row >
         <el-col :span="8">
           <el-form-item :label="priceLabel" prop="price">
-            <el-input v-model="ruleForm.price" placeholder="输入价格"/>
+            <el-input-number v-model="ruleForm.price" :precision="2" :step="0.1" size="small" placeholder="输入价格"/>
           </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-input v-model="totalPrice" placeholder="总价格" size="small" readonly>
+            <template slot="prepend">总价:</template>
+          </el-input>
         </el-col>
       </el-row>
 
@@ -78,8 +86,8 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button type="success" size="small" @click="onSubmit('ruleForm')">添加</el-button>
-      <el-button size="small" @click="visible = false">取消</el-button>
+      <el-button type="success" size="small" @click="onSubmit('ruleForm')">保 存</el-button>
+      <el-button size="small" @click="visible = false">取 消</el-button>
     </div>
   </el-dialog>
 </template>
@@ -157,6 +165,9 @@ export default {
     },
     priceLabel() {
       return this.ruleForm.unit === null ? '价格' : `价格(元/${this.ruleForm.unit})`
+    },
+    totalPrice() {
+      return (this.ruleForm.price !== null && this.ruleForm.quantity !== null) ? (this.ruleForm.price * this.ruleForm.quantity) : ''
     }
   },
   watch: {
