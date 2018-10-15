@@ -20,7 +20,7 @@
           name="file"
           list-type="picture"
           class="upload-demo"
-          action="/web/qualification/add">
+          action="/web/qualification/addQualification">
           <el-button slot="trigger" size="small" icon="el-icon-plus" type="primary">选择图片</el-button>
           <div slot="trigger" class="el-upload__tip">只能上传jpg/png文件，且不超过20mb</div>
         </el-upload>
