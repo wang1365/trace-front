@@ -15,3 +15,12 @@ export function addWaybill(params) {
     data: params
   })
 }
+
+export function deleteWaybill(id) {
+  return request({
+    url: '/web/waybill/deleteWaybill',
+    method: 'post',
+    params: { id }
+  })
+}
+

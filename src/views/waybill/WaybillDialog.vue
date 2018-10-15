@@ -1,6 +1,6 @@
 <template>
   <el-dialog :visible.sync="visible" title="配送订单" center>
-    <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="100px">
+    <el-form ref="ruleForm" :model="ruleForm" label-width="100px">
       <el-form-item :rules="[ {required: true, message:'请输入订单号', trigger:'blur'}]" label="订单号" prop="orderId">
         <el-input v-model.number="ruleForm.orderId" placeholder="填写订单号"/>
       </el-form-item>
