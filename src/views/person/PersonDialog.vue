@@ -96,11 +96,15 @@ export default {
 
         console.log('action:', this.action)
         const restApi = this.action === 'modify' ? updatePerson : addPerson
-        restApi(this.ruleForm).then((response) => {
-          this.$message({ message: `添加人员成功`, type: 'success' })
-          this.$emit('add-success')
-          this.$refs['ruleForm'].resetFields()
-          this.hide()
+        restApi(this.ruleForm).then((res) => {
+          if (res.data.success) {
+            this.$message({ message: `添加人员成功`, type: 'success' })
+            this.$emit('add-success')
+            this.$refs['ruleForm'].resetFields()
+            this.hide()
+          } else {
+            this.$message({ message: res.data.message, type: 'error' })
+          }
         }).catch(err => {
           this.$message({ message: `添加失败：${err}`, type: 'error' })
         })
