@@ -50,8 +50,8 @@ export default {
     this.showWaybills()
   },
   methods: {
-    showModal() {
-      this.$refs['formDialog'].show()
+    showModal(action, waybill) {
+      this.$refs['formDialog'].show(action, waybill)
     },
     handleView(index, row) {
       console.log(index, row)
