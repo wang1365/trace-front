@@ -31,59 +31,6 @@ export default {
 </script>
 
 <style scoped>
-  .main {
-    padding: 20px
-  }
-  .el-row {
-    margin-bottom: 20px;
-  }
-  .el-col {
-    border-radius: 4px;
-  }
-  .time {
-    font-size: 13px;
-    color: #999;
-  }
-  .card {
-    width: 300px;
-    height: 370px;
-    margin-bottom: 10px;
-    background-color: #d3dce6;
-  }
-  .card:hover {
-    width: 330px;
-  }
-  .bottom {
-    bottom: 15px;
-    line-height: 12px;
-  }
-  .button {
-    /*padding: 0;*/
-    float: right;
-  }
-  .image {
-    width: 100%;
-    display: block;
-  }
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-  .clearfix:after {
-    clear: both
-  }
-  .gender-m {
-    color: #1478F0;
-  }
-  .gender-f {
-    color: #a13e0d;
-  }
-
-  .cell-hover:hover {
-    color: blue;
-    font-size: large;
-  }
   .tab {
     margin-left: 1%;
     margin-top: 1%;
