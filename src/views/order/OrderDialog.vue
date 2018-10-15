@@ -7,14 +7,14 @@
         </el-select>
       </el-form-item>
       <el-row >
-        <el-col :span="8">
+        <el-col :span="10">
           <el-form-item
             label="采购数量(kg)"
             prop="quantity">
             <el-input v-model.number="ruleForm.quantity" type="number" placeholder="填写商品数量"/>
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="8">
           <el-form-item label="单位" prop="unit">
             <el-select v-model="ruleForm.unit" placeholder="请选择">
               <el-option v-for="item in ['kg','个']" :key="item" :label="item" :value="item"/>
@@ -24,7 +24,7 @@
       </el-row>
 
       <el-row >
-        <el-col :span="8">
+        <el-col :span="10">
           <el-form-item :label="priceLabel" prop="price">
             <el-input-number v-model="ruleForm.price" :precision="2" :step="0.1" size="small" placeholder="输入价格"/>
           </el-form-item>
@@ -37,7 +37,7 @@
       </el-row>
 
       <el-row>
-        <el-col :span="8">
+        <el-col :span="10">
           <el-form-item label="采购时间" prop="orderTime">
             <el-date-picker v-model="ruleForm.orderTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
           </el-form-item>
@@ -49,7 +49,7 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="8">
+        <el-col :span="10">
           <el-form-item label="采购人" prop="buyerId">
             <el-select v-model="ruleForm.buyerId" placeholder="填写采购人">
               <el-option v-for="item in personList" :key="item.id" :label="item.id + '.' + item.name" :value="item.id"/>
@@ -65,7 +65,7 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="8">
+        <el-col :span="10">
           <el-form-item label="种植计划" prop="plantId">
             <el-select v-model="ruleForm.plantId" placeholder="关联种植计划" no-data-text="无数据，请先添加该农户的种植计划">
               <el-option v-for="item in plantList" :key="item.id" :label="formatPlantInfo(item)" :value="item.id"/>
