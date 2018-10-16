@@ -1,6 +1,6 @@
 <template>
   <el-dialog :visible.sync="visible" title="配送订单" center>
-    <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="100px">
+    <el-form ref="ruleForm" :model="ruleForm" label-width="100px">
       <el-form-item :rules="[ {required: true, message:'请输入订单号', trigger:'blur'}]" label="订单号" prop="orderId">
         <el-input v-model.number="ruleForm.orderId" placeholder="填写订单号"/>
       </el-form-item>
@@ -10,8 +10,8 @@
       <el-form-item :rules="[ {required: true, message:'请填写司机手机号', trigger:'blur'}]" label="司机手机" prop="driverPhone">
         <el-input v-model="ruleForm.driverPhone" placeholder="填写司机手机号"/>
       </el-form-item>
-      <el-form-item :rules="[ {required: true, message:'请填写车牌号', trigger:'blur'}]" label="车牌号" prop="platNumber">
-        <el-input v-model="ruleForm.platNumber" placeholder="填写车牌号"/>
+      <el-form-item :rules="[ {required: true, message:'请填写车牌号', trigger:'blur'}]" label="车牌号" prop="plateNumber">
+        <el-input v-model="ruleForm.plateNumber" placeholder="填写车牌号"/>
       </el-form-item>
       <el-form-item label="起始时间" prop="startTime">
         <el-date-picker v-model="ruleForm.startTime" type="datetime" placeholder="选择起始时间"/>
@@ -27,14 +27,14 @@
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button type="success" size="small" @click="onSubmit('ruleForm')">添加</el-button>
+      <el-button type="success" size="small" @click="onSubmit('ruleForm')">保存</el-button>
       <el-button size="small" @click="visible = false">取消</el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
-import { addWaybill } from '@/api/waybill'
+import { addWaybill, updateWaybill } from '@/api/waybill'
 
 export default {
   props: {
@@ -46,7 +46,7 @@ export default {
         orderId: null,
         driverName: null,
         driverPhone: null,
-        platNumber: null,
+        plateNumber: null,
         startTime: null,
         startLocation: null,
         endTime: null,
@@ -54,14 +54,20 @@ export default {
       }
     }
   },
-  computed() {
+  computed: {
   },
   created() {
   },
   mounted() {
   },
   methods: {
-    show() {
+    show(action, waybill) {
+      if (action === 'modify') {
+        this.action = action
+        this.ruleForm = Object.assign({}, waybill)
+      } else {
+        this.action = 'add'
+      }
       this.visible = true
     },
     hide() {
@@ -72,7 +78,8 @@ export default {
         if (!valid) {
           return false
         }
-        addWaybill(this.ruleForm).then((response) => {
+        const restApi = this.action === 'modify' ? updateWaybill : addWaybill
+        restApi(this.ruleForm).then((response) => {
           this.$message({ message: `添加运单成功`, type: 'success' })
           this.$refs['ruleForm'].resetFields()
           this.$emit('add-success')
