@@ -125,6 +125,12 @@ export const asyncRouterMap = [
         component: () => import('@/views/goods/index'),
         name: 'Goods',
         meta: { title: 'goods', icon: 'example', noCache: true }
+      },
+      {
+        path: 'qualification',
+        component: () => import('@/views/qualification/index'),
+        name: 'Qualification',
+        meta: { title: 'qualification', icon: 'el-icon-tickets', noCache: true }
       }
     ]
   },
@@ -159,18 +165,6 @@ export const asyncRouterMap = [
         component: () => import('@/views/quality-report/index'),
         name: 'QualityReport',
         meta: { title: 'qualityReport', icon: 'el-icon-mobile-phone', noCache: true }
-      }
-    ]
-  },
-  {
-    path: '/qualification',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/qualification/index'),
-        name: 'Qualification',
-        meta: { title: 'qualification', icon: 'el-icon-tickets', noCache: true }
       }
     ]
   },

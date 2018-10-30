@@ -6,7 +6,7 @@
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" sortable width="100" />
+        <el-table-column prop="id" label="ID" sortable width="100"/>
         <el-table-column prop="driverName" sortable label="司机姓名" />
         <el-table-column prop="driverPhone" label="司机手机" />
         <el-table-column prop="plateNumber" label="车牌号" />
