@@ -15,6 +15,11 @@ module.exports = {
         secure: false,
         changeOrigin: true
       },
+      '/auth': {
+        target: 'http://localhost:8080',
+        secure: false,
+        changeOrigin: true
+      },
       '/web/**': {
         target: 'http://localhost:8080',
         secure: false,
