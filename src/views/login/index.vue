@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { isvalidUsername } from '@/utils/validate'
+import { isValidUsername } from '@/utils/validate'
 import LangSelect from '@/components/LangSelect'
 import SocialSign from './socialsignin'
 
@@ -67,7 +67,7 @@ export default {
   components: { LangSelect, SocialSign },
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!isvalidUsername(value)) {
+      if (!isValidUsername(value)) {
         callback(new Error('请输入正确格式的用户名'))
       } else {
         callback()
