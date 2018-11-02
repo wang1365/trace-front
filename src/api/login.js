@@ -6,7 +6,7 @@ export function loginByUsername(username, password) {
     password: password
   }
   return request({
-    url: '/auth',
+    url: '/web/auth',
     method: 'post',
     data
     // transformRequest: [function(data) {
