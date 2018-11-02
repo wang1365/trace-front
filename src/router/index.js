@@ -121,12 +121,6 @@ export const asyncRouterMap = [
         meta: { title: 'company', icon: 'tab', noCache: true }
       },
       {
-        path: 'goods',
-        component: () => import('@/views/goods/index'),
-        name: 'Goods',
-        meta: { title: 'goods', icon: 'example', noCache: true }
-      },
-      {
         path: 'qualification',
         component: () => import('@/views/qualification/index'),
         name: 'Qualification',
@@ -142,6 +136,12 @@ export const asyncRouterMap = [
       icon: 'el-icon-menu'
     },
     children: [
+      {
+        path: 'goods',
+        component: () => import('@/views/goods/index'),
+        name: 'Goods',
+        meta: { title: 'goods', icon: 'example', noCache: true }
+      },
       {
         path: 'base',
         component: () => import('@/views/plant/base'),

@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="visible" title="新增种植条目" >
+  <el-dialog :visible.sync="visible" :title="'新增种植条目 (农户：' + plant.farmerName+')'" width="30%" >
     <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="100px">
       <el-form-item label="时间" prop="actionDate">
         <el-date-picker v-model="ruleForm.actionDate" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
@@ -9,13 +9,8 @@
           <el-option v-for="item in plantActionTypeList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
       </el-form-item>
-      <el-form-item label="实施人" prop="actionFarmerId">
-        <el-select v-model="ruleForm.actionFarmerId" placeholder="请选择">
-          <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id"/>
-        </el-select>
-      </el-form-item>
       <el-form-item label="内容" prop="actionContent">
-        <el-input v-model="ruleForm.actionContent" placeholder="填写内容"/>
+        <el-input v-model="ruleForm.actionContent" type="textarea" placeholder="填写内容"/>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -31,25 +26,25 @@ import { addPlantItem } from '@/api/plant'
 export default {
   name: 'PlantItemForm',
   props: {
-
   },
   data() {
     return {
       visible: false,
       personId: null,
       plantActionTypeList: [],
+      plant: null,
       personList: [],
       // ruleForm: {
       //   plantId: this.plant.id,
       //   actionType: null,
-      //   actionFarmerId: this.plant.farmerId,
+      //   actionPersonId: this.plant.farmerId,
       //   actionDate: null,
       //   actionContent: null
       // },
       ruleForm: {
         plantId: null,
         actionType: null,
-        actionFarmerId: null,
+        actionPersonId: null,
         actionDate: null,
         actionContent: null
       },
@@ -57,7 +52,7 @@ export default {
         actionType: [
           { required: true, message: '请选择一个生产行为', trigger: 'blur' }
         ],
-        actionFarmerId: [
+        actionPersonId: [
           { required: true, message: '请选择种植户', trigger: 'blur' }
         ],
         actionDate: [
@@ -79,8 +74,10 @@ export default {
   mounted() {
   },
   methods: {
-    show(plantId, personId, personList, plantActionTypeList) {
-      this.ruleForm.plantId = plantId
+    show(plant, personId, personList, plantActionTypeList) {
+      this.plant = plant
+      this.ruleForm.plantId = plant.id
+      this.ruleForm.actionPersonId = plant.farmerId
       this.personId = personId
       this.personList = personList
       this.plantActionTypeList = plantActionTypeList

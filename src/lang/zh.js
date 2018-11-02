@@ -64,7 +64,7 @@ export default {
     externalLink: '外链',
     quality: '质检信息',
     qualityReport: '质检报告',
-    goods: '商品管理',
+    goods: '蔬菜品种',
     qualification: '资质证书',
     company: '企业管理',
     qrcode: '溯源码管理',

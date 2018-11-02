@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="visible" :title="title">
+  <el-dialog :visible.sync="visible" :title="title" width="30%">
     <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="80px">
       <el-form-item label="商品名称" prop="name">
         <el-input v-model="ruleForm.name" placeholder="填写商品名称"/>

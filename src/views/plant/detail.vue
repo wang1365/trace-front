@@ -2,15 +2,15 @@
   <div class="main">
     <PlantItemDialog
       ref="formDialog"
-      @add-success="_getPlantItemByPlant(selectedPlantId)" />
+      @add-success="_getPlantItemByPlant(selectedPlant)" />
     <el-row>
       <el-select v-model="selectedPersonId" placeholder="请选择农户" width="100px" size="mini" @change="_getPlantByPerson(selectedPersonId)">
         <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id" />
       </el-select>
-      <el-select v-model="selectedPlantId" placeholder="请选择种植计划" width="200px" size="mini" @change="_getPlantItemByPlant(selectedPlantId)">
-        <el-option v-for="item in plantList" :key="item.id" :label="getPlantLabel(item)" :value="item.id" />
+      <el-select v-model="selectedPlant" placeholder="请选择种植计划" width="200px" size="mini" @change="_getPlantItemByPlant(selectedPlantId)">
+        <el-option v-for="item in plantList" :key="item.id" :label="getPlantLabel(item)" :value="item" />
       </el-select>
-      <el-button :disabled="!selectedPlantId || selectedPlantId<=0" type="success" icon="el-icon-plus" size="small" @click="showModal">添加种植条目</el-button>
+      <el-button :disabled="!selectedPlant" type="success" icon="el-icon-plus" size="small" @click="showModal">添加种植条目</el-button>
       <span style="color: rgba(0,0,0,0.2)"> 说明: 添加条目前请先选择农户和种植计划</span>
 
     </el-row>
@@ -55,7 +55,7 @@ export default {
       plantItemList: [],
       plantActionTypeList: [],
       selectedPersonId: null,
-      selectedPlantId: null,
+      selectedPlant: null,
       dialogVisible: false
     }
   },
@@ -71,10 +71,10 @@ export default {
     handleView(index, row) {
     },
     showModal() {
-      this.$refs['formDialog'].show(this.selectedPlantId, this.selectedPersonId, this.personList, this.plantActionTypeList)
+      this.$refs['formDialog'].show(this.selectedPlant, this.selectedPersonId, this.personList, this.plantActionTypeList)
     },
     getPlantLabel(plant) {
-      return plant.goodsName + ' / ' + this.$options.filters.formatDate(plant.startDate) + ' / ' + plant.address
+      return plant.goodsName + ' / ' + this.$options.filters.formatDate(plant.startDate) + (plant.address ? ' / ' + plant.address : '')
     },
     onCheckDetail(plantId) {
 
@@ -101,13 +101,13 @@ export default {
     _getPlantByPerson(personId) {
       this.plantList = []
       this.plantItemList = []
-      this.selectedPlantId = null
+      this.selectedPlant = null
       getPlantListByPerson(personId).then(res => {
         this.plantList = res.data.data
       })
     },
     _getPlantItemByPlant() {
-      getPlantItemByPlant(this.selectedPlantId).then(response => {
+      getPlantItemByPlant(this.selectedPlant.id).then(response => {
         this.plantItemList = response.data.data
       })
     },
@@ -138,7 +138,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .main {
     padding: 20px
   }
