@@ -52,14 +52,14 @@
         <el-col :span="10">
           <el-form-item label="采购人" prop="buyerId">
             <el-select v-model="ruleForm.buyerId" placeholder="填写采购人">
-              <el-option v-for="item in personList" :key="item.id" :label="item.id + '.' + item.name" :value="item.id"/>
+              <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id"/>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="菜农" prop="sellerId">
             <el-select v-model="ruleForm.sellerId" placeholder="请选择">
-              <el-option v-for="item in personList" :key="item.id" :label="item.id + '.' + item.name" :value="item.id"/>
+              <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id"/>
             </el-select>
           </el-form-item>
         </el-col>
