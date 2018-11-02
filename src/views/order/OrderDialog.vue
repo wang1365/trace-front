@@ -255,7 +255,7 @@ export default {
       return plant.id + '/' + plant.farmerName + '/' + plant.goodsName + '/' + plant.year
     },
     formatPlantItemInfo(item) {
-      return item.id + '/' + item.farmerName + '/' + item.actionName + '/' + new Date(item.actionDate).toLocaleDateString()
+      return '采摘时间：' + this.$options.filters.formatDate(item.actionDate) + ', 说明：' + (item.actionContent || '')
     },
     getGoodsList() {
       this.loading = true
