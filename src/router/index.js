@@ -105,7 +105,7 @@ export const asyncRouterMap = [
     component: Layout,
     meta: {
       title: 'config',
-      icon: 'el-icon-menu'
+      icon: 'el-icon-setting'
     },
     children: [
       {
@@ -159,24 +159,14 @@ export const asyncRouterMap = [
   {
     path: '/quality-report',
     component: Layout,
+    alwaysShow: true,
+    meta: { title: 'quality', icon: 'el-icon-printer', noCache: true },
     children: [
       {
         path: 'index',
         component: () => import('@/views/quality-report/index'),
         name: 'QualityReport',
-        meta: { title: 'qualityReport', icon: 'el-icon-mobile-phone', noCache: true }
-      }
-    ]
-  },
-  {
-    path: '/qrcode',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/qrcode/index'),
-        name: 'Qrcode',
-        meta: { title: 'qrcode', icon: 'el-icon-search', noCache: true }
+        meta: { title: 'qualityReport', icon: 'el-icon-menu', noCache: true }
       }
     ]
   },
@@ -195,6 +185,18 @@ export const asyncRouterMap = [
         component: () => import('@/views/order/OrderDetail'),
         name: 'OrderDetail',
         hidden: true
+      }
+    ]
+  },
+  {
+    path: '/qrcode',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/qrcode/index'),
+        name: 'Qrcode',
+        meta: { title: 'qrcode', icon: 'el-icon-search', noCache: true }
       }
     ]
   },
