@@ -23,11 +23,15 @@ export default {
     return userMap[username]
   },
   getUserInfo: config => {
-    console.log('getUserInfo mock:', config)
+    const result = userMap.admin
+    console.log('getUserInfo mock :', result)
     const { token } = param2Obj(config.url)
     console.log('token', token)
     // TODO: 临时写死
-    return userMap.admin
+    return {
+      success: true,
+      data: result
+    }
     // if (userMap[token]) {
     //   return userMap[token]
     // } else {

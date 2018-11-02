@@ -44,6 +44,7 @@ const permission = {
   },
   actions: {
     GenerateRoutes({ commit }, data) {
+      console.log('GenerateRoutes', data)
       return new Promise(resolve => {
         const { roles } = data
         let accessedRouters

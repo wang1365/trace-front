@@ -72,10 +72,11 @@ const user = {
     GetUserInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         getUserInfo(state.token).then(response => {
+          console.log('GetUserInfo->GetUserInfo done', response)
           if (!response.data) { // 由于mockjs 不支持自定义状态码只能这样hack
             reject('error')
           }
-          const data = response.data
+          const data = response.data.data
 
           if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', data.roles)
@@ -88,6 +89,7 @@ const user = {
           commit('SET_INTRODUCTION', data.introduction)
           resolve(response)
         }).catch(error => {
+          console.log('GetUserInfo->GetUserInfo err', error)
           reject(error)
         })
       })
