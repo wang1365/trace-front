@@ -105,8 +105,6 @@ export default {
           } else {
             this.$message({ message: res.data.message, type: 'error' })
           }
-        }).catch(err => {
-          this.$message({ message: `添加失败：${err}`, type: 'error' })
         })
       })
     }

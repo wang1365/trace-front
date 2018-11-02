@@ -71,8 +71,6 @@ export default {
           this.$message({ message: `${msgPrefix}商品成功`, type: 'success' })
           this.$emit('add-success')
           this.hide()
-        }).catch(err => {
-          this.$message({ message: `${msgPrefix}失败：${err}`, type: 'error' })
         })
       })
     }
