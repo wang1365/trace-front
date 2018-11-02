@@ -1,6 +1,7 @@
 import { loginByUsername, getUserInfo } from '@/api/login'
 // import { logout } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
+import { MessageBox } from 'element-ui'
 
 const user = {
   state: {
@@ -51,12 +52,16 @@ const user = {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         loginByUsername(username, userInfo.password).then(response => {
+          const res = response.data.data
           // const data = response.data
-          commit('SET_TOKEN', response.data.token)
-          console.log(response)
-          console.log(response)
-          setToken(response.data.token)
-          resolve()
+          commit('SET_TOKEN', res.token)
+          console.log('认证成功', res)
+          setToken(res.token)
+          MessageBox.alert(`尊敬的"${res.tenant.name}"用户, 欢迎您使用果龙仓溯源系统~`, '果龙仓溯源系统', {
+            confirmButtonText: '进入系统',
+            center: true,
+            callback: () => { resolve() }
+          })
         }).catch(error => {
           reject(error)
         })
