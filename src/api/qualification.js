@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
-export function addQualification(query) {
+export function addQualification(data) {
   return request({
     url: '/web/qualification/addQualification',
     method: 'post',
-    params: query
+    data: data
   })
 }
 
