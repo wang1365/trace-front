@@ -14,7 +14,7 @@
         </span>
         <el-input
           v-model="loginForm.username"
-          :placeholder="$t('login.username')"
+          :placeholder="填写用户名"
           name="username"
           type="text"
           auto-complete="on"
@@ -36,7 +36,7 @@
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">{{ $t('login.logIn') }}</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登 录</el-button>
 
       <div class="tips">
         <span style="color:rgba(255,255,255,0.5)">{{ $t('login.contactadmin') }}</span>
@@ -81,7 +81,7 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
+        username: '',
         password: ''
       },
       loginRules: {
