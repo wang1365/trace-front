@@ -2,7 +2,7 @@
   <el-dialog :visible.sync="visible" :title="action==='add'?'新增人员':'人员修改'" center width="40%">
     <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="80px">
       <el-form-item label="姓名" prop="name">
-        <el-input v-model="ruleForm.name" placeholder="填写姓名"/>
+        <el-input v-model="ruleForm.name" :disabled="action==='modify'" placeholder="填写姓名"/>
       </el-form-item>
       <el-form-item label="性别" prop="idCard">
         <el-radio v-model="ruleForm.gender" label="男">男</el-radio>

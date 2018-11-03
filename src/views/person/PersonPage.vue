@@ -77,12 +77,9 @@ export default {
         type: 'warning'
       }).then(() => {
         deletePerson(id)
-          .then(response => {
+          .then(() => {
             this.$message({ type: 'success', message: '删除成功!' })
             this.updatePersonList()
-          })
-          .catch(err => {
-            this.$message({ type: 'error', message: '删除失败：' + err })
           })
       }).catch(() => {
         this.$message({ type: 'info', message: '已取消删除' })

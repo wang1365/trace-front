@@ -2,7 +2,7 @@
   <el-dialog :visible.sync="visible" :title="title" :before-close="onBeforeClose" center width="30%">
     <el-form ref="form" :model="form" :rules="rules" label-width="80px">
       <el-form-item label="公司名称" prop="name">
-        <el-input v-model="form.name" placeholder="填写公司名称"/>
+        <el-input v-model="form.name" :disabled="action==='modify'" placeholder="填写公司名称"/>
       </el-form-item>
       <el-form-item label="公司地址">
         <el-input v-model="form.address" placeholder="填写公司地址"/>
