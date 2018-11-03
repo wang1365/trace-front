@@ -1,25 +1,25 @@
 <template>
   <el-dialog
     :visible.sync="visible"
-    title="添加图片">
+    title="添加图片"
+    width="40%">
     <el-form
       v-loading.fullscreen="loading"
       ref="ruleForm"
-      :model="ruleForm"
       :rules="formRules"
       label-width="80px"
       element-loading-text="拼命上传中..."
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.8)"
     >
-      <el-form-item label="图片名称" prop="name">
-        <el-input v-model="ruleForm.name" placeholder="填写图片名称"/>
-      </el-form-item >
-      <el-form-item label="类别" prop="catId">
-        <el-select v-model="ruleForm.catId" placeholder="请选择类别">
-          <el-option v-for="item in catList" :key="item.id" :label="item.name" :value="item.id"/>
+      <el-form-item label="类别" prop="selectedCat">
+        <el-select v-model="selectedCat" placeholder="请选择类别">
+          <el-option v-for="item in catList" :key="item.id" :label="item.name" :value="item"/>
         </el-select>
       </el-form-item>
+      <el-form-item label="图片名称" prop="imageName">
+        <el-input v-model="imageName" placeholder="填写图片名称"/>
+      </el-form-item >
       <el-form-item>
         <el-upload
           ref="upload"
@@ -28,8 +28,8 @@
           :on-success="onSuccess"
           :on-error="onError"
           :file-list="fileList"
-          :data="ruleForm"
-          :headers="{ 'cookie-bearer': token}"
+          :data="uploadData"
+          :headers="{ 'Authorization': 'Bearer ' + token}"
           name="file"
           list-type="picture"
           class="upload-demo"
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { getImageCategoryList, getImageByName } from '@/api/image'
+import { getImageCategoryList } from '@/api/image'
 
 export default {
   name: 'ReportForm',
@@ -65,21 +65,30 @@ export default {
       catList: [],
       token: null,
       fileList: [],
-      ruleForm: {
-        catId: null,
-        name: null
-      },
+      selectedCat: null,
+      imageName: null,
       formRules: {
-        name: [
+        imageName: [
           { required: true, message: '请输入图片名称', trigger: 'blur' }
         ],
-        catId: [
+        selectedCat: [
           { required: true, message: '请选择类别', trigger: 'blur' }
         ]
       }
     }
   },
+  computed: {
+    uploadData() {
+      return {
+        name: this.imageName,
+        catId: this.selectedCat ? this.selectedCat.id : -1
+      }
+    }
+  },
   watch: {
+    selectedCat() {
+      this.imageName = this.selectedCat ? (this.selectedCat.name + '_' + new Date().getTime() + '.png') : new Date().getTime() + '.png'
+    }
   },
   created() {
   },
@@ -98,31 +107,29 @@ export default {
       this.visible = false
     },
     onSubmit(form) {
-      this.$refs[form].validate((valid) => {
-        if (!valid) {
-          return false
-        }
+      console.log('onSubmit', form)
+      // Not work, ???
+      // this.$refs[form].validate((valid) => {
+      //   if (!valid) {
+      //     console.log('validate fail')
+      //     return false
+      //   }
 
-        getImageByName(this.ruleForm.name).then(res => {
-          const imageList = res.data.data
-          if (imageList.length > 0) {
-            this.$message({ message: `文件"${this.ruleForm.name}"在服务器上已经存在！`, type: 'error' })
-          } else {
-            this.loading = true
-            this.$refs.upload.submit()
-          }
-        }).catch(err => {
-          this.$message({ message: `查询失败，${err}`, type: 'error' })
-        })
-      })
+      if (!this.imageName || !this.selectedCat) {
+        this.$message({ type: 'error', message: '文件名和类别不能为空' })
+        return
+      }
+      console.log('validate success')
+      this.loading = true
+      this.$refs.upload.submit()
     },
-    onSuccess(response, file, fileList) {
+    onSuccess(response, file) {
       this.loading = false
       this.$message({ message: `文件${file.name}上传成功`, type: 'success' })
       this.hide()
       this.$emit('add-success')
     },
-    onError(err, file, fileList) {
+    onError(err, file) {
       this.loading = false
       this.$message({ message: `文件${file.name}上传失败：${err}`, type: 'error' })
     }

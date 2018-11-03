@@ -8,8 +8,7 @@
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" sortable width="80" />
         <el-table-column prop="catName" label="类别" sortable width="80" />
-        <el-table-column prop="name" label="名称" sortable width="120" />
-        <el-table-column prop="localPath" label="本地地址" width="200"/>
+        <el-table-column prop="name" label="名称" sortable />
         <el-table-column prop="urlPath" label="链接地址" >
           <template slot-scope="scope"><a :href="scope.row.urlPath">{{ scope.row.urlPath }}</a></template>
         </el-table-column>

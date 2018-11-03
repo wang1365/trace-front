@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
-export function addQualityReport(query) {
+export function addQualityReport(data) {
   return request({
     url: '/web/qualityReport/addQualityReport',
     method: 'post',
-    params: query
+    data: data
   })
 }
 

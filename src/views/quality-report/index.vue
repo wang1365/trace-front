@@ -17,14 +17,8 @@
           <template slot-scope="scope">{{ scope.row.reportDate|formatDate }}</template>
         </el-table-column>
         <el-table-column prop="description" label="说明" />
-        <el-table-column label="图片">
-          <template slot-scope="scope">
-            <img :src="scope.row.path" width="300" height="150" @click="onImageClick(scope.row.path)">
-          </template>
-        </el-table-column>
         <el-table-column width="150" label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" @click="onImageClick(scope.row.path)">查看</el-button>
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
