@@ -34,6 +34,7 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+    <div class="title">{{ title }}</div>
   </el-menu>
 </template>
 
@@ -45,6 +46,7 @@ import ErrorLog from '@/components/ErrorLog'
 import Screenfull from '@/components/Screenfull'
 import LangSelect from '@/components/LangSelect'
 import ThemePicker from '@/components/ThemePicker'
+import { getCurrentTenant } from '@/api/tenant'
 
 export default {
   components: {
@@ -55,12 +57,20 @@ export default {
     LangSelect,
     ThemePicker
   },
+  data() {
+    return { title: '' }
+  },
   computed: {
     ...mapGetters([
       'sidebar',
       'name',
       'avatar'
     ])
+  },
+  mounted() {
+    getCurrentTenant().then((res) => {
+      this.title = res.data.data.name + '-溯源管理系统'
+    })
   },
   methods: {
     toggleSideBar() {
@@ -132,6 +142,15 @@ export default {
         }
       }
     }
+  }
+  .title {
+    float: right;
+    margin-right: 50px;
+    font-size: 22px;
+    color: green;
+    text-shadow: 0 0 20px blue;
+    /*text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de;*/
+
   }
 }
 </style>
