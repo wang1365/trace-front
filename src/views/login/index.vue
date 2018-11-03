@@ -17,7 +17,7 @@
           :placeholder="填写用户名"
           name="username"
           type="text"
-          auto-complete="on"
+          autocomplete="on"
         />
       </el-form-item>
 
@@ -29,7 +29,7 @@
           :type="passwordType"
           v-model="loginForm.password"
           name="password"
-          auto-complete="on"
+          autocomplete="on"
           @keyup.enter.native="handleLogin" />
         <span class="show-pwd" @click="showPwd">
           <svg-icon icon-class="eye" />
