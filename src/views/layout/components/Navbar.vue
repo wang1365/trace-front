@@ -69,7 +69,7 @@ export default {
   },
   mounted() {
     getCurrentTenant().then((res) => {
-      this.title = res.data.data.name + '-溯源管理系统'
+      this.title = res.data.data.name
     })
   },
   methods: {
