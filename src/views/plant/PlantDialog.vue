@@ -7,7 +7,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="农户" prop="farmerId">
-        <el-select v-model="ruleForm.farmerId" filterable placeholder="请选择">
+        <el-select v-model="ruleForm.farmerId" filterable placeholder="请选择" @change="onFarmerChange">
           <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
       </el-form-item>
@@ -139,8 +139,11 @@ export default {
       }).catch(err => {
         this.$message({ message: `获取人员列表失败, ${err}`, type: 'error' })
       })
+    },
+    onFarmerChange(personId) {
+      const person = this.personList.find((v) => v.id === personId)
+      this.ruleForm.address = person.familyAddress
     }
-
   }
 }
 </script>

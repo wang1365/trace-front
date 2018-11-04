@@ -4,10 +4,10 @@
       ref="formDialog"
       @add-success="_getPlantItemByPlant(selectedPlant)" />
     <el-row>
-      <el-select v-model="selectedPersonId" placeholder="请选择农户" width="100px" size="mini" @change="_getPlantByPerson(selectedPersonId)">
-        <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id" />
+      <el-select v-model="selectedPersonId" filterable placeholder="请选择农户" width="100px" size="mini" @change="_getPlantByPerson(selectedPersonId)">
+        <el-option v-for="item in personList" :key="item.id" :label="item.name + ' ' + (item.mobileNo||'')" :value="item.id" />
       </el-select>
-      <el-select v-model="selectedPlant" placeholder="请选择种植计划" width="200px" size="mini" @change="_getPlantItemByPlant(selectedPlantId)">
+      <el-select v-model="selectedPlant" filterable placeholder="请选择种植计划" width="200px" size="mini" @change="_getPlantItemByPlant(selectedPlantId)">
         <el-option v-for="item in plantList" :key="item.id" :label="getPlantLabel(item)" :value="item" />
       </el-select>
       <el-button :disabled="!selectedPlant" type="success" icon="el-icon-plus" size="small" @click="showModal">添加种植条目</el-button>
