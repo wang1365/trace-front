@@ -5,7 +5,7 @@
         <el-date-picker v-model="ruleForm.actionDate" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
       </el-form-item>
       <el-form-item label="生产行为" prop="actionType">
-        <el-select v-model="ruleForm.actionType" placeholder="请选择">
+        <el-select v-model="ruleForm.actionType" filterable placeholder="请选择">
           <el-option v-for="item in plantActionTypeList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
       </el-form-item>

@@ -2,12 +2,12 @@
   <el-dialog :visible.sync="visible" :title="title" center width="40%">
     <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="100px">
       <el-form-item label="农作物名称" prop="goodsId">
-        <el-select v-model="ruleForm.goodsId" placeholder="请选择">
+        <el-select v-model="ruleForm.goodsId" filterable placeholder="请选择">
           <el-option v-for="item in goodsList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
       </el-form-item>
       <el-form-item label="农户" prop="farmerId">
-        <el-select v-model="ruleForm.farmerId" placeholder="请选择">
+        <el-select v-model="ruleForm.farmerId" filterable placeholder="请选择">
           <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
       </el-form-item>

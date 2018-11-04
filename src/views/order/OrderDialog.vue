@@ -51,14 +51,14 @@
       <el-row>
         <el-col :span="10">
           <el-form-item label="采购人" prop="buyerId">
-            <el-select v-model="ruleForm.buyerId" placeholder="填写采购人">
+            <el-select v-model="ruleForm.buyerId" filterable placeholder="填写采购人">
               <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id"/>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="菜农" prop="sellerId">
-            <el-select v-model="ruleForm.sellerId" placeholder="请选择">
+            <el-select v-model="ruleForm.sellerId" filterable placeholder="请选择">
               <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id"/>
             </el-select>
           </el-form-item>
@@ -67,20 +67,20 @@
       <el-row>
         <el-col :span="10">
           <el-form-item label="种植计划" prop="plantId">
-            <el-select v-model="ruleForm.plantId" placeholder="关联种植计划" no-data-text="无数据，请先添加该农户的种植计划">
+            <el-select v-model="ruleForm.plantId" filterable placeholder="关联种植计划" no-data-text="无数据，请先添加该农户的种植计划">
               <el-option v-for="item in plantList" :key="item.id" :label="formatPlantInfo(item)" :value="item.id"/>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="采摘条目" prop="pickId">
-            <el-select v-model="ruleForm.pickId" placeholder="关联种植计划中的采摘" no-data-text="无数据，请先添加该农户种植计划的采摘条目">
+            <el-select v-model="ruleForm.pickId" filterable placeholder="关联种植计划中的采摘" no-data-text="无数据，请先添加该农户种植计划的采摘条目">
               <el-option v-for="item in pickList" :key="item.id" :label="formatPlantItemInfo(item)" :value="item.id"/>
             </el-select>
         </el-form-item></el-col>
       </el-row>
       <el-form-item label="相关质检报告" prop="reportId">
-        <el-select v-model="ruleForm.reportId" placeholder="请选择">
+        <el-select v-model="ruleForm.reportId" filterable placeholder="请选择">
           <el-option v-for="item in reportList" :key="item.id" :label="item.title" :value="item.id"/>
         </el-select>
       </el-form-item>
