@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-editor-container">
-
+    <div id="map"/>
     <github-corner style="position: absolute; top: 0px; border: 0; right: 0;"/>
 
     <panel-group @handleSetLineChartData="handleSetLineChartData"/>
@@ -52,6 +52,7 @@ import BarChart from './components/BarChart'
 import TransactionTable from './components/TransactionTable'
 import TodoList from './components/TodoList'
 import BoxCard from './components/BoxCard'
+import BMap from 'BMap'
 
 const lineChartData = {
   newVisitis: {
@@ -83,16 +84,29 @@ export default {
     BarChart,
     TransactionTable,
     TodoList,
-    BoxCard
+    BoxCard,
+    BMap
   },
   data() {
     return {
-      lineChartData: lineChartData.newVisitis
+      lineChartData: lineChartData.newVisitis,
+      map: null,
+      mapGeocoder: null
     }
+  },
+  mounted() {
+    this.initMap()
   },
   methods: {
     handleSetLineChartData(type) {
       this.lineChartData = lineChartData[type]
+    },
+    initMap() {
+      this.map = new BMap.Map('map')
+      this.map.enableScrollWheelZoom()
+      this.mapGeocoder = new BMap.Geocoder()
+      const point = new BMap.Point(118.722077, 36.901801)
+      this.map.centerAndZoom(point, 16)
     }
   }
 }
@@ -106,6 +120,11 @@ export default {
     background: #fff;
     padding: 16px 16px 0;
     margin-bottom: 32px;
+  }
+  #map {
+    width: 100%;
+    height: 500px;
+    box-shadow:0px 0px 30px 10px #abcdef;
   }
 }
 </style>
