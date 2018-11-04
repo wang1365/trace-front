@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-editor-container">
     <div id="map"/>
-    <github-corner style="position: absolute; top: 0px; border: 0; right: 0;"/>
+    <!--<github-corner style="position: absolute; top: 0px; border: 0; right: 0;"/>-->
 
     <panel-group @handleSetLineChartData="handleSetLineChartData"/>
 
@@ -106,6 +106,7 @@ export default {
     initMap() {
       this.map = new BMap.Map('map')
       this.map.enableScrollWheelZoom()
+      this.map.addControl(new BMap.MapTypeControl())
       this.mapGeocoder = new BMap.Geocoder()
       const point = new BMap.Point(118.712077, 36.894101)
       this.map.centerAndZoom(point, 14)
@@ -115,10 +116,10 @@ export default {
       })
     },
     updateTenantInMap() {
-      this.tenantList.forEach((tenant) => {
+      this.tenantList.forEach((tenant, index) => {
         console.log('add tenant:', tenant.shortName, tenant.lon, tenant.lat)
         const marker = new BMap.Marker(new BMap.Point(tenant.lon, tenant.lat))
-        const label = new BMap.Label(tenant.shortName, { 'offset': new BMap.Size(-30, -20) })
+        const label = new BMap.Label((index + 1) + ': ' + tenant.shortName, { 'offset': new BMap.Size(-30, -20) })
         label.setStyle({
           borderColor: '#808080',
           color: '#333',
