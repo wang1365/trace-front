@@ -31,17 +31,27 @@ export function getAllPlant(params) {
   })
 }
 
-export function getPickListByPerson(personId) {
+export function getPlantListByPerson(personId) {
   return request({
-    url: '/web/plant/getPickListByPerson',
+    url: '/web/plant/getPlantListByPerson',
     method: 'get',
     params: { personId }
   })
 }
 
-export function getPlantListByPerson(personId) {
+/* ---------------------- Plant Item --------------------- */
+
+export function getPlantItemList(params) {
   return request({
-    url: '/web/plant/getPlantListByPerson',
+    url: '/web/plant/getPlantItemList',
+    method: 'get',
+    params: params
+  })
+}
+
+export function getPickListByPerson(personId) {
+  return request({
+    url: '/web/plant/getPickListByPerson',
     method: 'get',
     params: { personId }
   })
@@ -52,14 +62,6 @@ export function getPickListByPlant(plantId) {
     url: '/web/plant/getPickListByPlant',
     method: 'get',
     params: { plantId }
-  })
-}
-
-export function getAllPlantItem(params) {
-  return request({
-    url: '/web/plant/item/list',
-    method: 'get',
-    params: params
   })
 }
 
