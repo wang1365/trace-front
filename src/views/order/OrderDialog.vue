@@ -1,16 +1,25 @@
 <template>
   <el-dialog :visible.sync="visible" :title="title" center>
-    <el-form v-loading="loading" ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="120px">
-      <el-form-item label="商品" prop="goodsId">
-        <el-select v-model="ruleForm.goodsId" placeholder="请选择">
-          <el-option v-for="item in goodsList" :key="item.id" :label="item.name" :value="item.id"/>
-        </el-select>
-      </el-form-item>
+    <el-form v-loading="loading" ref="ruleForm" :model="ruleForm" :rules="formRules" size="small" label-width="120px">
       <el-row >
         <el-col :span="10">
-          <el-form-item
-            label="采购数量(kg)"
-            prop="quantity">
+          <el-form-item label="商品" prop="goodsId">
+            <el-select v-model="ruleForm.goodsId" placeholder="请选择">
+              <el-option v-for="item in goodsList" :key="item.id" :label="item.name" :value="item.id"/>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="10">
+          <el-form-item label="采购人" prop="buyerId">
+            <el-select v-model="ruleForm.buyerId" filterable placeholder="填写采购人">
+              <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id"/>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row >
+        <el-col :span="10">
+          <el-form-item label="采购数量(kg)" prop="quantity">
             <el-input v-model.number="ruleForm.quantity" type="number" placeholder="填写商品数量"/>
           </el-form-item>
         </el-col>
@@ -20,19 +29,6 @@
               <el-option v-for="item in ['kg','个']" :key="item" :label="item" :value="item"/>
             </el-select>
           </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row >
-        <el-col :span="10">
-          <el-form-item :label="priceLabel" prop="price">
-            <el-input-number v-model="ruleForm.price" :precision="2" :step="0.1" size="small" placeholder="输入价格"/>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-input v-model="totalPrice" placeholder="总价格" size="small" readonly>
-            <template slot="prepend">总价:</template>
-          </el-input>
         </el-col>
       </el-row>
 
@@ -48,15 +44,23 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row >
         <el-col :span="10">
-          <el-form-item label="采购人" prop="buyerId">
-            <el-select v-model="ruleForm.buyerId" filterable placeholder="填写采购人">
-              <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id"/>
-            </el-select>
+          <el-form-item :label="priceLabel" prop="price">
+            <el-input-number v-model="ruleForm.price" :precision="2" :step="0.1" size="small" placeholder="输入价格"/>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="8" :offset="4">
+          <el-input v-model="totalPrice" placeholder="总价格" size="small" readonly>
+            <template slot="prepend">总价:</template>
+          </el-input>
+        </el-col>
+      </el-row>
+
+      <hr>
+      <el-row>
+
+        <el-col :span="10">
           <el-form-item label="菜农" prop="sellerId">
             <el-select v-model="ruleForm.sellerId" filterable placeholder="请选择">
               <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id"/>
@@ -312,5 +316,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  hr {
+    width: 95%;
+    margin: 0 auto 20px auto;
+  }
 </style>
