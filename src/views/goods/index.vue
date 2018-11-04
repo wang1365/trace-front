@@ -11,16 +11,20 @@
     </el-row>
     <el-row v-if="cardMode">
       <el-col v-for="item in items" :key="item.id" :span="6" :offset="2" >
-        <el-card class="card">
-          <div style="margin-bottom: 5px">{{ item.name }}</div>
-          <img :src="item.imageUrl" class="image" >
-          <div style="bottom:10px;">
-            <div class="bottom clearfix">
-              <el-button type="warning" size="mini" class="button" @click="onDeleteBtnClick(item.id)">删除</el-button>
-              <el-button type="primary" size="mini" class="button" @click="showModal('modify', item)">修改</el-button>
+        <div class="card-container">
+          <el-card class="card">
+            <div style="margin-bottom: 5px">{{ item.name }}</div>
+            <div class="image-container">
+              <img :src="item.imageUrl" class="image" >
             </div>
-          </div>
-        </el-card>
+            <div class="button-container">
+              <div class="bottom clearfix">
+                <el-button type="warning" size="mini" class="button" @click="onDeleteBtnClick(item.id)">删除</el-button>
+                <el-button type="primary" size="mini" class="button" @click="showModal('modify', item)">修改</el-button>
+              </div>
+            </div>
+          </el-card>
+        </div>
       </el-col>
     </el-row>
     <el-row v-if="!cardMode" class="table">
@@ -102,7 +106,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  $cardW: 300px;
+  $cardH: 370px;
+
+  html, body {
+    width: 100%;
+    height: 100%;
+  }
   .main {
     padding: 20px
   }
@@ -112,42 +123,55 @@ export default {
   .el-col {
     border-radius: 4px;
   }
-  .time {
-    font-size: 13px;
-    color: #999;
-  }
-  .card {
-    width: 300px;
-    height: 370px;
-    margin-bottom: 10px;
-    background-color: #d3dce6;
-  }
-  .card:hover {
-    width: 330px;
-  }
-  .bottom {
-    bottom: 15px;
-    line-height: 12px;
-  }
-  .button {
-    margin: 5px;
-    float: right;
-  }
-  .image {
-    width: 100%;
-    display: block;
+  .card-container {
+    width: $cardW;
+    height: $cardH;
+    margin-bottom: 60px;
+    .card {
+      $cW: $cardW - 30px;
+      $cH: $cardH - 20px;
+      width: $cardW - 10px;
+      height: $cardH - 20px;
+      margin-bottom: 10px;
+      background-color: #d3dce6;
+      &:hover {
+        width: $cardW - 1px;
+        height: $cardH - 10px;
+      }
+
+      .image-container {
+        //margin: 0 auto;
+        width: 100%;
+        height: 100%;
+        //display: block;
+        //float: bottom;
+
+        .image {
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
+
+      }
+      .button-container {
+        bottom: 1px;
+        float: bottom;
+        display: block;
+        .button {
+          margin: 5px;
+          float: right;
+        }
+      }
+    }
+
   }
 
-  /*.image:hover {*/
-    /*width: 100%;*/
+  /*.clearfix:before,*/
+  /*.clearfix:after {*/
+    /*display: table;*/
+    /*content: "";*/
   /*}*/
-
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-  .clearfix:after {
-    clear: both
-  }
+  /*.clearfix:after {*/
+    /*clear: both*/
+  /*}*/
 </style>
