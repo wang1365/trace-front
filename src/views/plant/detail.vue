@@ -125,7 +125,7 @@ export default {
         api.deletePlantItem(id)
           .then(response => {
             this.$message({ type: 'success', message: '删除成功!' })
-            this._getPlantItemByPlant()
+            this._getPlantItemList()
           })
       }).catch(() => {
         this.$message({ type: 'info', message: '已取消删除' })
