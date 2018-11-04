@@ -1,5 +1,6 @@
 <template>
   <div class="dashboard-editor-container">
+    <div class="map-title">寿光蔬菜溯源平台用户地图</div>
     <div id="map"/>
     <!--<github-corner style="position: absolute; top: 0px; border: 0; right: 0;"/>-->
 
@@ -151,6 +152,12 @@ export default {
       width: 100%;
       box-shadow:0px 0px 30px 10px #a0c8b3;
     }
+  }
+  .map-title {
+    margin: 0 auto 20px;
+    text-align: center;
+    font-size: 30px;
+    color: green;
   }
 }
 </style>
