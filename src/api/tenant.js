@@ -8,3 +8,11 @@ export function getCurrentTenant(params) {
   })
 }
 
+export function getTenantList(params) {
+  return request({
+    url: '/web/tenant/getTenantList',
+    method: 'get',
+    params: params
+  })
+}
+

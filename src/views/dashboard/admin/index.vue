@@ -53,6 +53,7 @@ import TransactionTable from './components/TransactionTable'
 import TodoList from './components/TodoList'
 import BoxCard from './components/BoxCard'
 import BMap from 'BMap'
+import * as tenantApi from '@/api/tenant'
 
 const lineChartData = {
   newVisitis: {
@@ -90,6 +91,7 @@ export default {
   data() {
     return {
       lineChartData: lineChartData.newVisitis,
+      tenantList: [],
       map: null,
       mapGeocoder: null
     }
@@ -105,8 +107,26 @@ export default {
       this.map = new BMap.Map('map')
       this.map.enableScrollWheelZoom()
       this.mapGeocoder = new BMap.Geocoder()
-      const point = new BMap.Point(118.722077, 36.901801)
-      this.map.centerAndZoom(point, 16)
+      const point = new BMap.Point(118.712077, 36.894101)
+      this.map.centerAndZoom(point, 14)
+      tenantApi.getTenantList().then(res => {
+        this.tenantList = res.data.data
+        this.updateTenantInMap()
+      })
+    },
+    updateTenantInMap() {
+      this.tenantList.forEach((tenant) => {
+        console.log('add tenant:', tenant.shortName, tenant.lon, tenant.lat)
+        const marker = new BMap.Marker(new BMap.Point(tenant.lon, tenant.lat))
+        const label = new BMap.Label(tenant.shortName, { 'offset': new BMap.Size(-30, -20) })
+        label.setStyle({
+          borderColor: '#808080',
+          color: '#333',
+          cursor: 'pointer'
+        })
+        marker.setLabel(label)
+        this.map.addOverlay(marker)
+      })
     }
   }
 }
