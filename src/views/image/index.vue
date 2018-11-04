@@ -10,7 +10,9 @@
         <el-table-column prop="catName" label="类别" sortable width="80" />
         <el-table-column prop="name" label="名称" sortable />
         <el-table-column prop="urlPath" label="链接地址" >
-          <template slot-scope="scope"><a :href="scope.row.urlPath">{{ scope.row.urlPath }}</a></template>
+          <template slot-scope="scope">
+            <a :href="+scope.row.urlPath" target="_blank">{{ scope.row.urlPath }}</a>
+          </template>
         </el-table-column>
         <el-table-column label="图片" width="250">
           <template slot-scope="scope">
@@ -91,7 +93,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .main {
     padding: 20px
   }
@@ -101,19 +103,7 @@ export default {
   .el-col {
     border-radius: 4px;
   }
-  .time {
-    font-size: 13px;
-    color: #999;
-  }
-  .card {
-    width: 300px;
-    height: 370px;
-    margin-bottom: 10px;
-    background-color: #d3dce6;
-  }
-  .card:hover {
-    width: 330px;
-  }
+
   .bottom {
     bottom: 15px;
     line-height: 12px;
@@ -126,12 +116,14 @@ export default {
     width: 100%;
     display: block;
   }
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-  .clearfix:after {
-    clear: both
+  a {
+    &:link, &:active,&:visited {
+      color:#1478F0;
+      text-decoration: underline;
+
+    }
+    &:hover {
+      color:#13ce66;
+    }
   }
 </style>
