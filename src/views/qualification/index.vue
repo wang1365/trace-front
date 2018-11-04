@@ -13,9 +13,7 @@
             <img :src="scope.row.path" width="300" height="150" @click="onImageClick(scope.row.path)">
           </template>
         </el-table-column>
-        <el-table-column label="创建时间" sortable>
-          <template slot-scope="scope">{{ scope.row.createTime| formatDatetime }}</template>
-        </el-table-column>
+        <el-table-column prop="createTime" label="创建时间" sortable/>
         <el-table-column width="150" label="操作">
           <template slot-scope="scope">
             <el-button size="mini" @click="onImageClick(scope.row.path)">查看</el-button>

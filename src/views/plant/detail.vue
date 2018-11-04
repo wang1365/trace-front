@@ -24,9 +24,7 @@
         </el-table-column>
         <el-table-column prop="farmerName" sortable label="农户姓名" />
         <!--<el-table-column prop="goodsName" label="农作物名称" />-->
-        <el-table-column :formatter="dateTimeFormat" sortable label="记录时间" >
-          <template slot-scope="scope">{{ scope.row.createTime | formatDatetime }}</template>
-        </el-table-column>
+        <el-table-column prop="createTime" sortable label="记录时间"/>
         <el-table-column prop="actionContent" label="内容" />
         <el-table-column label="操作">
           <template slot-scope="scope">

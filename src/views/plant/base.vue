@@ -14,9 +14,7 @@
           <template slot-scope="scope">{{ scope.row.startDate | formatDate }}</template>
         </el-table-column>
         <el-table-column prop="address" label="地点" />
-        <el-table-column sortable label="记录时间" >
-          <template slot-scope="scope">{{ scope.row.createTime | formatDatetime }}</template>
-        </el-table-column>
+        <el-table-column prop="createTime" sortable label="记录时间"/>
         <el-table-column label="操作" width="250">
           <template slot-scope="scope">
             <el-button size="mini" type="success" icon="el-icon-tickets" @click="onCheckDetail(scope.row.id)">详情</el-button>

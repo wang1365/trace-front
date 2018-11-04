@@ -15,9 +15,7 @@
         <el-table-column prop="endTime" sortable label="到达时间" />
         <el-table-column prop="endLocation" sortable label="到达地点" />
         <el-table-column prop="orderId" sortable label="订单号" />
-        <el-table-column label="创建时间" sortable>
-          <template slot-scope="scope">{{ scope.row.createTime| formatDatetime }}</template>
-        </el-table-column>
+        <el-table-column prop="createTime" label="创建时间" sortable/>
         <el-table-column label="操作" width="150">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="showModal('modify', scope.row)">修改</el-button>

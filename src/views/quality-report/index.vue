@@ -10,9 +10,7 @@
         <el-table-column prop="title" label="标题" />
         <el-table-column prop="goodsName" label="商品名称" sortable width="100" />
         <el-table-column prop="origin" label="商品产地" width="150" />
-        <el-table-column sortable label="创建日期" >
-          <template slot-scope="scope">{{ scope.row.createTime|formatDatetime }}</template>
-        </el-table-column>
+        <el-table-column prop="createTime" sortable label="创建日期"/>
         <el-table-column sortable label="报告日期" >
           <template slot-scope="scope">{{ scope.row.reportDate|formatDate }}</template>
         </el-table-column>

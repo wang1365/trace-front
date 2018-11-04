@@ -26,9 +26,7 @@
         <el-table-column prop="plantDTO.summary" label="种植计划" />
         <el-table-column prop="pickDTO.summary" label="采摘条目" />
         <el-table-column prop="reportTitle" label="质检报告" />
-        <el-table-column label="创建时间" sortable>
-          <template slot-scope="scope">{{ scope.row.createTime| formatDatetime }}</template>
-        </el-table-column>
+        <el-table-column prop="createTime" label="创建时间" sortable/>
         <el-table-column label="操作" width="240px">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="goOrderDetail(scope.row.id)">溯源码</el-button>

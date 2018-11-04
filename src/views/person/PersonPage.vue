@@ -18,9 +18,7 @@
         <el-table-column prop="familyAddress" label="家庭地址" />
         <el-table-column prop="mobileNo" label="联系方式" width="120"/>
         <el-table-column prop="company" label="单位" />
-        <el-table-column label="创建时间" sortable>
-          <template slot-scope="scope">{{ scope.row.createTime| formatDatetime }}</template>
-        </el-table-column>
+        <el-table-column prop="createTime" label="创建时间" sortable/>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="showModal('modify', scope.row)">修改</el-button>
