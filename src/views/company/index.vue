@@ -11,6 +11,9 @@
         <el-table-column prop="address" label="地址" />
         <el-table-column prop="owner" label="法人" />
         <el-table-column prop="telephone" label="联系方式" />
+        <el-table-column label="创建时间" sortable>
+          <template slot-scope="scope">{{ scope.row.createTime| formatDatetime }}</template>
+        </el-table-column>
         <el-table-column width="150" label="操作">
           <template slot-scope="scope">
             <el-button size="small" type="primary" @click="showModal('modify', scope.row)">修改</el-button>

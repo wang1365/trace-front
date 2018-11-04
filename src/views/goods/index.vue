@@ -36,6 +36,9 @@
             <img :src="scope.row.imageUrl" width="250px" @click="onImageClick(scope.row.path)">
           </template>
         </el-table-column>
+        <el-table-column label="创建时间" sortable>
+          <template slot-scope="scope">{{ scope.row.createTime| formatDatetime }}</template>
+        </el-table-column>
         <el-table-column label="操作" width="200px">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="showModal('modify', scope.row)">修改</el-button>
