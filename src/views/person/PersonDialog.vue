@@ -1,6 +1,6 @@
 <template>
   <el-dialog :visible.sync="visible" :title="action==='add'?'新增人员':'人员修改'" center width="40%">
-    <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="80px">
+    <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" size="small" label-width="80px">
       <el-form-item label="姓名" prop="name">
         <el-input v-model="ruleForm.name" :disabled="action==='modify'" placeholder="填写姓名"/>
       </el-form-item>
@@ -63,6 +63,18 @@ export default {
       formRules: {
         name: [
           { required: true, message: '请输入人员名称', trigger: 'blur' }
+        ],
+        familyAddress: [
+          { required: true, message: '住址不能为空', trigger: 'blur' }
+        ],
+        birthday: [
+          { required: true, message: '出生日期不能为空', trigger: 'blur' }
+        ],
+        idCard: [
+          { required: true, message: '身份证号不能为空', trigger: 'blur' }
+        ],
+        mobileNo: [
+          { required: true, message: '联系方式不能为空', trigger: 'blur' }
         ]
       }
     }
