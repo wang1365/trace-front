@@ -122,9 +122,14 @@ export default {
     margin-bottom: 32px;
   }
   #map {
-    width: 100%;
+    width: 99%;
     height: 500px;
+    margin: 0 auto;
     box-shadow:0px 0px 30px 10px #abcdef;
+    &:hover {
+      width: 100%;
+      box-shadow:0px 0px 30px 10px #a0c8b3;
+    }
   }
 }
 </style>
