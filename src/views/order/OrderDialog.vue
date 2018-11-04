@@ -174,7 +174,11 @@ export default {
       return this.ruleForm.unit === null ? '价格' : `价格(元/${this.ruleForm.unit})`
     },
     totalPrice() {
-      return (this.ruleForm.price !== null && this.ruleForm.quantity !== null) ? (this.ruleForm.price * this.ruleForm.quantity) : ''
+      let price = (this.ruleForm.price !== null && this.ruleForm.quantity !== null) ? (this.ruleForm.price * this.ruleForm.quantity) : ''
+      if (typeof (price) === 'number') {
+        price = price.toFixed(2)
+      }
+      return price
     },
     title() {
       return this.action === 'modify' ? '修改订单' : '新增订单'
