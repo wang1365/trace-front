@@ -26,7 +26,7 @@ export function getAllOrder(params) {
 
 export function deleteOrder(id) {
   return request({
-    url: '/web/order/deleteOrder',
+    url: '/web/order/deleteOrderById',
     method: 'post',
     params: { id }
   })
