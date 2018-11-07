@@ -12,8 +12,16 @@
         start-placeholder="开始日期"
         end-placeholder="结束日期"/>
     </div>
+    <el-form v-if="!verified" :inline="true" :model="formPwd" class="demo-form-inline">
+      <el-form-item label="溯源码查看授权">
+        <el-input v-model="formPwd.password" type="password" placeholder="输入授权码"/>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" size="small" @click="onVerify">确 定</el-button>
+      </el-form-item>
+    </el-form>
     <hr>
-    <el-row>
+    <el-row v-if="verified">
       <el-col v-for="(item, index) in items" :lg="6" :xs="24" :key="item.id" >
         <el-card ref="`card${index}`" :id="'card'+index" class="card">
           <div><span style="color: #1478F0">{{ index+1 }}.手机扫一扫</span><span> 溯源二维码：</span></div>
@@ -77,7 +85,11 @@ export default {
             picker.$emit('pick', [start, end])
           }
         }]
-      }
+      },
+      formPwd: {
+        password: null
+      },
+      verified: false
     }
   },
   computed: {
@@ -90,7 +102,7 @@ export default {
 
   },
   mounted() {
-    this.updateQrcodeList()
+
   },
   methods: {
     handleView(index, row) {
@@ -136,6 +148,14 @@ export default {
           foreground: '#ff0'
         })
       })
+    },
+    onVerify() {
+      if (this.formPwd.password === 'guolongcang123456') {
+        this.verified = true
+        this.updateQrcodeList()
+      } else {
+        this.$message({ type: 'error', message: '授权码错误' })
+      }
     }
   }
 }
