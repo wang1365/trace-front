@@ -107,6 +107,18 @@ export default {
     initMap() {
       this.map = new BMap.Map('map')
       this.map.enableScrollWheelZoom()
+      var ctrlNav = new window.BMap.NavigationControl({
+        anchor: BMAP_ANCHOR_TOP_LEFT,
+        type: BMAP_NAVIGATION_CONTROL_LARGE
+      })
+      this.map.addControl(ctrlNav)
+      // 第5步：向地图中添加缩略图控件
+      var ctrlOve = new window.BMap.OverviewMapControl({
+        anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
+        isOpen: true
+      })
+      this.map.addControl(ctrlOve)
+
       this.map.addControl(new BMap.MapTypeControl())
       this.mapGeocoder = new BMap.Geocoder()
       const point = new BMap.Point(118.712077, 36.894101)
@@ -119,7 +131,12 @@ export default {
     updateTenantInMap() {
       this.tenantList.forEach((tenant, index) => {
         console.log('add tenant:', tenant.shortName, tenant.lon, tenant.lat)
-        const marker = new BMap.Marker(new BMap.Point(tenant.lon, tenant.lat))
+        const myIcon = new BMap.Icon('http://api.map.baidu.com/img/markers.png', new BMap.Size(23, 25), {
+          offset: new BMap.Size(10, 25), // 指定定位位置
+          imageOffset: new BMap.Size(0, 0 - (index) * 25) // 设置图片偏移
+        })
+
+        const marker = new BMap.Marker(new BMap.Point(tenant.lon, tenant.lat), { icon: myIcon })
         const label = new BMap.Label((index + 1) + ': ' + tenant.shortName, { 'offset': new BMap.Size(-30, -20) })
         label.setStyle({
           borderColor: '#808080',
