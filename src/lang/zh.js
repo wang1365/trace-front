@@ -72,7 +72,7 @@ export default {
     person: '人员管理',
     config: '配置管理',
     plantInfo: '种植信息',
-    plantBase: '种植计划',
+    plantBase: '种植流程',
     plantDetail: '详情管理',
     waybill: '运单管理',
     image: '图片管理'

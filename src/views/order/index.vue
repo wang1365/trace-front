@@ -23,7 +23,7 @@
         </el-table-column>
         <el-table-column prop="buyerName" label="收购人" sortable width="90" />
         <el-table-column prop="sellerName" label="卖家(农户)" sortable width="105" />
-        <el-table-column prop="plantDTO.summary" label="种植计划" />
+        <el-table-column prop="plantDTO.summary" label="种植流程" />
         <el-table-column prop="pickDTO.summary" label="采摘条目" />
         <el-table-column prop="reportTitle" label="质检报告" />
         <el-table-column prop="createTime" label="创建时间" sortable/>

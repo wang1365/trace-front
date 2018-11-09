@@ -7,17 +7,17 @@
       <el-select v-model="selectedPersonId" filterable placeholder="请选择农户" width="100px" size="mini" @change="_getPlantByPerson(selectedPersonId)">
         <el-option v-for="item in personList" :key="item.id" :label="item.name + ' ' + (item.mobileNo||'')" :value="item.id" />
       </el-select>
-      <el-select v-model="selectedPlant" filterable placeholder="请选择种植计划" width="200px" size="mini">
+      <el-select v-model="selectedPlant" filterable placeholder="请选择种植流程" width="200px" size="mini">
         <el-option v-for="item in plantList" :key="item.id" :label="getPlantLabel(item)" :value="item" />
       </el-select>
       <el-button :disabled="!selectedPlant" type="success" icon="el-icon-plus" size="small" @click="showModal">添加种植条目</el-button>
-      <span style="color: rgba(0,0,0,0.2)"> 说明: 添加条目前请先选择农户和种植计划</span>
+      <span style="color: rgba(0,0,0,0.2)"> 说明: 添加条目前请先选择农户和种植流程</span>
 
     </el-row>
     <el-row class="table">
       <el-table :data="plantItemList" size="small" border stripe highlight-current-row>
         <el-table-column prop="id" label="ID" sortable width="80" />
-        <el-table-column prop="plantId" label="种植计划ID" width="85"/>
+        <el-table-column prop="plantId" label="种植流程ID" width="85"/>
         <el-table-column prop="actionName" sortable label="实施类型" width="100"/>
         <el-table-column :formatter="dateFormat" sortable label="开始时间" >
           <template slot-scope="scope">{{ scope.row.actionDate | formatDate }}</template>

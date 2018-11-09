@@ -2,7 +2,7 @@
   <div class="main">
     <PlantDialog ref="formDialog" :plant-list="items" @add-success="updatePlantList" />
     <el-row>
-      <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="showModal">添加种植计划</el-button>
+      <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="showModal">添加种植流程</el-button>
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>

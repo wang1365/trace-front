@@ -49,7 +49,7 @@ export default {
         Number(this.ruleForm.year) === v.year
       })
       if (dup) {
-        callback(new Error('每年每个农户每个商品只能添加一个种植计划'))
+        callback(new Error('每年每个农户每个商品只能添加一个种植流程'))
       } else {
         callback()
       }
@@ -88,7 +88,7 @@ export default {
   },
   computed: {
     title() {
-      return this.action === 'modify' ? '修改种植计划' : '新增种植计划'
+      return this.action === 'modify' ? '修改种植流程' : '新增种植流程'
     }
   },
   created() {
