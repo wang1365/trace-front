@@ -11,7 +11,7 @@
         <el-table-column prop="name" label="名称" sortable />
         <el-table-column prop="urlPath" label="链接地址" >
           <template slot-scope="scope">
-            <a :href="+scope.row.urlPath" target="_blank">{{ scope.row.urlPath }}</a>
+            <a :href="scope.row.urlPath" target="_blank">{{ scope.row.urlPath }}</a>
           </template>
         </el-table-column>
         <el-table-column label="图片" width="250">

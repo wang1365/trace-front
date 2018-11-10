@@ -29,7 +29,7 @@
           :on-error="onError"
           :file-list="fileList"
           :data="uploadData"
-          :headers="{ 'Authorization': 'Bearer ' + token}"
+          :headers="{ 'Authorization': token}"
           name="file"
           list-type="picture"
           class="upload-demo"
