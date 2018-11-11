@@ -59,6 +59,7 @@ export default {
       imageDialogVisible: false,
       selectedImage: null,
       dateRange: null,
+      qrList: [],
       pickerOptions: {
         shortcuts: [{
           text: '最近一周',
@@ -89,7 +90,7 @@ export default {
       formPwd: {
         password: null
       },
-      verified: false
+      verified: true
     }
   },
   computed: {
@@ -102,7 +103,9 @@ export default {
 
   },
   mounted() {
-
+    if (this.verified) {
+      this.updateQrcodeList()
+    }
   },
   methods: {
     handleView(index, row) {
@@ -125,11 +128,17 @@ export default {
     },
     printContent(index) {
       // let subOutputRankPrint = document.getElementById(`qrcode${index}`)
-      const subOutputRankPrint = document.getElementById(`qrcode${index}`)
-      console.log(subOutputRankPrint.innerHTML)
-      const newContent = subOutputRankPrint.innerHTML
+      // const subOutputRankPrint = document.getElementById(`qrcode${index}`)
+      // console.log(subOutputRankPrint.innerHTML)
+      // const newContent = subOutputRankPrint.innerHTML
+      // const oldContent = document.body.innerHTML
+      // document.body.innerHTML = newContent
+      // window.print()
+      // window.location.reload()
+      // document.body.innerHTML = oldContent
+
       const oldContent = document.body.innerHTML
-      document.body.innerHTML = newContent
+      document.body.innerHTML = this.qrList[index].outerHTML
       window.print()
       window.location.reload()
       document.body.innerHTML = oldContent
@@ -139,7 +148,7 @@ export default {
       this.items.forEach((order, index, arr) => {
         const baseUrl = 'http://www.tiaocaishi.com:9527/h5/#/goods/'
         console.log('qr code withd:', this.qrWidth)
-        new QRCode(`qrcode${index}`, {
+        const qr = new QRCode(`qrcode${index}`, {
           width: this.qrWidth,
           height: this.qrWidth,
           text: baseUrl + order.id, // 二维码内容
@@ -147,6 +156,9 @@ export default {
           background: '#f0f',
           foreground: '#ff0'
         })
+        console.log('qrcode', qr)
+        console.log('qrcode', qr._oDrawing._elImage)
+        this.qrList.push(qr._oDrawing._elImage)
       })
     },
     onVerify() {
@@ -218,7 +230,7 @@ export default {
 
   .qrcode {
     width: 100%;
-    margin: 5px auto 5px auto;
+    margin: 15px 0 15px auto;
   }
   .clearfix:before,
   .clearfix:after {
