@@ -12,7 +12,7 @@
         <el-col :span="10">
           <el-form-item label="采购人" prop="buyerId">
             <el-select v-model="ruleForm.buyerId" filterable placeholder="填写采购人">
-              <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id"/>
+              <el-option v-for="item in buyerList" :key="item.id" :label="item.name" :value="item.id"/>
             </el-select>
           </el-form-item>
         </el-col>
@@ -26,7 +26,7 @@
         <el-col :span="8">
           <el-form-item label="单位" prop="unit">
             <el-select v-model="ruleForm.unit" placeholder="请选择">
-              <el-option v-for="item in ['kg','个']" :key="item" :label="item" :value="item"/>
+              <el-option v-for="item in ['斤','kg','个']" :key="item" :label="item" :value="item"/>
             </el-select>
           </el-form-item>
         </el-col>
@@ -63,20 +63,20 @@
         <el-col :span="10">
           <el-form-item label="菜农" prop="sellerId">
             <el-select v-model="ruleForm.sellerId" filterable placeholder="请选择">
-              <el-option v-for="item in personList" :key="item.id" :label="item.name" :value="item.id"/>
+              <el-option v-for="item in farmerList" :key="item.id" :label="item.name" :value="item.id"/>
             </el-select>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="10">
+        <el-col :span="12">
           <el-form-item label="种植流程" prop="plantId">
             <el-select v-model="ruleForm.plantId" filterable placeholder="关联种植流程" no-data-text="无数据，请先添加该农户的种植流程">
               <el-option v-for="item in plantList" :key="item.id" :label="formatPlantInfo(item)" :value="item.id"/>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="12">
           <el-form-item label="采摘条目" prop="pickId">
             <el-select v-model="ruleForm.pickId" filterable placeholder="关联种植流程中的采摘" no-data-text="无数据，请先添加该农户种植流程的采摘条目">
               <el-option v-for="item in pickList" :key="item.id" :label="formatPlantItemInfo(item)" :value="item.id"/>
@@ -100,7 +100,7 @@
 import { getAllGoods } from '@/api/goods'
 import { getAllQualityReport } from '@/api/qualityReport'
 import { addOrder, updateOrder } from '@/api/order'
-import { getAllPerson } from '@/api/person'
+import { getBuyerList, getFarmerList } from '@/api/person'
 import { getPlantListByPerson, getPickListByPlant } from '@/api/plant'
 
 export default {
@@ -114,15 +114,16 @@ export default {
       action: 'add',
       goodsList: [],
       reportList: [],
+      farmerList: [],
+      buyerList: [],
       units: ['kg', '个'],
       plantList: [],
       pickList: [],
-      personList: [],
       ruleForm: {
         goodsId: null,
         quantity: null,
-        unit: null,
-        orderTime: null,
+        unit: '斤',
+        orderTime: new Date(),
         reportId: null,
         address: null,
         buyerId: null,
@@ -277,9 +278,20 @@ export default {
     },
     getPersonList() {
       this.loading = true
-      getAllPerson().then(res => {
+      getBuyerList().then(res => {
         this.loading = false
-        this.personList = res.data.data
+        this.buyerList = res.data.data
+        if (this.buyerList && this.buyerList.length > 0) {
+          this.ruleForm.buyerId = this.buyerList[0].id
+        }
+      }).catch(err => {
+        this.loading = false
+        this.$message({ message: `获取人员列表失败, ${err}`, type: 'error' })
+      })
+
+      getFarmerList().then(res => {
+        this.loading = false
+        this.farmerList = res.data.data
       }).catch(err => {
         this.loading = false
         this.$message({ message: `获取人员列表失败, ${err}`, type: 'error' })

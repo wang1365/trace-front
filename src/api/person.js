@@ -23,6 +23,20 @@ export function getAllPerson() {
   })
 }
 
+export function getFarmerList() {
+  return request({
+    url: '/web/person/getFarmerList',
+    method: 'get'
+  })
+}
+
+export function getBuyerList() {
+  return request({
+    url: '/web/person/getBuyerList',
+    method: 'get'
+  })
+}
+
 export function getPersonListByType(type) {
   return request({
     url: '/web/person/getPersonListByType',
