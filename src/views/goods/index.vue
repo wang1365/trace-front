@@ -3,11 +3,11 @@
     <GoodsDialog ref="formDialog" @add-success="updateGoodsList" />
     <el-row>
       <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="showModal">添加商品</el-button>
-      <el-switch
-        v-model="cardMode"
-        style="margin-left: 20px"
-        active-text="卡片显示"
-        inactive-text="表格显示"/>
+      <!--<el-switch-->
+      <!--v-model="cardMode"-->
+      <!--style="margin-left: 20px"-->
+      <!--active-text="卡片显示"-->
+      <!--inactive-text="表格显示"/>-->
     </el-row>
     <el-row v-if="cardMode">
       <el-col v-for="item in items" :key="item.id" :span="6" :offset="2" >
@@ -29,15 +29,25 @@
     </el-row>
     <el-row v-if="!cardMode" class="table">
       <el-table :data="items" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" width="100px"/>
-        <el-table-column prop="name" label="名称" width="80px"/>
-        <el-table-column label="图片">
+        <el-table-column align="center" type="index" label="#" width="50px"/>
+        <el-table-column align="center" prop="name" label="名称" width="80px"/>
+        <el-table-column align="center" min-width="200px" label="图片1">
           <template slot-scope="scope">
-            <img :src="scope.row.imageUrl" width="250px" @click="onImageClick(scope.row.path)">
+            <img :src="scope.row.url1" width="100%" @click="onImageClick(scope.row.url1)">
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="创建时间" sortable/>
-        <el-table-column label="操作" width="200px">
+        <el-table-column align="center" min-width="200px" label="图片2">
+          <template slot-scope="scope">
+            <img :src="scope.row.url2" width="100%" @click="onImageClick(scope.row.url2)">
+          </template>
+        </el-table-column>
+        <el-table-column align="center" min-width="200px" label="图片3">
+          <template slot-scope="scope">
+            <img :src="scope.row.url3" width="100%" @click="onImageClick(scope.row.url3)">
+          </template>
+        </el-table-column>
+        <el-table-column align="center" prop="createTime" label="创建时间" width="160px" sortable/>
+        <el-table-column align="center" label="操作" width="160">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="showModal('modify', scope.row)">修改</el-button>
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
@@ -66,7 +76,7 @@ export default {
       dialogVisible: false,
       imageDialogVisible: false,
       selectedImage: null,
-      cardMode: true
+      cardMode: false
     }
   },
   created() {
