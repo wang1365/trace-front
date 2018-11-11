@@ -2,7 +2,7 @@
   <el-dialog :visible.sync="visible" :title="'新增种植条目 (农户：' + plant.farmerName+')'" width="30%" >
     <el-form ref="ruleForm" :model="ruleForm" :rules="formRules" label-width="100px">
       <el-form-item label="时间" prop="actionDate">
-        <el-date-picker v-model="ruleForm.actionDate" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
+        <el-date-picker v-model="ruleForm.actionDate" :picker-options="{disabledDate:disabledDate}" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
       </el-form-item>
       <el-form-item label="生产行为" prop="actionType">
         <el-select v-model="ruleForm.actionType" filterable placeholder="请选择">
@@ -100,6 +100,9 @@ export default {
           this.$message({ message: `添加失败：${err}`, type: 'error' })
         })
       })
+    },
+    disabledDate(time) {
+      return time.getTime() > new Date()
     }
   }
 }
