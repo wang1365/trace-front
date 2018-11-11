@@ -156,8 +156,6 @@ export default {
           background: '#f0f',
           foreground: '#ff0'
         })
-        console.log('qrcode', qr)
-        console.log('qrcode', qr._oDrawing._elImage)
         this.qrList.push(qr._oDrawing._elImage)
       })
     },
