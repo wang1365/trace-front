@@ -6,23 +6,23 @@
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" sortable width="80" />
-        <el-table-column prop="catName" label="类别" sortable width="80" />
-        <el-table-column prop="name" label="名称" sortable />
-        <el-table-column prop="urlPath" label="链接地址" >
+        <el-table-column align="center" type="index" label="#" width="50" />
+        <el-table-column align="center" prop="catName" label="类别" sortable width="80" />
+        <el-table-column align="center" prop="name" label="名称" sortable />
+        <el-table-column align="center" prop="urlPath" label="链接地址" min-width="280px" >
           <template slot-scope="scope">
             <a :href="scope.row.urlPath" target="_blank">{{ scope.row.urlPath }}</a>
           </template>
         </el-table-column>
-        <el-table-column label="图片" width="250">
+        <el-table-column align="center" label="图片" width="250">
           <template slot-scope="scope">
             <img :src="scope.row.urlPath" width="230px" @click="onImageClick(scope.row.urlPath)">
           </template>
         </el-table-column>
-        <el-table-column label="创建时间" sortable>
+        <el-table-column align="center" label="创建时间" sortable>
           <template slot-scope="scope">{{ scope.row.createTime| formatDatetime }}</template>
         </el-table-column>
-        <el-table-column label="操作" width="100" >
+        <el-table-column align="center" label="操作" width="100" >
           <template slot-scope="scope">
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
