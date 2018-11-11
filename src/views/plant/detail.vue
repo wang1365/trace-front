@@ -16,17 +16,16 @@
     </el-row>
     <el-row class="table">
       <el-table :data="plantItemList" size="small" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" sortable width="80" />
-        <el-table-column prop="plantId" label="种植流程ID" width="85"/>
-        <el-table-column prop="actionName" sortable label="实施类型" width="100"/>
-        <el-table-column :formatter="dateFormat" sortable label="开始时间" >
+        <el-table-column align="center" type="index" label="#" sortable width="80" />
+        <el-table-column align="center" prop="farmerName" sortable label="农户姓名" />
+        <el-table-column align="center" prop="goodsName" label="农作物名称" />
+        <el-table-column align="center" prop="actionName" sortable label="种植操作" width="100"/>
+        <el-table-column align="center" prop="actionContent" label="内容" />
+        <el-table-column :formatter="dateFormat" align="center" sortable label="操作时间" >
           <template slot-scope="scope">{{ scope.row.actionDate | formatDate }}</template>
         </el-table-column>
-        <el-table-column prop="farmerName" sortable label="农户姓名" />
-        <!--<el-table-column prop="goodsName" label="农作物名称" />-->
-        <el-table-column prop="createTime" sortable label="记录时间"/>
-        <el-table-column prop="actionContent" label="内容" />
-        <el-table-column label="操作">
+        <el-table-column align="center" prop="createTime" sortable label="记录时间"/>
+        <el-table-column align="center" label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
