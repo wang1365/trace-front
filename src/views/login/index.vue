@@ -4,9 +4,12 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
+        <!--<img src="favicon.ico" class="titleicon">-->
+
         <h3 class="title">{{ $t('login.title') }}</h3>
         <h4 class="subtitle">寿光市文家街道高品质蔬菜产业联盟</h4>
-        <lang-select class="set-language"/>
+        <!--<lang-select class="set-language"/>-->
+        <!--<i class="el-icon-share set-language"></i>-->
       </div>
 
       <el-form-item prop="username">
@@ -272,6 +275,12 @@ $light_gray:#eee;
     position: absolute;
     right: 35px;
     bottom: 28px;
+  }
+  .titleicon {
+    display: inline;
+    float: right;
+    width: 35px;
+    height: 35px;
   }
 }
 </style>
