@@ -5,6 +5,7 @@
 
       <div class="title-container">
         <h3 class="title">{{ $t('login.title') }}</h3>
+        <h4 class="subtitle">寿光市文家街道高品质蔬菜产业联盟</h4>
         <lang-select class="set-language"/>
       </div>
 
@@ -244,7 +245,8 @@ $light_gray:#eee;
     }
     .subtitle {
       font-size: 20px;
-      color: $dark_gray;
+      // color: $dark_gray;
+      color: #3c763d;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;
