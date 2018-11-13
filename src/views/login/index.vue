@@ -43,7 +43,7 @@
         <span style="color:rgba(255,255,255,0.5)">{{ $t('login.contactadmin') }}</span>
       </div>
 
-      <el-button :disabled="true" class="thirdparty-button" type="primary" @click="showDialog=true">{{ $t('login.thirdparty') }}</el-button>
+      <!--<el-button :disabled="true" class="thirdparty-button" type="primary" @click="showDialog=true">{{ $t('login.thirdparty') }}</el-button>-->
     </el-form>
 
     <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog" append-to-body>
@@ -218,6 +218,7 @@ $light_gray:#eee;
     font-size: 14px;
     color: #fff;
     margin-bottom: 10px;
+    float: right;
     span {
       &:first-of-type {
         margin-right: 16px;
