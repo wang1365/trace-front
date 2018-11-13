@@ -148,16 +148,20 @@ export default {
       this.items.forEach((order, index, arr) => {
         const baseUrl = 'http://www.tiaocaishi.com:9527/h5/#/goods/'
         console.log('qr code withd:', this.qrWidth)
+        const fakeId = order.traceSecret + '' + this.prefixInteger(order.id, 10)
         const qr = new QRCode(`qrcode${index}`, {
           width: this.qrWidth,
           height: this.qrWidth,
-          text: baseUrl + order.id, // 二维码内容
+          text: baseUrl + fakeId, // 二维码内容
           // render: 'canvas' // 设置渲染方式（有两种方式 table和canvas，默认是canvas）
           background: '#f0f',
           foreground: '#ff0'
         })
         this.qrList.push(qr._oDrawing._elImage)
       })
+    },
+    prefixInteger(num, length) {
+      return (Array(length).join('0') + num).slice(-length)
     },
     onVerify() {
       if (this.formPwd.password === 'guolongcang123456') {
