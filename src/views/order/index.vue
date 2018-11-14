@@ -14,7 +14,7 @@
           <template slot-scope="scope">{{ scope.row.orderTime|formatDate }}</template>
         </el-table-column>
         <el-table-column align="center" prop="address" label="收购地点" />
-        <el-table-column label="收购数量" width="55" >
+        <el-table-column label="收购数量" min-width="50" >
           <template slot-scope="scope">{{ scope.row.quantity + ' ' + scope.row.unit }}</template>
         </el-table-column>
         <el-table-column align="center" label="价格" sortable width="110" >
@@ -27,11 +27,11 @@
         <el-table-column label="采摘时间" >
           <template slot-scope="scope">{{ scope.row.pickDTO.actionDate|formatDate }}</template>
         </el-table-column>
-        <el-table-column prop="reportTitle" label="质检报告" />
+        <!--<el-table-column prop="reportTitle" label="质检报告" />-->
         <el-table-column prop="createTime" label="创建时间" sortable/>
-        <el-table-column align="center" label="操作" width="240px">
+        <el-table-column align="center" label="操作" min-width="140px">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" @click="goOrderDetail(scope.row.id)">溯源码</el-button>
+            <!--<el-button size="mini" type="primary" @click="goOrderDetail(scope.row.id)">溯源码</el-button>-->
             <el-button size="mini" type="success" @click="showModal('modify', scope.row)">修改</el-button>
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
