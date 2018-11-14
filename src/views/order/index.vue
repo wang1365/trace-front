@@ -23,8 +23,10 @@
         <el-table-column align="center" label="总价" sortable width="80" >
           <template slot-scope="scope">{{ getTotalPrice(scope.row) }}</template>
         </el-table-column>
-        <el-table-column prop="plantDTO.summary" label="种植流程" />
-        <el-table-column prop="pickDTO.summary" label="采摘条目" />
+        <!--<el-table-column prop="plantDTO.summary" label="种植流程" />-->
+        <el-table-column label="采摘时间" >
+          <template slot-scope="scope">{{ scope.row.pickDTO.actionDate|formatDate }}</template>
+        </el-table-column>
         <el-table-column prop="reportTitle" label="质检报告" />
         <el-table-column prop="createTime" label="创建时间" sortable/>
         <el-table-column align="center" label="操作" width="240px">

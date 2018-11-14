@@ -6,7 +6,7 @@
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" sortable width="80" />
+        <el-table-column type="index" label="#" width="50" />
         <el-table-column prop="name" label="姓名" sortable width="100" />
         <el-table-column prop="gender" label="性别" width="50" >
           <template slot-scope="scope"><span :class="scope.row.gender === '男' ? 'gender-m':'gender-f'">{{ scope.row.gender }}</span></template>
