@@ -1,16 +1,17 @@
 <template>
   <div id="qrcodeMain" class="main">
-    <div v-if="false" class="block">
-      <span class="demonstration">查询订单时间范围：{{ dateRange }}</span>
-      <el-date-picker
-        v-model="dateRange"
-        :picker-options="pickerOptions"
-        type="daterange"
-        align="left"
-        unlink-panels
-        range-separator="至"
-        start-placeholder="开始日期"
-        end-placeholder="结束日期"/>
+    <div class="block">
+      <span class="demonstration">订单时间：{{ dateRange }}</span>
+      <!--<el-date-picker-->
+      <!--v-model="dateRange"-->
+      <!--:picker-options="pickerOptions"-->
+      <!--type="daterange"-->
+      <!--align="left"-->
+      <!--unlink-panels-->
+      <!--range-separator="至"-->
+      <!--start-placeholder="开始日期"-->
+      <!--end-placeholder="结束日期"/>-->
+      <el-date-picker v-model="orderDate" :editable="false" value-format="yyyy-MM-dd" type="date" placeholder="选择日期" @change="onDateChange"/>
     </div>
     <el-form v-if="!verified" :inline="true" :model="formPwd" class="demo-form-inline">
       <el-form-item label="溯源码查看授权">
@@ -21,6 +22,7 @@
       </el-form-item>
     </el-form>
     <hr>
+    <p v-if="items === null || items.length === 0">{{ orderDate+' 没有订单...' }}</p>
     <el-row v-if="verified">
       <el-col v-for="(item, index) in items" :lg="6" :xs="24" :key="item.id" >
         <el-card ref="`card${index}`" :id="'card'+index" class="card">
@@ -42,7 +44,7 @@
 </template>
 
 <script>
-import { getAllOrder } from '@/api/order'
+import { getAllOrder, getOrderListByDate } from '@/api/order'
 
 '@/api/order'
 import QRCode from 'qrcodejs2'
@@ -90,6 +92,7 @@ export default {
       formPwd: {
         password: null
       },
+      orderDate: this.$options.filters.formatDate(new Date()),
       verified: true
     }
   },
@@ -115,12 +118,16 @@ export default {
       this.$refs['formDialog'].show()
     },
     updateQrcodeList() {
-      getAllOrder().then(response => {
+      const rest = this.orderDate ? getOrderListByDate : getAllOrder
+      rest(this.orderDate).then(response => {
         this.items = response.data.data
         this.$nextTick(() => {
           this.createQrcode()
         })
       })
+    },
+    onDateChange() {
+      this.updateQrcodeList()
     },
     onImageClick(path) {
       this.selectedImage = path
@@ -145,6 +152,9 @@ export default {
       return false
     },
     createQrcode() {
+      this.qrList.forEach((qrcode) => {
+        qrcode.clear()
+      })
       this.items.forEach((order, index, arr) => {
         const baseUrl = 'http://www.tiaocaishi.com:9527/h5/#/goods/'
         console.log('qr code withd:', this.qrWidth)
@@ -157,7 +167,7 @@ export default {
           background: '#f0f',
           foreground: '#ff0'
         })
-        this.qrList.push(qr._oDrawing._elImage)
+        this.qrList.push(qr)
       })
     },
     prefixInteger(num, length) {

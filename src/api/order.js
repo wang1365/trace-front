@@ -24,6 +24,14 @@ export function getAllOrder(params) {
   })
 }
 
+export function getOrderListByDate(date) {
+  return request({
+    url: '/web/order/getOrderListByDate',
+    method: 'get',
+    params: { date }
+  })
+}
+
 export function deleteOrder(id) {
   return request({
     url: '/web/order/deleteOrderById',
