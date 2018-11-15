@@ -22,7 +22,7 @@
         <el-table-column align="center" prop="actionName" sortable label="种植操作" width="100">
           <template slot-scope="scope">
             <el-tag
-              :type="scope.row.actionName === '采摘' ? 'success' : 'info'"
+              :type="scope.row.actionName === '采摘' ? 'primary' : 'info'"
               disable-transitions>{{ scope.row.actionName }}</el-tag>
           </template>
         </el-table-column>
