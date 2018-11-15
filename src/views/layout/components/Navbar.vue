@@ -34,6 +34,7 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+    <iframe class="weather" name="weather_inc" src="http://i.tianqi.com/index.php?c=code&id=1" width="330" height="35" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"/>
     <div class="title">{{ title }}</div>
   </el-menu>
 </template>
@@ -151,6 +152,10 @@ export default {
     text-shadow: 0 0 20px blue;
     /*text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de;*/
 
+  }
+  .weather {
+    margin-top: 12px;
+    margin-left: 50px;
   }
 }
 </style>
