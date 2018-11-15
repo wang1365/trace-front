@@ -19,7 +19,13 @@
         <el-table-column align="center" type="index" label="#" width="50" />
         <el-table-column align="center" prop="farmerName" sortable label="农户姓名" />
         <el-table-column align="center" prop="goodsName" label="农作物名称" />
-        <el-table-column align="center" prop="actionName" sortable label="种植操作" width="100"/>
+        <el-table-column align="center" prop="actionName" sortable label="种植操作" width="100">
+          <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.actionName === '采摘' ? 'success' : 'info'"
+              disable-transitions>{{ scope.row.actionName }}</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column align="center" prop="actionContent" label="内容" />
         <el-table-column :formatter="dateFormat" align="center" sortable label="操作时间" >
           <template slot-scope="scope">{{ scope.row.actionDate | formatDate }}</template>
