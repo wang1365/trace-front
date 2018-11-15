@@ -131,28 +131,16 @@ export const asyncRouterMap = [
     ]
   },
   {
-    path: '/quality-report',
-    component: Layout,
-    alwaysShow: true,
-    meta: { title: 'quality', icon: 'el-icon-printer', noCache: true },
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/quality-report/index'),
-        name: 'QualityReport',
-        meta: { title: 'qualityReport', icon: 'el-icon-menu', noCache: true }
-      }
-    ]
-  },
-  {
     path: '/order',
     component: Layout,
+    alwaysShow: true,
+    meta: { title: 'orderManage', icon: 'el-icon-goods', noCache: true },
     children: [
       {
         path: 'index',
         component: () => import('@/views/order/index'),
         name: 'Order',
-        meta: { title: 'order', icon: 'el-icon-goods', noCache: true }
+        meta: { title: 'order', icon: 'excel', noCache: true }
       },
       {
         path: 'detail/:orderId',
@@ -171,6 +159,20 @@ export const asyncRouterMap = [
         component: () => import('@/views/qrcode/index'),
         name: 'Qrcode',
         meta: { title: 'qrcode', icon: 'el-icon-search', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/quality-report',
+    component: Layout,
+    alwaysShow: true,
+    meta: { title: 'quality', icon: 'el-icon-printer', noCache: true },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/quality-report/index'),
+        name: 'QualityReport',
+        meta: { title: 'qualityReport', icon: 'el-icon-menu', noCache: true }
       }
     ]
   },
