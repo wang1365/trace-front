@@ -16,7 +16,7 @@
     </el-row>
     <el-row class="table">
       <el-table :data="plantItemList" size="small" border stripe highlight-current-row>
-        <el-table-column align="center" type="index" label="#" width="50" />
+        <el-table-column align="center" prop="id" label="ID" width="50" />
         <el-table-column align="center" prop="farmerName" sortable label="农户姓名" />
         <el-table-column align="center" prop="goodsName" label="农作物名称" />
         <el-table-column align="center" prop="actionName" sortable label="种植操作" width="100">

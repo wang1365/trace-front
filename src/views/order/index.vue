@@ -6,7 +6,7 @@
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column align="center" type="index" label="#" width="50" />
+        <el-table-column align="center" prop="id" label="ID" width="50" />
         <el-table-column align="center" prop="goodsName" sortable label="商品名称" min-width="70">
           <template slot-scope="scope">
             <el-tag type="primary" disable-transitions>{{ scope.row.goodsName }}</el-tag>
