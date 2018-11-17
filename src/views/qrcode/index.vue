@@ -30,8 +30,9 @@
           <div :id="`qrcode`+index" :ref="`qrcode`+index" class="qrcode"/>
           <div>
             <span style="color: #30B08F">订单{{ item.summary }}</span>
-            <div class="bottom clearfix">
-              <el-button type="primary" class="button" @click="printContent(index)">打印二维码</el-button>
+            <div class="bottom ">
+              <el-button type="primary" size="small" class="button" @click="save(index)">保 存</el-button>
+              <el-button type="plain" size="small" class="button" @click="printContent(index)">打 印</el-button>
             </div>
           </div>
         </el-card>
@@ -151,6 +152,22 @@ export default {
       document.body.innerHTML = oldContent
       return false
     },
+    save(index) {
+      // 找到canvas标签
+      const myCanvas = document.getElementById(`qrcode${index}`).getElementsByTagName('canvas')
+      // 创建一个a标签节点
+      const a = document.createElement('a')
+      // 设置a标签的href属性（将canvas变成png图片）
+      a.href = myCanvas[0].toDataURL('image/png').replace('image/png', 'image/octet-stream')
+      // 设置下载文件的名字
+      const data = this.items[index]
+      const date = this.$options.filters.formatDate(data.createTime)
+      a.download = `${date}_${data.goodsName}_${data.buyerName}采购自${data.sellerName}${data.quantity}${data.unit}.png`
+      // 点击
+      a.click()
+      // 弹出提示
+      this.$message({ message: '亲，正在进行下载保存', type: 'warning' })
+    },
     createQrcode() {
       this.qrList.forEach((qrcode) => {
         qrcode.clear()
@@ -205,7 +222,8 @@ export default {
   }
   .button {
     /*padding: 0;*/
-    float: right;
+    /*float: right;*/
+    margin-left: 10px;
   }
   .image {
     width: 100%;
