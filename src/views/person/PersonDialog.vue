@@ -91,6 +91,7 @@ export default {
         this.ruleForm = copy
         if (copy && copy.birthday) {
           copy.birthday = new Date(person.birthday)
+          copy.idCard = null
         }
       } else {
         this.action = 'add'
