@@ -2,7 +2,7 @@
   <div class="main">
     <PlantItemDialog
       ref="formDialog"
-      @add-success="_getPlantItemList(selectedPlant)" />
+      @add-success="getList()" />
     <el-row>
       <el-select v-model="selectedPersonId" filterable placeholder="请选择农户" width="100px" size="mini" @change="_getPlantByPerson(selectedPersonId)">
         <el-option v-for="item in personList" :key="item.id" :label="item.name + ' ' + (item.mobileNo||'')" :value="item.id" />
@@ -38,6 +38,7 @@
         </el-table-column>
       </el-table>
     </el-row>
+    <pagination v-show="total>0" :total="total" :page.sync="listQuery.pageIndex" :limit.sync="listQuery.pageSize" @pagination="getList" />
   </div>
 </template>
 
@@ -45,11 +46,11 @@
 import * as api from '@/api/plant'
 import { getAllPerson } from '@/api/person'
 import PlantItemDialog from './PlantItemDialog'
-
+import Pagination from '@/components/Pagination'
 export default {
   name: 'PlantItem',
   components: {
-    PlantItemDialog
+    PlantItemDialog, Pagination
   },
   data() {
     return {
@@ -59,17 +60,23 @@ export default {
       plantActionTypeList: [],
       selectedPersonId: null,
       selectedPlant: null,
-      dialogVisible: false
+      dialogVisible: false,
+      listQuery: {
+        pageIndex: 1,
+        pageSize: 10
+      },
+      total: 0
     }
   },
   computed: {
+
   },
   created() {
   },
   mounted() {
     this._getPersonList()
     this._getPlantActionTypeList()
-    this._getPlantItemList()
+    this.getList()
   },
   methods: {
     handleView(index, row) {
@@ -109,9 +116,10 @@ export default {
         this.plantList = res.data.data
       })
     },
-    _getPlantItemList() {
-      api.getPlantItemList().then(response => {
-        this.plantItemList = response.data.data
+    getList() {
+      api.getPlantItemPage(this.listQuery).then(response => {
+        this.plantItemList = response.data.data.records
+        this.total = response.data.data.total
       })
     },
     _getPlantActionTypeList() {
@@ -128,7 +136,7 @@ export default {
         api.deletePlantItem(id)
           .then(response => {
             this.$message({ type: 'success', message: '删除成功!' })
-            this._getPlantItemList()
+            this.getList()
           })
       }).catch(() => {
         this.$message({ type: 'info', message: '已取消删除' })

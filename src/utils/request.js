@@ -74,7 +74,7 @@ service.interceptors.response.use(
       duration: 5 * 1000
     })
 
-    if (error.response && error.response.status === 401) {
+    if (error.response && (error.response.status === 401 || error.response.status === 403)) {
       if (router.currentRoute.name === 'login') {
         console.log('Current route is login, should not redirect')
         Message({

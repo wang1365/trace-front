@@ -49,6 +49,14 @@ export function getPlantItemList(params) {
   })
 }
 
+export function getPlantItemPage(params) {
+  return request({
+    url: '/web/plant/getPlantItemPage',
+    method: 'get',
+    params: params
+  })
+}
+
 export function getPickListByPerson(personId) {
   return request({
     url: '/web/plant/getPickListByPerson',
