@@ -137,13 +137,28 @@ export default {
         })
 
         const marker = new BMap.Marker(new BMap.Point(tenant.lon, tenant.lat), { icon: myIcon })
-        const label = new BMap.Label((index + 1) + ': ' + tenant.shortName, { 'offset': new BMap.Size(-30, -20) })
+        // marker.setAnimation(BMAP_ANIMATION_BOUNCE)
+        const label = new BMap.Label((index + 1) + ': ' + tenant.shortName, { 'offset': new BMap.Size(20, 0) })
         label.setStyle({
           borderColor: '#808080',
           color: '#333',
           cursor: 'pointer'
         })
         marker.setLabel(label)
+        marker.addEventListener('click', function() {
+          const opts = {
+            width: 500, // 信息窗口宽度
+            height: 300, // 信息窗口高度
+            title: '寿光蔬菜', // 信息窗口标题
+            enableCloseOnClick: false
+          }
+          const video = '<video style="height: 100%;width: 100%" autoplay controls poster="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=583902322,1013386853&fm=26&gp=0.jpg">\n' +
+            '      <source src="http://ips.ifeng.com/video19.ifeng.com/video09/2018/04/19/25603882-102-9987625-025625.mp4">\n' +
+            '    </video>'
+          const infoWindow = new BMap.InfoWindow(video, opts) // 创建信息窗口对象
+          infoWindow.addEventListener('close', () => { infoWindow.setContent('') })
+          this.map.openInfoWindow(infoWindow, this.map.getCenter()) // 打开
+        })
         this.map.addOverlay(marker)
       })
     }
