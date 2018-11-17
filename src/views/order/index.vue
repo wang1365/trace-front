@@ -29,7 +29,7 @@
         </el-table-column>
         <!--<el-table-column prop="plantDTO.summary" label="种植流程" />-->
         <el-table-column align="center" label="采摘时间" min-width="100px">
-          <template slot-scope="scope">{{ scope.row.pickDTO.actionDate|formatDate }}</template>
+          <template slot-scope="scope">{{ scope.row.pickTime|formatDate }}</template>
         </el-table-column>
         <!--<el-table-column prop="reportTitle" label="质检报告" />-->
         <el-table-column align="center" prop="createTime" label="创建时间" sortable/>
@@ -42,6 +42,7 @@
         </el-table-column>
       </el-table>
     </el-row>
+    <pagination v-show="total>0" :total="total" :page.sync="listQuery.pageIndex" :limit.sync="listQuery.pageSize" @pagination="updateOrderList" />
     <el-dialog :visible.sync="imageDialogVisible" center>
       <img :src="selectedImage" width="100%" height="100%">
     </el-dialog>
@@ -49,20 +50,26 @@
 </template>
 
 <script>
-import { getAllOrder, deleteOrder } from '@/api/order'
+import { deleteOrder, getOrderPage } from '@/api/order'
 import OrderDialog from './OrderDialog'
+import Pagination from '@/components/Pagination'
 
 export default {
   name: 'Order',
   components: {
-    OrderDialog
+    OrderDialog, Pagination
   },
   data() {
     return {
       items: [],
       dialogVisible: false,
       imageDialogVisible: false,
-      selectedImage: null
+      selectedImage: null,
+      listQuery: {
+        pageIndex: 1,
+        pageSize: 10
+      },
+      total: 0
     }
   },
   computed: {
@@ -79,8 +86,9 @@ export default {
       this.$refs['formDialog'].show(action, data)
     },
     updateOrderList() {
-      getAllOrder().then(response => {
-        this.items = response.data.data
+      getOrderPage(this.listQuery).then(response => {
+        this.items = response.data.data.records
+        this.total = response.data.data.total
       })
     },
     onImageClick(path) {
@@ -113,13 +121,13 @@ export default {
       if (item.price === null || item.quantity === null) {
         return ''
       }
-      return (item.price / 100) * item.quantity
+      return ((item.price / 100) * item.quantity).toFixed(2)
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .main {
     padding: 20px
   }
