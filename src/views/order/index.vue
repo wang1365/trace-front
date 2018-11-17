@@ -7,9 +7,13 @@
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
         <el-table-column align="center" type="index" label="#" width="50" />
-        <el-table-column align="center" prop="goodsName" label="商品名称" sortable width="70"/>
-        <el-table-column prop="buyerName" label="收购人" sortable width="90" />
-        <el-table-column prop="sellerName" label="卖家(农户)" sortable width="105" />
+        <el-table-column align="center" prop="goodsName" sortable label="商品名称" min-width="70">
+          <template slot-scope="scope">
+            <el-tag type="primary" disable-transitions>{{ scope.row.goodsName }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column align="center" prop="buyerName" label="收购人" sortable width="90" />
+        <el-table-column align="center" prop="sellerName" label="卖家(农户)" sortable width="105" />
         <el-table-column align="center" label="收购时间" sortable width="95">
           <template slot-scope="scope">{{ scope.row.orderTime|formatDate }}</template>
         </el-table-column>
@@ -24,11 +28,11 @@
           <template slot-scope="scope">{{ getTotalPrice(scope.row) }}</template>
         </el-table-column>
         <!--<el-table-column prop="plantDTO.summary" label="种植流程" />-->
-        <el-table-column label="采摘时间" >
+        <el-table-column lalign="center" label="采摘时间" min-width="100px">
           <template slot-scope="scope">{{ scope.row.pickDTO.actionDate|formatDate }}</template>
         </el-table-column>
         <!--<el-table-column prop="reportTitle" label="质检报告" />-->
-        <el-table-column prop="createTime" label="创建时间" sortable/>
+        <el-table-column align="center" prop="createTime" label="创建时间" sortable/>
         <el-table-column align="center" label="操作" min-width="140px">
           <template slot-scope="scope">
             <!--<el-button size="mini" type="primary" @click="goOrderDetail(scope.row.id)">溯源码</el-button>-->
