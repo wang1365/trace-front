@@ -28,7 +28,7 @@
           <template slot-scope="scope">{{ getTotalPrice(scope.row) }}</template>
         </el-table-column>
         <!--<el-table-column prop="plantDTO.summary" label="种植流程" />-->
-        <el-table-column lalign="center" label="采摘时间" min-width="100px">
+        <el-table-column align="center" label="采摘时间" min-width="100px">
           <template slot-scope="scope">{{ scope.row.pickDTO.actionDate|formatDate }}</template>
         </el-table-column>
         <!--<el-table-column prop="reportTitle" label="质检报告" />-->
