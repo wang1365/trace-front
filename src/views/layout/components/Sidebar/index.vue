@@ -1,5 +1,7 @@
 <template>
+
   <el-scrollbar wrap-class="scrollbar-wrapper">
+    <img src="@/assets/tl.jpg" class="title">
     <el-menu
       :show-timeout="200"
       :default-active="$route.path"
@@ -31,3 +33,11 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+  .title {
+    margin-bottom: 0px;
+    width:100%;
+    height:60px;
+    opacity: 0.8;
+  }
+</style>
