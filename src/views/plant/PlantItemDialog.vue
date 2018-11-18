@@ -43,9 +43,9 @@ export default {
       // },
       ruleForm: {
         plantId: null,
-        actionType: null,
+        actionType: 8,
         actionPersonId: null,
-        actionDate: null,
+        actionDate: this.$options.filters.formatDate(new Date()),
         actionContent: null
       },
       formRules: {
