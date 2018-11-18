@@ -76,7 +76,9 @@ export default {
     plantBase: '种植流程',
     plantDetail: '详情管理',
     waybill: '运单管理',
-    image: '图片管理'
+    image: '图片管理',
+    monitor: '视频监控',
+    monitorManage: '在线监控'
   },
   navbar: {
     logOut: '退出登录',

@@ -163,16 +163,28 @@ export const asyncRouterMap = [
     ]
   },
   {
-    path: '/quality-report',
+    path: '/image',
     component: Layout,
-    alwaysShow: true,
-    meta: { title: 'quality', icon: 'el-icon-printer', noCache: true },
     children: [
       {
         path: 'index',
-        component: () => import('@/views/quality-report/index'),
-        name: 'QualityReport',
-        meta: { title: 'qualityReport', icon: 'el-icon-menu', noCache: true }
+        component: () => import('@/views/image/index'),
+        name: 'Image',
+        meta: { title: 'image', icon: 'el-icon-picture-outline', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/monitor',
+    component: Layout,
+    alwaysShow: true,
+    meta: { title: 'monitor', icon: 'el-icon-view', noCache: true },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/monitor/index'),
+        name: 'Image',
+        meta: { title: 'monitorManage', icon: 'example', noCache: true }
       }
     ]
   },
@@ -189,14 +201,16 @@ export const asyncRouterMap = [
     ]
   },
   {
-    path: '/image',
+    path: '/quality-report',
     component: Layout,
+    alwaysShow: true,
+    meta: { title: 'quality', icon: 'el-icon-printer', noCache: true },
     children: [
       {
         path: 'index',
-        component: () => import('@/views/image/index'),
-        name: 'Image',
-        meta: { title: 'image', icon: 'el-icon-picture-outline', noCache: true }
+        component: () => import('@/views/quality-report/index'),
+        name: 'QualityReport',
+        meta: { title: 'qualityReport', icon: 'el-icon-menu', noCache: true }
       }
     ]
   },
