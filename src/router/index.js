@@ -55,13 +55,13 @@ export const constantRouterMap = [
   {
     path: '',
     component: Layout,
-    redirect: '/config/person',
+    redirect: 'trace',
     children: [
       {
-        path: 'dashboard',
+        path: 'trace',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
+        meta: { title: 'traceMap', icon: 'dashboard', noCache: true }
       }
     ]
   }

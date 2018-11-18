@@ -78,7 +78,8 @@ export default {
     waybill: '运单管理',
     image: '图片管理',
     monitor: '视频监控',
-    monitorManage: '在线监控'
+    monitorManage: '在线监控',
+    traceMap: '溯源地图'
   },
   navbar: {
     logOut: '退出登录',
