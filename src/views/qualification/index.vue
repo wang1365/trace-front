@@ -10,7 +10,7 @@
         <el-table-column prop="companyName" sortable label="公司" />
         <el-table-column label="证书图片">
           <template slot-scope="scope">
-            <img :src="scope.row.url" width="300" height="150" @click="onImageClick(scope.row.path)">
+            <img :src="scope.row.url" width="300" @click="onImageClick(scope.row.url)">
           </template>
         </el-table-column>
         <el-table-column prop="createTime" label="创建时间" sortable/>
