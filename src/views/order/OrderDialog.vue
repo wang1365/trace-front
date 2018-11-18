@@ -35,7 +35,7 @@
       <el-row>
         <el-col :span="10">
           <el-form-item label="采购时间" prop="orderTime">
-            <el-date-picker v-model="ruleForm.orderTime" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
+            <el-date-picker v-model="ruleForm.orderTime" :picker-options="pickerOptions" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"/>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -132,6 +132,31 @@ export default {
         createTime: null,
         plantId: null,
         pickId: null
+      },
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() > Date.now()
+        },
+        shortcuts: [{
+          text: '今天',
+          onClick(picker) {
+            picker.$emit('pick', new Date())
+          }
+        }, {
+          text: '昨天',
+          onClick(picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24)
+            picker.$emit('pick', date)
+          }
+        }, {
+          text: '一周前',
+          onClick(picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', date)
+          }
+        }]
       },
       formRules: {
         goodsId: [

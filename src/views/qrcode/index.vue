@@ -12,7 +12,7 @@
       <!--range-separator="至"-->
       <!--start-placeholder="开始日期"-->
       <!--end-placeholder="结束日期"/>-->
-      <el-date-picker v-model="orderDate" :editable="false" value-format="yyyy-MM-dd" type="date" placeholder="选择日期" @change="onDateChange"/>
+      <el-date-picker v-model="orderDate" :editable="false" :picker-options="pickerOptions1" value-format="yyyy-MM-dd" type="date" placeholder="选择日期" @change="onDateChange"/>
     </div>
     <el-form v-if="!verified" :inline="true" :model="formPwd" class="demo-form-inline">
       <el-form-item label="溯源码查看授权">
@@ -88,6 +88,31 @@ export default {
             const start = new Date()
             start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
             picker.$emit('pick', [start, end])
+          }
+        }]
+      },
+      pickerOptions1: {
+        disabledDate(time) {
+          return time.getTime() > Date.now()
+        },
+        shortcuts: [{
+          text: '今天',
+          onClick(picker) {
+            picker.$emit('pick', new Date())
+          }
+        }, {
+          text: '昨天',
+          onClick(picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24)
+            picker.$emit('pick', date)
+          }
+        }, {
+          text: '一周前',
+          onClick(picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', date)
           }
         }]
       },
