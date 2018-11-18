@@ -2,6 +2,7 @@
   <div id="qrcodeMain" class="main">
     <div class="block">
       <span class="demonstration">订单时间：{{ dateRange }}</span>
+      <el-button type="primary" size="small" class="button" @click="saveAll">全部保存</el-button>
       <!--<el-date-picker-->
       <!--v-model="dateRange"-->
       <!--:picker-options="pickerOptions"-->
@@ -151,6 +152,11 @@ export default {
       window.location.reload()
       document.body.innerHTML = oldContent
       return false
+    },
+    saveAll() {
+      this.qrList.forEach((qr, index) => {
+        this.save(index)
+      })
     },
     save(index) {
       // 找到canvas标签
