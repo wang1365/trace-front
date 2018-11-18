@@ -177,7 +177,7 @@ export default {
   }
   #map {
     width: 99%;
-    height: 500px;
+    height: 550px;
     margin: 0 auto;
     box-shadow:0px 0px 30px 10px #abcdef;
     &:hover {
@@ -186,7 +186,7 @@ export default {
     }
   }
   .map-title {
-    margin: 0 auto 20px;
+    margin: 0 auto 10px;
     text-align: center;
     font-size: 30px;
     color: green;
