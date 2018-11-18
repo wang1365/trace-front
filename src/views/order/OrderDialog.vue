@@ -83,11 +83,11 @@
             </el-select>
         </el-form-item></el-col>
       </el-row>
-      <el-form-item label="相关质检报告" prop="reportId">
-        <el-select v-model="ruleForm.reportId" filterable placeholder="请选择">
-          <el-option v-for="item in reportList" :key="item.id" :label="item.title" :value="item.id"/>
-        </el-select>
-      </el-form-item>
+      <!--<el-form-item label="相关质检报告" prop="reportId">-->
+      <!--<el-select v-model="ruleForm.reportId" filterable placeholder="请选择">-->
+      <!--<el-option v-for="item in reportList" :key="item.id" :label="item.title" :value="item.id"/>-->
+      <!--</el-select>-->
+      <!--</el-form-item>-->
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button type="success" size="small" @click="onSubmit('ruleForm')">保 存</el-button>

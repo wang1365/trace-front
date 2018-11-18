@@ -6,16 +6,21 @@
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
-        <el-table-column prop="id" label="ID" sortable width="80" />
-        <el-table-column prop="title" label="标题" />
-        <el-table-column prop="goodsName" label="商品名称" sortable width="100" />
-        <el-table-column prop="origin" label="商品产地" width="150" />
-        <el-table-column prop="createTime" sortable label="创建日期"/>
-        <el-table-column sortable label="报告日期" >
+        <el-table-column align="center" prop="id" label="ID" sortable width="80" />
+        <el-table-column align="center" prop="title" label="标题" />
+        <el-table-column align="center" prop="goodsName" label="商品名称" sortable width="100" />
+        <el-table-column align="center" prop="origin" label="商品产地" width="150" />
+        <el-table-column align="center" prop="url" label="报告" width="200">
+          <template slot-scope="scope">
+            <img :src="scope.row.url" width="100%" @click="showReport(scope.row.url)">
+          </template>
+        </el-table-column>
+        <el-table-column align="center" sortable label="报告日期" >
           <template slot-scope="scope">{{ scope.row.reportDate|formatDate }}</template>
         </el-table-column>
-        <el-table-column prop="description" label="说明" />
-        <el-table-column width="150" label="操作">
+        <el-table-column align="center" prop="description" label="说明" />
+        <el-table-column align="center" prop="createTime" sortable label="创建日期"/>
+        <el-table-column align="center" width="150" label="操作">
           <template slot-scope="scope">
             <el-button size="mini" type="warning" @click="onDeleteBtnClick(scope.row.id)">删除</el-button>
           </template>
@@ -64,7 +69,7 @@ export default {
         this.items = response.data.data
       })
     },
-    onImageClick(path) {
+    showReport(path) {
       this.selectedImage = path
       this.imageDialogVisible = true
     },
@@ -90,15 +95,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  .main {
-    padding: 20px
-  }
-  .el-row {
-    margin-bottom: 20px;
-  }
-  .el-col {
-    border-radius: 4px;
-  }
-</style>
