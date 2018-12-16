@@ -6,7 +6,6 @@
 
     <div class="right-menu">
       <error-log class="errLog-container right-menu-item"/>
-
       <el-tooltip :content="$t('navbar.screenfull')" effect="dark" placement="bottom">
         <screenfull class="screenfull right-menu-item"/>
       </el-tooltip>
