@@ -2,6 +2,8 @@
   <div class="main">
     <OrderDialog ref="formDialog" @add-success="updateOrderList" />
     <el-row>
+      <PersonSelect v-model="filterCondition.personId"/>
+
       <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="showModal">录入订单</el-button>
     </el-row>
     <el-row class="table">
@@ -53,11 +55,12 @@
 import { deleteOrder, getOrderPage } from '@/api/order'
 import OrderDialog from './OrderDialog'
 import Pagination from '@/components/Pagination'
+import PersonSelect from '../person/PersonSelect'
 
 export default {
   name: 'Order',
   components: {
-    OrderDialog, Pagination
+    OrderDialog, Pagination, PersonSelect
   },
   data() {
     return {
@@ -69,7 +72,10 @@ export default {
         pageIndex: 1,
         pageSize: 10
       },
-      total: 0
+      total: 0,
+      filterCondition: {
+        personId: null
+      }
     }
   },
   computed: {
