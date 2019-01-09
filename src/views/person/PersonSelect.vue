@@ -1,8 +1,8 @@
 <template>
   <div class="main">
     <div class="label">{{ label + '：' }}</div>
-    <el-select v-model="currentPersonId" size="small" placeholder="请选择">
-      <el-option v-for="item in data" :key="item.id" :label="item.name" :value="item.value"/>
+    <el-select v-model="currentPersonId" clearable size="small" placeholder="请选择">
+      <el-option v-for="item in data" :key="item.id" :label="item.name" :value="item.id"/>
     </el-select>
   </div>
 </template>
@@ -37,6 +37,7 @@ export default {
   },
   watch: {
     currentPersonId(newVal) {
+      console.log('change person id', this.currentPersonId, newVal)
       this.$emit('change', newVal)
     }
   },

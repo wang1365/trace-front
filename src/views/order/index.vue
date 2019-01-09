@@ -4,7 +4,8 @@
     <el-row>
       <PersonSelect v-model="filterCondition.personId"/>
 
-      <el-button type="success" icon="el-icon-plus" size="small" class="right-btn blue-btn" @click="showModal">录入订单</el-button>
+      <el-button type="success" icon="el-icon-plus" size="small" class="right-btn light-blue-btn" @click="showModal">录入订单</el-button>
+      <el-button type="success" icon="el-icon-search" size="small" class="right-btn light-blue-btn" @click="onQuery">查 询</el-button>
     </el-row>
     <el-row class="table">
       <el-table :data="items" size="small" border stripe highlight-current-row>
@@ -91,8 +92,17 @@ export default {
     showModal(action, data) {
       this.$refs['formDialog'].show(action, data)
     },
+    onQuery() {
+      this.updateOrderList()
+    },
     updateOrderList() {
-      getOrderPage(this.listQuery).then(response => {
+      const queryParam = {
+        farmerId: this.filterCondition.personId,
+        pageSize: this.listQuery.pageSize,
+        pageIndex: this.listQuery.pageIndex
+      }
+      console.log('start query', queryParam)
+      getOrderPage(queryParam).then(response => {
         this.items = response.data.data.records
         this.total = response.data.data.total
       })

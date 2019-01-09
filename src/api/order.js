@@ -24,11 +24,11 @@ export function getAllOrder(params) {
   })
 }
 
-export function getOrderPage(params) {
+export function getOrderPage(queryParam) {
   return request({
     url: '/web/order/getOrderPage',
     method: 'get',
-    params: params
+    params: queryParam
   })
 }
 
