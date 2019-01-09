@@ -4,17 +4,22 @@
       <el-form-item label="商品名称" prop="name">
         <el-input v-model="ruleForm.name" placeholder="填写商品名称"/>
       </el-form-item>
-      <el-form-item label="图片链接1" prop="url1">
-        <el-input v-model="ruleForm.url1" placeholder="填写商品图片链接"/>
-      </el-form-item>
-      <el-form-item label="图片链接2" prop="url2">
-        <el-input v-model="ruleForm.url2" placeholder="填写商品图片链接"/>
-      </el-form-item>
-      <el-form-item label="图片链接3" prop="url3">
-        <el-input v-model="ruleForm.url3" placeholder="填写商品图片链接"/>
-      </el-form-item>
       <el-form-item label="描述" prop="desc">
         <el-input v-model="ruleForm.desc" type="textarea" placeholder=""/>
+      </el-form-item>
+      <el-form-item label="上传图片" prop="desc">
+        <el-upload
+          :on-preview="handlePreview"
+          :on-success="handleUploadSuccess"
+          :on-remove="handleRemove"
+          :data="postData"
+          :file-list="imageList"
+          class="upload-demo"
+          action="http://upload-z0.qiniu.com"
+          list-type="picture">
+          <el-button size="small" type="primary">点击上传</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        </el-upload>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -26,6 +31,7 @@
 
 <script>
 import { addGoods, updateGoods } from '@/api/goods'
+import { getToken } from '@/api/qiniu'
 
 export default {
   name: 'ReportForm',
@@ -46,7 +52,9 @@ export default {
         name: [
           { required: true, message: '请输入商品名称', trigger: 'blur' }
         ]
-      }
+      },
+      postData: { token: null },
+      imageList: []
     }
   },
   computed: {
@@ -57,6 +65,9 @@ export default {
   watch: {
   },
   created() {
+    getToken().then((res) => {
+      this.postData.token = res.data.data
+    })
   },
   mounted() {
   },
@@ -76,7 +87,7 @@ export default {
         if (!valid) {
           return false
         }
-
+        console.log(this.ruleForm)
         const restInvoke = this.action === 'modify' ? updateGoods : addGoods
         const msgPrefix = this.action === 'modify' ? '修改' : '添加'
         restInvoke(this.ruleForm).then((response) => {
@@ -85,6 +96,17 @@ export default {
           this.hide()
         })
       })
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList)
+    },
+    handlePreview(file) {
+      console.log(file)
+    },
+    handleUploadSuccess(res, file) {
+      if (!this.ruleForm.url1) {
+        this.ruleForm.url1 = 'https://portal.qiniu.com/bucket/trace/resource' + res.key
+      }
     }
   }
 }
